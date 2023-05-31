@@ -1,0 +1,21 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  height: 100vh;
+  display: flex;
+  overflow: hidden;
+}
+
+.left-half {
+  flex: 1;
+  background-color: #f5f800;
+  background-image: linear-gradient(to bottom right, transparent 50%, #f5f800 50%);
+}
+
+.right-half {
+  flex: 1;
+  background-color: #fff;
+}
