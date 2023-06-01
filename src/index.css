@@ -1,21 +1,114 @@
 body {
   margin: 0;
   padding: 0;
+  font-family: Arial, sans-serif;
 }
 
 .container {
-  height: 100vh;
+  height: 150vh;
+  width: 150vh;
   display: flex;
   overflow: hidden;
 }
 
 .left-half {
   flex: 1;
-  background-color: #f5f800;
-  background-image: linear-gradient(to bottom right, transparent 50%, #f5f800 50%);
+  background-color: #2b5784;
+  background-image: linear-gradient(to bottom right, transparent 50%, white 50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  padding: 20px;
+}
+
+.header {
+  flex: 0 0 auto;
+  text-align: center;
+}
+
+.form-container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.input-field {
+  margin-bottom: 500px;
+  padding: 15px;
+  width: 200px;
+  max-width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+}
+
+.button {
+  background-color: #2b5784;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+  letter-spacing: 1px;
+  
+}
+
+.title{
+  color: #f5a800;
+  font-size: 50px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  text-decoration: underline;
+  letter-spacing: 2px;
+}
+
+.logo {
+  width: 50%;
+  height: auto;
+  max-width: 200px;
+}
+
+main {
+  flex: 1;
+  display:flex;
+  flex-direction:row;
+  justify-content: center;
+  align-items: center;
+  background-color: #f5a800;
+  color: #000;
+  font-family: 'Arial';
+  font-size: large;
+  font-weight: bold;
+  text-align: center;
+  padding: 20px;
+  margin: 100px;
+  border-radius: 15px;
+  margin-bottom: 100px;
+
+}
+
+
+.forgot-password-button {
+  background-color: transparent;
+  color: #2b5784;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 10px;
+  letter-spacing: 1px;
+  text-decoration: wavy;
+  margin-bottom: 1px;
 }
 
 .right-half {
-  flex: 1;
   background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

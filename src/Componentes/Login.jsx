@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import '../index.css';
 
+import unacImage from '../Imagenes/UNAC_Yellow.png';
+
 export function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -28,11 +30,16 @@ export function Login() {
     setPassword('');
   };
 
+  const handleForgotPassword = () => {
+    alert('Se ha enviado un correo electrónico para restablecer la contraseña');
+  };
+
   return (
     <div className="container">
       <div className="left-half">
         <header>
-          <h1>Sistema de Alerta Temprana</h1>
+          <h1 className="title">Sistema de Alerta Temprana</h1>
+          <img src={unacImage} alt="Logo UNAC" className="logo" />
         </header>
         <main>
           {!loggedIn ? (
@@ -52,7 +59,10 @@ export function Login() {
                 className="input-field"
               />
               <button onClick={handleLogin} className="button">
-                Inicio
+                Inicio de sesión
+              </button>
+              <button onClick={handleForgotPassword} className="forgot-password-button">
+                Olvidé mi contraseña
               </button>
             </>
           ) : (
