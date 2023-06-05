@@ -2,7 +2,7 @@ export function App() {
   return (
     <div>
       <header>
-        <h1>Fecha</h1>
+        <h1>Ficha</h1>
       </header>
     </div>
   );
