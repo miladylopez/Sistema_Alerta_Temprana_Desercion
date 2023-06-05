@@ -4,6 +4,7 @@ import "./index.css";
 //import { Login} from "./Componentes/Login";
 import { Ficha } from "./Componentes/Ficha";
 
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
