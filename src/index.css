@@ -1,7 +1,11 @@
+
 body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
 }
 
 .container {
@@ -23,24 +27,14 @@ body {
   padding: 20px;
 }
 
-.header {
-  flex: 0 0 auto;
-  text-align: center;
-}
 
-.form-container {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-}
 
 .input-field {
+  margin-top: 50px;
   margin-bottom: 500px;
   padding: 15px;
-  width: 200px;
-  max-width: 300px;
-  border: 1px solid #ccc;
+  max-width: 300px; /*Tamaño de agregar name pass */
+  border: 1px solid #ebebeb;
   border-radius: 15px;
 }
 
@@ -72,7 +66,7 @@ body {
   height: auto;
   max-width: 500px;
   max-height: 500px;
-  
+
 }
 
 main {
@@ -90,7 +84,7 @@ main {
   padding: 20px;
   margin: 100px;
   border-radius: 15px;
-  margin-bottom: 100px;
+  margin-bottom: 35px;
 
 }
 
