@@ -68,9 +68,11 @@ body {
 }
 
 .logo {
-  width: 50%;
+  width: 100%;
   height: auto;
-  max-width: 200px;
+  max-width: 500px;
+  max-height: 500px;
+  
 }
 
 main {
