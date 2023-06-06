@@ -1,18 +1,17 @@
 
-body {
+body { /*z*/
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
 }
 
-.container {
+.container { /*z*/
   width: 170vh;
   display: flex;
   overflow: hidden;
 }
 
-
-.left-half {
+.left-half { /*z*/
   flex: 1;
   background-color: #2b5784;
   background-image: linear-gradient(to bottom right, transparent 50%, white 50%);
@@ -23,9 +22,7 @@ body {
   
 }
 
-
-
-.input-field { /* tex user pass */
+.input-field { /* tex user pass */ /*z*/
   margin-top: 5px;
   margin-bottom: 5px;
   padding: 15px;
@@ -35,7 +32,7 @@ body {
   
 }
 
-.button {
+.button { /*z*/
   background-color: #2b5784;
   color: #fff;
   border: none;
@@ -49,21 +46,21 @@ body {
   
 }
 
-.title{
+.title{ /*z*/
   color: #f5a800;
   font-size: 50px;
   margin-bottom: 20px;
   letter-spacing: 3px;
 }
 
-.logo {
+.logo { /*z*/
   width: 100%;
   max-width: 500px;
   max-height: 500px;
 
 }
 
-main {
+main { /*z*/
   display:flex;
   background-color: #f5a800;
   color: #000;
@@ -75,7 +72,7 @@ main {
 }
 
 
-.forgot-password-button {
+.forgot-password-button { /*z*/
   margin-top: 10px;
   background-color: transparent;
   color: #2b5784;
