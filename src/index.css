@@ -1,50 +1,38 @@
-body {
+
+body { /*z*/
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
 }
 
-.container {
-  height: 150vh;
-  width: 150vh;
+.container { /*z*/
+  width: 170vh;
   display: flex;
   overflow: hidden;
 }
 
-.left-half {
+.left-half { /*z*/
   flex: 1;
   background-color: #2b5784;
   background-image: linear-gradient(to bottom right, transparent 50%, white 50%);
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   color: #fff;
-  padding: 20px;
+  
 }
 
-.header {
-  flex: 0 0 auto;
-  text-align: center;
-}
-
-.form-container {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-}
-
-.input-field {
-  margin-bottom: 500px;
+.input-field { /* tex user pass */ /*z*/
+  margin-top: 5px;
+  margin-bottom: 5px;
   padding: 15px;
-  width: 200px;
-  max-width: 300px;
-  border: 1px solid #ccc;
+  max-width: 350px; /*Tamaño de agregar name pass */
+  border: 1px solid #ebebeb;
   border-radius: 15px;
+  
 }
 
-.button {
+.button { /*z*/
   background-color: #2b5784;
   color: #fff;
   border: none;
@@ -55,55 +43,44 @@ body {
   margin-top: 10px;
   letter-spacing: 1px;
   
+  
 }
 
-.title{
+.title{ /*z*/
   color: #f5a800;
   font-size: 50px;
   margin-bottom: 20px;
-  text-align: center;
-  font-family: Arial, sans-serif;
-  text-decoration: underline;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
 }
 
-.logo {
-  width: 50%;
-  height: auto;
-  max-width: 200px;
+.logo { /*z*/
+  width: 100%;
+  max-width: 500px;
+  max-height: 500px;
+
 }
 
-main {
-  flex: 1;
+main { /*z*/
   display:flex;
-  flex-direction:row;
-  justify-content: center;
-  align-items: center;
   background-color: #f5a800;
   color: #000;
   font-family: 'Arial';
-  font-size: large;
-  font-weight: bold;
-  text-align: center;
-  padding: 20px;
+  padding: 100px;
   margin: 100px;
   border-radius: 15px;
-  margin-bottom: 100px;
-
+  flex-direction: column;
 }
 
 
-.forgot-password-button {
+.forgot-password-button { /*z*/
+  margin-top: 10px;
   background-color: transparent;
   color: #2b5784;
   border: none;
-  padding: 0;
-  cursor: pointer;
-  font-size: 14px;
-  margin-top: 10px;
-  letter-spacing: 1px;
-  text-decoration: wavy;
-  margin-bottom: 1px;
+  font-size: 15px;
+  height: 1vh;
+  text-align: center;
+  cursor: pointer;  
 }
 
 .right-half {
