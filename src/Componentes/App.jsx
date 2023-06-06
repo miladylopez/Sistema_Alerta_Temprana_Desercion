@@ -1,3 +1,5 @@
+import React from 'react';
+
 export function App() {
   return (
     <div>
@@ -7,7 +9,3 @@ export function App() {
     </div>
   );
 }
-export default App;
-
-
-
