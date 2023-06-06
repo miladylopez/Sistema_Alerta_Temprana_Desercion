@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import '../index.css'; 
 import Logo2 from '../Imagenes/UNAC_Blanco.png';
 
-
 export function Ficha(){
     return(
         <>
@@ -24,26 +23,41 @@ export function Ficha(){
                 </h1>
             </ul>    
             <br></br>
-            <ul id= "subtitulo">
-                <h1> CRITERIOS A EVALUAR
-                </h1>
-            </ul>   
+            <ul id= "subtitulo">          
+                <h1>
+                  <i class="fa-sharp fa-light fa-clipboard-list-check"></i>
+                   CRITERIOS A EVALUAR
+                  <i class="fa-sharp fa-solid fa-percent"></i>
+                </h1>       
+            </ul>  
             <br></br>
             <br></br>
             <button className="Crit1">
                 Presentacion Personal y Habilidades de Comunicación
-              </button>
+                <div id = "Delete">
+              <i className="fa-regular fa-trash-can"></i>
+            </div>
+              </button>     
               <br></br>
             <button className="Crit2">
                 Habilidades de Relaciones Personales y Contexto Educativo
+                <div id = "Delete">
+              <i className="fa-regular fa-trash-can"></i>
+            </div> 
               </button>
               <br></br>
             <button className="Crit3">
                 Motivacion, Personalidad y Autoevaluación
+                <div id = "Delete">
+              <i className="fa-regular fa-trash-can"></i>
+            </div> 
               </button>
               <br></br>
             <button className="Crit4">
                 Metas Personales y Visión
+                <div id = "Delete">
+              <i className="fa-regular fa-trash-can"></i>
+            </div> 
               </button>
         </div>
         </>
