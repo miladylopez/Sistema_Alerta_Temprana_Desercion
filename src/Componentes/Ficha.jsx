@@ -25,7 +25,9 @@ export function Ficha(){
             <br></br>
             <ul id= "subtitulo">          
                 <h1>
-                  <i class="fa-sharp fa-light fa-clipboard-list-check"></i>
+                  <div id = "Crit">
+                    <i class="fa-sharp fa-solid fa-list-check"></i>
+                 </div> 
                    CRITERIOS A EVALUAR
                   <i class="fa-sharp fa-solid fa-percent"></i>
                 </h1>       
@@ -35,31 +37,44 @@ export function Ficha(){
             <button className="Crit1">
                 Presentacion Personal y Habilidades de Comunicación
                 <div id = "Delete">
-              <i className="fa-regular fa-trash-can"></i>
-            </div>
-              </button>     
-              <br></br>
+                  <i className="fa-regular fa-trash-can"></i>
+                </div>
+            </button>     
+            <button className="PorC1">
+                 10
+            </button>  
+            <br></br>
             <button className="Crit2">
                 Habilidades de Relaciones Personales y Contexto Educativo
                 <div id = "Delete">
-              <i className="fa-regular fa-trash-can"></i>
-            </div> 
-              </button>
+                  <i className="fa-regular fa-trash-can"></i>
+                </div> 
+            </button>
+            <button className="PorC1">
+                 10
+            </button> 
               <br></br>
             <button className="Crit3">
                 Motivacion, Personalidad y Autoevaluación
                 <div id = "Delete">
-              <i className="fa-regular fa-trash-can"></i>
-            </div> 
-              </button>
+                  <i className="fa-regular fa-trash-can"></i>
+                </div> 
+            </button>
+            <button className="PorC1">
+                 10
+            </button> 
               <br></br>
             <button className="Crit4">
                 Metas Personales y Visión
                 <div id = "Delete">
-              <i className="fa-regular fa-trash-can"></i>
-            </div> 
-              </button>
+                  <i className="fa-regular fa-trash-can"></i>
+                </div> 
+            </button>
+            <button className="PorC1">
+                 10
+            </button> 
         </div>
+
         </>
       )
 }
