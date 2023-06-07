@@ -1,21 +1,24 @@
 import React, { useState } from 'react';
 import '../index.css'; 
 import Logo2 from '../Imagenes/UNAC_Blanco.png';
+import Imag from '../Imagenes/Perfil.jpg';
 
 export function Ficha(){
     return(
         <>
         <nav>
             <a href='index.html'></a>
-
             <div>
+            <br></br>
                  <ul id= "navbar">
+                    <img src={Logo2} alt="Logo UNAC " className="logo2" />  
                     <li><a href ="index.html">Inicio</a></li>
                      <li><a href ="index.html">Portafolio</a></li>
-                    <li><a href ="index.html">Perfil</a></li>
+                    <li><a href ="index.html">Perfil</a></li>                   
+                    <br></br>
+                    <img src={Imag} alt="Imagen " className="Img" /> 
                  </ul> 
-                 <img src={Logo2} alt="Logo UNAC " className="logo2" />
-            </div>       
+            </div>    
         </nav>
         <div>
             <ul id= "titulo">
@@ -32,7 +35,6 @@ export function Ficha(){
                   <i class="fa-sharp fa-solid fa-percent"></i>
                 </h1>       
             </ul>  
-            <br></br>
             <br></br>
             <button className="Crit1">
                 Presentacion Personal y Habilidades de Comunicación
@@ -74,7 +76,12 @@ export function Ficha(){
                  10
             </button> 
         </div>
-
-        </>
+      <div id = "add">
+        <i class="fa-solid fa-circle-plus"></i>
+      </div> 
+      <div id = "next">
+        <i class="fa-solid fa-square-arrow-right"></i>
+      </div> 
+      </>
       )
 }
