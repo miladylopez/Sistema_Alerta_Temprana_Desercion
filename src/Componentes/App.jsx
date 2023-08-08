@@ -1,11 +1,10 @@
 import React from 'react';
+import { RouterPrincipal } from '../Routers/RouterPrincipal';
 
 export function App() {
   return (
-    <div>
-      <header>
-        <h1>Ficha</h1>
-      </header>
-    </div>
+    <RouterPrincipal/>
+
+    
   );
 }
