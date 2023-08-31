@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import '../index.css'; // Asegúrate de importar tu archivo CSS aquí
-import { v4 as uuidv4 } from 'uuid'; // Importar la función uuidv4 para generar IDs únicos
+import '../index.css';
+import { v4 as uuidv4 } from 'uuid';
 
-export function Presentacion() {
+export function Habilidades() {
   const [criteriaScores, setCriteriaScores] = useState({});
   const [criterios, setCriterios] = useState([
-    { titulo: "Aspecto Personal", id: "Crit5" },
-    { titulo: "Comunicacion Oral", id: "Crit6" }
+    { titulo: "Tacto - Asertividad", id: "Crit7" },
+    { titulo: "Actividades e Intereses", id: "Crit8" },
+    { titulo: "Contexto Educativo", id: "Crit9" }
   ]);
 
   const [newCriterioText, setNewCriterioText] = useState('');
@@ -16,22 +17,21 @@ export function Presentacion() {
   };
 
   const handleDeleteCriterio = (criterioId) => {
-    // Lógica para eliminar el criterio con el id proporcionado
-    // Actualizar el estado 'criterios' después de eliminar
     const updatedCriterios = criterios.filter(criterio => criterio.id !== criterioId);
     setCriterios(updatedCriterios);
   };
 
-  const handleAddCriterio = (text) => {
-    // Lógica para agregar un nuevo criterio
-    // Aquí puedes generar un ID único para el nuevo criterio
-    const newCriterio = { titulo: text, id: uuidv4() };
+  const handleAddCriterio = () => {
+    if (newCriterioText.trim() === '') {
+      return;
+    }
+
+    const newCriterio = { titulo: newCriterioText, id: uuidv4() };
     setCriterios(prevCriterios => [...prevCriterios, newCriterio]);
-    setNewCriterioText(''); // Limpiar el campo de entrada después de agregar
+    setNewCriterioText('');
   };
 
   const handleSaveScores = () => {
-    // Lógica para guardar los valores numéricos ingresados en la base de datos o donde sea necesario
     console.log(criteriaScores);
   };
 
@@ -39,7 +39,7 @@ export function Presentacion() {
     <>
       <div>
         <ul id="titulo">
-          <h1>PRESENTACIÓN PERSONAL Y HABILIDADES DE COMUNICACIÓN</h1>
+          <h1>HABILIDADES DE RELACIONES PERSONALES Y CONTEXTO EDUCATIVO</h1>
         </ul>
         <br />
 
@@ -54,13 +54,10 @@ export function Presentacion() {
         </ul>
         <br />
 
-        {/* Mostrar los criterios con campos de entrada numérica */}
         {criterios.map((criterio) => (
           <div key={criterio.id} className="criterio-container">
             <div className="criterio-box">
-              <div className="criterio-text-box">
-                <p className="criterio-text">{criterio.titulo}</p>
-              </div>
+              <button className="criterio-button">{criterio.titulo}</button>
               <input
                 type="number"
                 className="score-input"
@@ -72,7 +69,6 @@ export function Presentacion() {
           </div>
         ))}
 
-        {/* Agregar nuevo criterio */}
         <div className="add-criterio-container">
           <input
             type="text"
@@ -81,10 +77,7 @@ export function Presentacion() {
             value={newCriterioText}
             onChange={(e) => setNewCriterioText(e.target.value)}
           />
-          <button
-            className="add-button"
-            onClick={() => handleAddCriterio(newCriterioText)}
-          >
+          <button className="add-button" onClick={handleAddCriterio}>
             Agregar Criterio
           </button>
         </div>

@@ -12,8 +12,7 @@ export function NavBar() {
             <div>
                 
                  <ul id= "navbar">
-                    
-                    <img src={unacImage} alt="Logo UNAC" className="logo" />  
+                 <img src={unacImage} alt="Logo UNAC" className="logo" style={{ width: '250px', height: '50px', marginTop: '5px' }} />
                     <li><NavLink to="/Login">Login</NavLink></li>
                     <li><NavLink to="/Ficha">Ficha</NavLink></li>
                     <li><NavLink to="/Error">Error</NavLink></li>                   
