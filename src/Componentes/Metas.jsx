@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import '../index.css';
-import { v4 as uuidv4 } from 'uuid';
+import '../index.css'; // Asegúrate de importar tu archivo CSS aquí
+import { v4 as uuidv4 } from 'uuid'; // Importar la función uuidv4 para generar IDs únicos
 
-export function Metas() {
+const Metas = () => {
   const [criteriaScores, setCriteriaScores] = useState({});
   const [criterios, setCriterios] = useState([
-    { titulo: "Capacidad del candidato para cumplir con sus metas y objetivos. Tener en cuenta si las metas y objetivos globales son: claros, razonables y realistas.", id: "Crit13" }
+    { titulo: "Metas/Objetivos", id: "Crit13" },
+    { titulo: "Planes Profesionales", id: "Crit14" },
+    { titulo: "Congruencia entre Metas y Objetivos", id: "Crit15" }
   ]);
 
   const [newCriterioText, setNewCriterioText] = useState('');
@@ -39,6 +41,9 @@ export function Metas() {
         <ul id="titulo">
           <h1>METAS PERSONALES Y VISIÓN</h1>
         </ul>
+        <div id="texto">
+          <p>Capacidad del candidato para cumplir con sus metas y objetivos. Tener en cuenta si las metas y objetivos globales son: claros, razonables y realistas.</p>
+        </div>
         <br />
 
         <ul id="subtitulo">
@@ -55,7 +60,9 @@ export function Metas() {
         {criterios.map((criterio) => (
           <div key={criterio.id} className="criterio-container">
             <div className="criterio-box">
-              <button className="criterio-button">{criterio.titulo}</button>
+              <div className="criterio-text-box">
+                <p className="criterio-text">{criterio.titulo}</p>
+              </div>
               <input
                 type="number"
                 className="score-input"
@@ -87,3 +94,5 @@ export function Metas() {
     </>
   );
 }
+
+export default Metas;

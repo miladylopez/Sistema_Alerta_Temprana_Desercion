@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function Error() {
+const Error = () => {
   return (
     <>
         <h1>Error 408;</h1>
@@ -10,3 +10,5 @@ export function Error() {
     
   );
 }
+
+export default Error;

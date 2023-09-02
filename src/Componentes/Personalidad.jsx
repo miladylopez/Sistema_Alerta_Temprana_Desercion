@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import '../index.css';
-import { v4 as uuidv4 } from 'uuid';
+import '../index.css'; // Asegúrate de importar tu archivo CSS aquí
+import { v4 as uuidv4 } from 'uuid'; // Importar la función uuidv4 para generar IDs únicos
 
-export function Personalidad() {
+
+const Personalidad = () => {
   const [criteriaScores, setCriteriaScores] = useState({});
   const [criterios, setCriterios] = useState([
     { titulo: "Impresion de si Mismo", id: "Crit10" },
@@ -39,8 +40,11 @@ export function Personalidad() {
     <>
       <div>
         <ul id="titulo">
-          <h1>MOTIVACION, PERSONALIDAD Y AUTOVALORACION</h1>
+          <h1>MOTIVACION, PERSONALIDAD Y AUTOVALORACIÓN</h1>
         </ul>
+        <div id="texto">
+          <p>Capacidad del candidato para mostrar interés y compromiso con su decisión profesional</p>
+        </div>
         <br />
 
         <ul id="subtitulo">
@@ -57,7 +61,9 @@ export function Personalidad() {
         {criterios.map((criterio) => (
           <div key={criterio.id} className="criterio-container">
             <div className="criterio-box">
-              <button className="criterio-button">{criterio.titulo}</button>
+              <div className="criterio-text-box">
+                <p className="criterio-text">{criterio.titulo}</p>
+              </div>
               <input
                 type="number"
                 className="score-input"
@@ -89,3 +95,5 @@ export function Personalidad() {
     </>
   );
 }
+
+export default Personalidad;

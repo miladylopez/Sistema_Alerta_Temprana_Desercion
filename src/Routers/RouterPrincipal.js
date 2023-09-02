@@ -9,6 +9,8 @@ import { Presentacion } from "../Componentes/Presentacion";
 import { Habilidades } from "../Componentes/Habilidades";
 import { Metas } from "../Componentes/Metas";
 import { Personalidad } from "../Componentes/Personalidad";
+import { Aspirante } from "../Componentes/Aspirante";
+import { AuthContex } from "../Componentes/AuthContex";
 
 
 export const RouterPrincipal = () => {
@@ -25,6 +27,8 @@ export const RouterPrincipal = () => {
                 <Route path="/Habilidades" element={<Habilidades/>}/>
                 <Route path="/Metas" element={<Metas/>}/>
                 <Route path="/Personalidad" element={<Personalidad/>}/>
+                <Route path="/Aspirante" element={<Aspirante/>}/>
+                <Route path="/AuthContext" element={<AuthContex/>}/>
                 <Route path="*" element={(<Error/>)}/>
             </Routes>
 

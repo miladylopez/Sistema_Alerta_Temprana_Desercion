@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import '../index.css'; // Asegúrate de importar tu archivo CSS aquí
 import { v4 as uuidv4 } from 'uuid'; // Importar la función uuidv4 para generar IDs únicos
 
-export function Presentacion() {
+const Presentacion = () => {
   const [criteriaScores, setCriteriaScores] = useState({});
   const [criterios, setCriterios] = useState([
     { titulo: "Aspecto Personal", id: "Crit5" },
@@ -96,3 +96,5 @@ export function Presentacion() {
     </>
   );
 }
+
+export default Presentacion;

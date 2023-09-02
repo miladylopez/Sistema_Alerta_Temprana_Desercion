@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import '../index.css';
-import { v4 as uuidv4 } from 'uuid';
+import '../index.css'; // Asegúrate de importar tu archivo CSS aquí
+import { v4 as uuidv4 } from 'uuid'; // Importar la función uuidv4 para generar IDs únicos
 
-export function Habilidades() {
+const Habilidades = () => {
   const [criteriaScores, setCriteriaScores] = useState({});
   const [criterios, setCriterios] = useState([
     { titulo: "Tacto - Asertividad", id: "Crit7" },
@@ -41,6 +41,9 @@ export function Habilidades() {
         <ul id="titulo">
           <h1>HABILIDADES DE RELACIONES PERSONALES Y CONTEXTO EDUCATIVO</h1>
         </ul>
+        <div id="texto">
+          <p>Capacidad del candidato para mostrar interés y compromiso con su decisión profesional</p>
+        </div>
         <br />
 
         <ul id="subtitulo">
@@ -57,7 +60,9 @@ export function Habilidades() {
         {criterios.map((criterio) => (
           <div key={criterio.id} className="criterio-container">
             <div className="criterio-box">
-              <button className="criterio-button">{criterio.titulo}</button>
+              <div className="criterio-text-box">
+                <p className="criterio-text">{criterio.titulo}</p>
+              </div>
               <input
                 type="number"
                 className="score-input"
@@ -89,3 +94,5 @@ export function Habilidades() {
     </>
   );
 }
+
+export default Habilidades;

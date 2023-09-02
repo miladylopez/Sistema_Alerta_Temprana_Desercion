@@ -1,10 +1,12 @@
+
 import React, { useState } from 'react';
 import '../index.css';
+import { useNavigate } from 'react-router-dom';
 
 import unacImage from '../Imagenes/UNAC_Yellow.png';
 
-
-export function Login() {
+const Login = () => {
+  const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
@@ -20,6 +22,7 @@ export function Login() {
   const handleLogin = () => {
     if (username === 'Zamirt' && password === '12345') {
       setLoggedIn(true);
+      navigate('/Aspirante');
     } else {
       alert('Credenciales inválidas');
     }
@@ -80,3 +83,5 @@ export function Login() {
     </div>
   );
 }
+
+export default Login;

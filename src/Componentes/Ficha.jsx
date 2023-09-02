@@ -3,7 +3,7 @@ import '../index.css'; // Asegúrate de importar tu archivo CSS aquí
 import { v4 as uuidv4 } from 'uuid'; // Importar la función uuidv4 para generar IDs únicos
 import { Link } from 'react-router-dom'; // Importar Link desde react-router-dom
 
-export function Ficha() {
+const Ficha = () => {
   const [criteriaScores, setCriteriaScores] = useState({});
   const [criterios, setCriterios] = useState([
     { titulo: "Presentacion Personal y Habilidades de Comunicación", id: "Crit1" },
@@ -111,3 +111,5 @@ export function Ficha() {
     </>
   );
 }
+
+export default Ficha;
