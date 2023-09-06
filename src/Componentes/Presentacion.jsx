@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
 import '../index.css'; // Asegúrate de importar tu archivo CSS aquí
 import { v4 as uuidv4 } from 'uuid'; // Importar la función uuidv4 para generar IDs únicos
-import { Link } from 'react-router-dom'; // Importar Link desde react-router-dom
 
-const Ficha = () => {
+const Presentacion = () => {
   const [criteriaScores, setCriteriaScores] = useState({});
   const [criterios, setCriterios] = useState([
-    { titulo: "Presentacion Personal y Habilidades de Comunicación", id: "Crit1" },
-    { titulo: "Habilidades de Relaciones Personales y Contexto Educativo", id: "Crit2" },
-    { titulo: "Motivacion, Personalidad y Autoevaluación", id: "Crit3" },
-    { titulo: "Metas Personales y Visión", id: "Crit4" }
+    { titulo: "Aspecto Personal", id: "Crit5" },
+    { titulo: "Comunicacion Oral", id: "Crit6" }
   ]);
+
   const [newCriterioText, setNewCriterioText] = useState('');
 
   const handleScoreChange = (criterioId, score) => {
@@ -18,21 +16,22 @@ const Ficha = () => {
   };
 
   const handleDeleteCriterio = (criterioId) => {
+    // Lógica para eliminar el criterio con el id proporcionado
+    // Actualizar el estado 'criterios' después de eliminar
     const updatedCriterios = criterios.filter(criterio => criterio.id !== criterioId);
     setCriterios(updatedCriterios);
   };
 
-  const handleAddCriterio = () => {
-    if (newCriterioText.trim() === '') {
-      return;
-    }
-
-    const newCriterio = { titulo: newCriterioText, id: uuidv4() };
+  const handleAddCriterio = (text) => {
+    // Lógica para agregar un nuevo criterio
+    // Aquí puedes generar un ID único para el nuevo criterio
+    const newCriterio = { titulo: text, id: uuidv4() };
     setCriterios(prevCriterios => [...prevCriterios, newCriterio]);
-    setNewCriterioText('');
+    setNewCriterioText(''); // Limpiar el campo de entrada después de agregar
   };
 
   const handleSaveScores = () => {
+    // Lógica para guardar los valores numéricos ingresados en la base de datos o donde sea necesario
     console.log(criteriaScores);
   };
 
@@ -40,7 +39,7 @@ const Ficha = () => {
     <>
       <div>
         <ul id="titulo">
-          <h1>FICHA DE ENTREVISTA ESTUDIANTES DE PREGRADO FI</h1>
+          <h1>PRESENTACIÓN PERSONAL Y HABILIDADES DE COMUNICACIÓN</h1>
         </ul>
         <br />
 
@@ -55,30 +54,13 @@ const Ficha = () => {
         </ul>
         <br />
 
+        {/* Mostrar los criterios con campos de entrada numérica */}
         {criterios.map((criterio) => (
           <div key={criterio.id} className="criterio-container">
             <div className="criterio-box">
-              {/* Agregar la ruta correcta en el botón */}
-              {criterio.titulo === "Presentacion Personal y Habilidades de Comunicación" && (
-                <Link to="/Presentacion">
-                  <button className="criterio-button">{criterio.titulo}</button>
-                </Link>
-              )}
-              {criterio.titulo === "Habilidades de Relaciones Personales y Contexto Educativo" && (
-                <Link to="/Habilidades">
-                  <button className="criterio-button">{criterio.titulo}</button>
-                </Link>
-              )}
-              {criterio.titulo === "Motivacion, Personalidad y Autoevaluación" && (
-                <Link to="/Personalidad">
-                  <button className="criterio-button">{criterio.titulo}</button>
-                </Link>
-              )}
-              {criterio.titulo === "Metas Personales y Visión" && (
-                <Link to="/Metas">
-                  <button className="criterio-button">{criterio.titulo}</button>
-                </Link>
-              )}
+              <div className="criterio-text-box">
+                <p className="criterio-text">{criterio.titulo}</p>
+              </div>
               <input
                 type="number"
                 className="score-input"
@@ -99,7 +81,10 @@ const Ficha = () => {
             value={newCriterioText}
             onChange={(e) => setNewCriterioText(e.target.value)}
           />
-          <button className="add-button" onClick={handleAddCriterio}>
+          <button
+            className="add-button"
+            onClick={() => handleAddCriterio(newCriterioText)}
+          >
             Agregar Criterio
           </button>
         </div>
@@ -112,4 +97,4 @@ const Ficha = () => {
   );
 }
 
-export default Ficha;
+export default Presentacion;

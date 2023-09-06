@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import '../index.css'; // Asegúrate de importar tu archivo CSS aquí
 import { v4 as uuidv4 } from 'uuid'; // Importar la función uuidv4 para generar IDs únicos
-import { Link } from 'react-router-dom'; // Importar Link desde react-router-dom
 
-const Ficha = () => {
+
+const Personalidad = () => {
   const [criteriaScores, setCriteriaScores] = useState({});
   const [criterios, setCriterios] = useState([
-    { titulo: "Presentacion Personal y Habilidades de Comunicación", id: "Crit1" },
-    { titulo: "Habilidades de Relaciones Personales y Contexto Educativo", id: "Crit2" },
-    { titulo: "Motivacion, Personalidad y Autoevaluación", id: "Crit3" },
-    { titulo: "Metas Personales y Visión", id: "Crit4" }
+    { titulo: "Impresion de si Mismo", id: "Crit10" },
+    { titulo: "Valores, Opiniones y Preferencias", id: "Crit11" },
+    { titulo: "Personalidad", id: "Crit12" }
   ]);
+
   const [newCriterioText, setNewCriterioText] = useState('');
 
   const handleScoreChange = (criterioId, score) => {
@@ -40,8 +40,11 @@ const Ficha = () => {
     <>
       <div>
         <ul id="titulo">
-          <h1>FICHA DE ENTREVISTA ESTUDIANTES DE PREGRADO FI</h1>
+          <h1>MOTIVACION, PERSONALIDAD Y AUTOVALORACIÓN</h1>
         </ul>
+        <div id="texto">
+          <p>Capacidad del candidato para mostrar interés y compromiso con su decisión profesional</p>
+        </div>
         <br />
 
         <ul id="subtitulo">
@@ -58,27 +61,9 @@ const Ficha = () => {
         {criterios.map((criterio) => (
           <div key={criterio.id} className="criterio-container">
             <div className="criterio-box">
-              {/* Agregar la ruta correcta en el botón */}
-              {criterio.titulo === "Presentacion Personal y Habilidades de Comunicación" && (
-                <Link to="/Presentacion">
-                  <button className="criterio-button">{criterio.titulo}</button>
-                </Link>
-              )}
-              {criterio.titulo === "Habilidades de Relaciones Personales y Contexto Educativo" && (
-                <Link to="/Habilidades">
-                  <button className="criterio-button">{criterio.titulo}</button>
-                </Link>
-              )}
-              {criterio.titulo === "Motivacion, Personalidad y Autoevaluación" && (
-                <Link to="/Personalidad">
-                  <button className="criterio-button">{criterio.titulo}</button>
-                </Link>
-              )}
-              {criterio.titulo === "Metas Personales y Visión" && (
-                <Link to="/Metas">
-                  <button className="criterio-button">{criterio.titulo}</button>
-                </Link>
-              )}
+              <div className="criterio-text-box">
+                <p className="criterio-text">{criterio.titulo}</p>
+              </div>
               <input
                 type="number"
                 className="score-input"
@@ -90,7 +75,6 @@ const Ficha = () => {
           </div>
         ))}
 
-        {/* Agregar nuevo criterio */}
         <div className="add-criterio-container">
           <input
             type="text"
@@ -112,4 +96,4 @@ const Ficha = () => {
   );
 }
 
-export default Ficha;
+export default Personalidad;
