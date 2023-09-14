@@ -1,8 +1,7 @@
-// server.js
-
 const express = require('express');
 const mariadb = require('mariadb');
 const app = express();
+const aspirantesRouter = require('./Routers/aspiranteRouter'); // Importa el enrutador de aspirantes
 
 // Configura el puerto en el que deseas que tu servidor escuche.
 const port = process.env.PORT || 3000;
@@ -19,11 +18,14 @@ const pool = mariadb.createPool({
 // Middleware para permitir el análisis de solicitudes JSON.
 app.use(express.json());
 
+// Rutas de la API de aspirantes
+app.use('/api/aspirantes', aspirantesRouter); // Asocia el enrutador de aspirantes a la ruta /api/aspirantes
+
 // Ruta para obtener datos de la base de datos.
 app.get('/api/obtener-datos', async (req, res) => {
   try {
     const conn = await pool.getConnection();
-    const rows = await conn.query('SELECT * FROM tu_tabla');
+    const rows = await conn.query('SELECT * FROM aspirantes');
     conn.release();
 
     res.json(rows); // Enviar los datos como respuesta JSON.
