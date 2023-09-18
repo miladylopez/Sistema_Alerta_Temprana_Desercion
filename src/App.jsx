@@ -10,6 +10,7 @@ import Personalidad from "./Componentes/Personalidad";
 import Presentacion from "./Componentes/Presentacion";
 import Habilidades from "./Componentes/Habilidades";
 import Aspirante from "./Componentes/Aspirante";
+import Grafica from "./Componentes/Grafica"
 
 function App() {
   return (
@@ -25,7 +26,7 @@ function App() {
           <Route path="/Personalidad" element={<Personalidad/>}/>
           <Route path="/Presentacion" element={<Presentacion/>}/>
           <Route path="/Habilidades" element={<Habilidades/>}/>
-          
+          <Route path="/Grafica" element={<Grafica/>}/>
           {/* Otras rutas */}
         </Routes>
       </Router>

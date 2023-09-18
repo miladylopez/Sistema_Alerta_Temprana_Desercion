@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../index.css'; // Asegúrate de importar tu archivo CSS aquí
 import { v4 as uuidv4 } from 'uuid'; // Importar la función uuidv4 para generar IDs únicos
+import Popup2 from './Popups/Popup2';
 
 
 const Personalidad = () => {
@@ -57,12 +58,14 @@ const Personalidad = () => {
           </h1>
         </ul>
         <br />
-
         {criterios.map((criterio) => (
           <div key={criterio.id} className="criterio-container">
             <div className="criterio-box">
               <div className="criterio-text-box">
                 <p className="criterio-text">{criterio.titulo}</p>
+              </div>
+              <div>
+                <Popup2 />
               </div>
               <input
                 type="number"

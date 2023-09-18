@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import Imag from '../Imagenes/Perfil.jpg';
-import unacImage from '../Imagenes/UNAC_Yellow.png';
+import unacImage from '../Imagenes/UNAC_Blanco.png';
 
 export function NavBar() {
   // Obtener la ubicación actual
@@ -25,7 +25,7 @@ export function NavBar() {
               src={unacImage}
               alt="Logo UNAC"
               className="logo"
-              style={{ width: '250px', height: '50px', marginTop: '5px' }}
+             /* style={{ width: '250px', height: '50px', marginTop: '5px' }}*/
             />
             <li>
               <NavLink to="/Login">Login</NavLink>
@@ -35,6 +35,10 @@ export function NavBar() {
             </li>
             <li>
               <NavLink to="/Error">Error</NavLink>
+            </li>
+
+            <li>
+              <NavLink to="/Grafica">Grafica</NavLink>
             </li>
 
             <img src={Imag} alt="Imagen " className="Img" />
