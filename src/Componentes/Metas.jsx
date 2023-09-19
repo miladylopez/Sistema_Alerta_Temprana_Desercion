@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../index.css'; // Asegúrate de importar tu archivo CSS aquí
 import { v4 as uuidv4 } from 'uuid'; // Importar la función uuidv4 para generar IDs únicos
+import Popup3 from './Popups/Popup3'; // Importat popup
 
 const Metas = () => {
   const [criteriaScores, setCriteriaScores] = useState({});
@@ -62,6 +63,9 @@ const Metas = () => {
             <div className="criterio-box">
               <div className="criterio-text-box">
                 <p className="criterio-text">{criterio.titulo}</p>
+              </div>
+              <div>
+                <Popup3 />
               </div>
               <input
                 type="number"

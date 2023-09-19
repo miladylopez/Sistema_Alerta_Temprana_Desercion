@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../index.css'; // Asegúrate de importar tu archivo CSS aquí
 import { v4 as uuidv4 } from 'uuid'; // Importar la función uuidv4 para generar IDs únicos
+import Popup1 from './Popups/Popup1';
 
 const Habilidades = () => {
   const [criteriaScores, setCriteriaScores] = useState({});
@@ -62,6 +63,9 @@ const Habilidades = () => {
             <div className="criterio-box">
               <div className="criterio-text-box">
                 <p className="criterio-text">{criterio.titulo}</p>
+              </div>
+              <div>
+                <Popup1 />
               </div>
               <input
                 type="number"
