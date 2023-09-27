@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import '../index.css'; // Asegúrate de importar tu archivo CSS aquí
 import { v4 as uuidv4 } from 'uuid'; // Importar la función uuidv4 para generar IDs únicos
-import Popup2 from './Popups/Popup2';
+import Impresion_de_si_mismo from './3Impresion_de_si_mismo';
+import Valores_Opiniones_Diferencias from './3Valores'
+import Personalidad3 from './3Personalidad3'
 
 
 const Personalidad = () => {
@@ -41,11 +43,8 @@ const Personalidad = () => {
     <>
       <div>
         <ul id="titulo">
-          <h1>MOTIVACION, PERSONALIDAD Y AUTOVALORACIÓN</h1>
+          <h1>PRESENTACIÓN PERSONAL Y HABILIDADES DE COMUNICACIÓN</h1>
         </ul>
-        <div id="texto">
-          <p>Capacidad del candidato para mostrar interés y compromiso con su decisión profesional</p>
-        </div>
         <br />
 
         <ul id="subtitulo">
@@ -58,26 +57,16 @@ const Personalidad = () => {
           </h1>
         </ul>
         <br />
-        {criterios.map((criterio) => (
-          <div key={criterio.id} className="criterio-container">
-            <div className="criterio-box">
-              <div className="criterio-text-box">
-                <p className="criterio-text">{criterio.titulo}</p>
-              </div>
-              <div>
-                <Popup2 />
-              </div>
-              <input
-                type="number"
-                className="score-input"
-                value={criteriaScores[criterio.id] || ''}
-                onChange={(e) => handleScoreChange(criterio.id, e.target.value)}
-              />
-              <button className="delete-button" onClick={() => handleDeleteCriterio(criterio.id)}>Borrar</button>
-            </div>
-          </div>
-        ))}
-
+        <div>
+            <Impresion_de_si_mismo />
+        </div>
+        <div>
+            <Valores_Opiniones_Diferencias/>
+        </div>
+        <div>
+            <Personalidad3/>
+        </div>
+        {/* Agregar nuevo criterio */}
         <div className="add-criterio-container">
           <input
             type="text"
@@ -86,7 +75,10 @@ const Personalidad = () => {
             value={newCriterioText}
             onChange={(e) => setNewCriterioText(e.target.value)}
           />
-          <button className="add-button" onClick={handleAddCriterio}>
+          <button
+            className="add-button"
+            onClick={() => handleAddCriterio(newCriterioText)}
+          >
             Agregar Criterio
           </button>
         </div>

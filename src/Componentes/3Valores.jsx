@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import '../index.css'; // Asegúrate de importar tu archivo CSS aquí
-import { v4 as uuidv4 } from 'uuid'; // Importar la función uuidv4 para generar IDs únicos
-import Popup from './Popups/Popup';
+import { v4 as uuidv4 } from 'uuid';
 
-const Presentacion = () => {
+function Subcriterio7() {
+
   const [criteriaScores, setCriteriaScores] = useState({});
   const [criterios, setCriterios] = useState([
-    { titulo: "Aspecto Personal", id: "Crit5" },
-    { titulo: "Comunicacion Oral", id: "Crit6" }
+    { titulo: "Valores, Opiniones y Preferencias", id: "Crit11" },
   ]);
 
   const [newCriterioText, setNewCriterioText] = useState('');
@@ -36,34 +34,34 @@ const Presentacion = () => {
     console.log(criteriaScores);
   };
 
+  const [showPopup, setShowPopup] = useState(false);
+  const togglePopup = () => {
+    setShowPopup(!showPopup);
+  };
+
   return (
-    <>
       <div>
-        <ul id="titulo">
-          <h1>PRESENTACIÓN PERSONAL Y HABILIDADES DE COMUNICACIÓN</h1>
-        </ul>
-        <br />
-
-        <ul id="subtitulo">
-          <h1>
-            <div id="Crit">
-              <i className="fa-sharp fa-solid fa-list-check"></i>
-            </div>
-            CRITERIOS A EVALUAR
-            <i className="fa-sharp fa-solid fa-percent"></i>
-          </h1>
-        </ul>
-        <br />
-
         {/* Mostrar los criterios con campos de entrada numérica */}
-        {criterios.map((criterio) => (
-          <div key={criterio.id} className="criterio-container">
+         {criterios.map((criterio) => (
+          <div key={criterio.id} >
             <div className="criterio-box">
               <div className="criterio-text-box">
-                <p className="criterio-text">{criterio.titulo}</p>
-              </div>
-              <div>
-                <Popup />
+                <button onClick={togglePopup} > {criterio.titulo}</button>
+                {showPopup &&(
+                <div className="popup">
+                  <div className="popup-contenido">
+                    <h2>Para tener en cuenta:</h2>
+                    <h1>Valores, Opiniones Y Preeferencias</h1>
+                    <p> Valores opiniones y preferencias del candidato.</p>
+                    <p> Preguntas sugeridas:</p>
+                    <p> - ¿Qué te parece más importante en la vida: la vida familiar, lograr algo en la vida, participar en la vida de comunidad, un trabajo interesante y lucrativo?, se puede optar por incluir otros tópicos.</p>
+                    <p> - ¿Qué opinas de la situación actual del país?</p>
+                    <p> - ¿Qué valores le aportó la educación recibida en el colegio?</p>
+                    <p> - ¿Qué es más importante, el conocimiento o los valores?.</p>
+                   <  button className="boton-cerrar" onClick={togglePopup}>Cerrar</button>
+                 </div>
+                </div>
+                )}
               </div>
               <input
                 type="number"
@@ -75,30 +73,8 @@ const Presentacion = () => {
             </div>
           </div>
         ))}
-
-        {/* Agregar nuevo criterio */}
-        <div className="add-criterio-container">
-          <input
-            type="text"
-            className="new-criterio-input"
-            placeholder="Nuevo criterio"
-            value={newCriterioText}
-            onChange={(e) => setNewCriterioText(e.target.value)}
-          />
-          <button
-            className="add-button"
-            onClick={() => handleAddCriterio(newCriterioText)}
-          >
-            Agregar Criterio
-          </button>
-        </div>
       </div>
-
-      <div className="save-button-container">
-        <button className="save-button" onClick={handleSaveScores}>Guardar</button>
-      </div>
-    </>
   );
 }
 
-export default Presentacion;
+export default Subcriterio7;
