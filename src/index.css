@@ -444,3 +444,42 @@ body {
   position: fixed;
 
 }
+
+.boton-con-popup {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.boton {
+  background-color: #007BFF;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.popup-contenido {
+  text-align: center;
+}
+
+.boton-cerrar {
+  background-color: #ccc;
+  color: #fff;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+}
