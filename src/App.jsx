@@ -7,11 +7,11 @@ import Error from './Componentes/Error';
 import Login from './Componentes/Login';
 import Metas from "./Componentes/4Metas";
 import Personalidad from "./Componentes/3Personalidad";
-import Presentacion from "./Componentes/Criterio1/1Presentacion";
+import Presentacion from "./Componentes/1Presentacion";
 import Habilidades from "./Componentes/2Habilidades";
 import Aspirante from "./Componentes/Aspirante";
 import Grafica from "./Componentes/Grafica";
-import Aspecto_personal from "./Componentes/Criterio1/1Aspecto_personal"
+import Aspecto_personal from "./Componentes/1Aspecto_personal"
 
 function App() {
   return (
