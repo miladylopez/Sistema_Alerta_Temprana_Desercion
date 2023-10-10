@@ -2,6 +2,8 @@ const express = require('express');
 const mariadb = require('mariadb');
 const app = express();
 const aspirantesRouter = require('./Routers/aspiranteRouter'); // Importa el enrutador de aspirantes
+require('dotenv').config(); // Carga las variables de entorno desde .env
+
 
 // Configura el puerto en el que deseas que tu servidor escuche.
 const port = process.env.PORT || 3000;

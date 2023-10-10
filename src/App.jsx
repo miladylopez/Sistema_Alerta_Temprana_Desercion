@@ -5,12 +5,13 @@ import { NavBar } from './Componentes/NavBar';
 import Ficha from './Componentes/Ficha';
 import Error from './Componentes/Error';
 import Login from './Componentes/Login';
-import Metas from "./Componentes/Metas";
-import Personalidad from "./Componentes/Personalidad";
-import Presentacion from "./Componentes/Presentacion";
-import Habilidades from "./Componentes/Habilidades";
+import Metas from "./Componentes/4Metas";
+import Personalidad from "./Componentes/3Personalidad";
+import Presentacion from "./Componentes/1Presentacion";
+import Habilidades from "./Componentes/2Habilidades";
 import Aspirante from "./Componentes/Aspirante";
-import Grafica from "./Componentes/Grafica"
+import Grafica from "./Componentes/Grafica";
+import Aspecto_personal from "./Componentes/1Aspecto_personal"
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/Presentacion" element={<Presentacion/>}/>
           <Route path="/Habilidades" element={<Habilidades/>}/>
           <Route path="/Grafica" element={<Grafica/>}/>
+          <Route path="/Aspecto_personal" element={<Aspecto_personal/>}/>
           {/* Otras rutas */}
         </Routes>
       </Router>
