@@ -25,7 +25,7 @@ export function NavBar() {
               src={unacImage}
               alt="Logo UNAC"
               className="logo"
-             /* style={{ width: '250px', height: '50px', marginTop: '5px' }}*/
+           /* style={{ width: '250px', height: '50px', marginTop: '5px' }}*/
             />
             <li>
               <NavLink to="/Login">Login</NavLink>

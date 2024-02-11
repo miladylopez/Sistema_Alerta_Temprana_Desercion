@@ -1,17 +1,17 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import Aspecto_personal from "./Componentes/1Aspecto_personal";
 import { AuthProvider } from './Componentes/AuthContext';
-import { NavBar } from './Componentes/NavBar';
-import Ficha from './Componentes/Ficha';
+import Presentacion from "./Componentes/Criterios/Criterios/1Presentacion";
+import Habilidades from "./Componentes/Criterios/Criterios/2Habilidades";
+import Personalidad from "./Componentes/Criterios/Criterios/3Personalidad";
+import Metas from "./Componentes/Criterios/Criterios/4Metas";
+import Aspirante from "./Componentes/Criterios/Criterios/Aspirante";
+import Ficha from './Componentes/Criterios/Criterios/Ficha';
 import Error from './Componentes/Error';
-import Login from './Componentes/Login';
-import Metas from "./Componentes/4Metas";
-import Personalidad from "./Componentes/3Personalidad";
-import Presentacion from "./Componentes/1Presentacion";
-import Habilidades from "./Componentes/2Habilidades";
-import Aspirante from "./Componentes/Aspirante";
 import Grafica from "./Componentes/Grafica";
-import Aspecto_personal from "./Componentes/1Aspecto_personal"
+import Login from './Componentes/Login';
+import { NavBar } from './Componentes/NavBar';
 
 function App() {
   return (

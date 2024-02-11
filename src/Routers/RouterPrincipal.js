@@ -1,16 +1,16 @@
 import React from "react";
-import { Routes, Route, Link, BrowserRouter, NavLink  } from "react-router-dom";
-import { Ficha } from '../Componentes/Ficha';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { App } from '../App';
-import { Login } from "../Componentes/Login";
-import { Error } from "../Componentes/Error";
-import { NavBar } from "../Componentes/NavBar";
-import { Presentacion } from "../Componentes/Presentacion";
-import { Habilidades } from "../Componentes/Habilidades";
-import { Metas } from "../Componentes/Metas";
-import { Personalidad } from "../Componentes/Personalidad";
-import { Aspirante } from "../Componentes/Aspirante";
 import { AuthContex } from "../Componentes/AuthContex";
+import { Aspirante } from "../Componentes/Criterios/Criterios/Aspirante";
+import { Ficha } from '../Componentes/Criterios/Criterios/Ficha';
+import { Error } from "../Componentes/Error";
+import { Habilidades } from "../Componentes/Habilidades";
+import { Login } from "../Componentes/Login";
+import { Metas } from "../Componentes/Metas";
+import { NavBar } from "../Componentes/NavBar";
+import { Personalidad } from "../Componentes/Personalidad";
+import { Presentacion } from "../Componentes/Presentacion";
 
 
 export const RouterPrincipal = () => {

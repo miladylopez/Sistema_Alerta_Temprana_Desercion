@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import '../index.css'; // Asegúrate de importar tu archivo CSS aquí
 import { v4 as uuidv4 } from 'uuid'; // Importar la función uuidv4 para generar IDs únicos
-import Tacto_Acertividad from './2Tacto-acertividad';
-import Actividades_Intereses from './2Activiades-interes';
-import Contexto_Educativo from './2Contexto_educativo';
+import Congruencia_metas_objetivos from '../../4Congruencia';
+import Metas_Obetivos from '../../4Metas_objetivos';
+import Planes_profesionales from '../../4Planes_Profesionales';
+import '../index.css'; // Asegúrate de importar tu archivo CSS aquí
 
-const Habilidades = () => {
+const Metas = () => {
   const [criteriaScores, setCriteriaScores] = useState({});
   const [criterios, setCriterios] = useState([
-    { titulo: "Tacto - Asertividad", id: "Crit7" },
-    { titulo: "Actividades e Intereses", id: "Crit8" },
-    { titulo: "Contexto Educativo", id: "Crit9" }
+    { titulo: "Metas/Objetivos", id: "Crit13" },
+    { titulo: "Planes Profesionales", id: "Crit14" },
+    { titulo: "Congruencia entre Metas y Objetivos", id: "Crit15" }
   ]);
 
   const [newCriterioText, setNewCriterioText] = useState('');
@@ -41,10 +41,7 @@ const Habilidades = () => {
   return (
     <>
       <div>
-        <ul id="titulo">
-          <h1>PRESENTACIÓN PERSONAL Y HABILIDADES DE COMUNICACIÓN</h1>
-        </ul>
-        <br />
+        
 
         <ul id="subtitulo">
           <h1>
@@ -57,13 +54,13 @@ const Habilidades = () => {
         </ul>
         <br />
         <div>
-            <Tacto_Acertividad />
+            <Metas_Obetivos/>
         </div>
         <div>
-            <Actividades_Intereses/>
+            <Planes_profesionales/>
         </div>
         <div>
-            <Contexto_Educativo/>
+            <Congruencia_metas_objetivos />
         </div>
         {/* Agregar nuevo criterio */}
         <div className="add-criterio-container">
@@ -90,4 +87,4 @@ const Habilidades = () => {
   );
 }
 
-export default Habilidades;
+export default Metas;

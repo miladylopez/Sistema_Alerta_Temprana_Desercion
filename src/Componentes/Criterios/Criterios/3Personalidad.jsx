@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
-import '../index.css'; // Asegúrate de importar tu archivo CSS aquí
 import { v4 as uuidv4 } from 'uuid'; // Importar la función uuidv4 para generar IDs únicos
-import Metas_Obetivos from './4Metas_objetivos';
-import Planes_profesionales from './4Planes_Profesionales'
-import Congruencia_metas_objetivos from './4Congruencia'
+import Impresion_de_si_mismo from '../../3Impresion_de_si_mismo';
+import Personalidad3 from '../../3Personalidad3';
+import Valores_Opiniones_Diferencias from '../../3Valores';
+import '../index.css'; // Asegúrate de importar tu archivo CSS aquí
 
-const Metas = () => {
+
+const Personalidad = () => {
   const [criteriaScores, setCriteriaScores] = useState({});
   const [criterios, setCriterios] = useState([
-    { titulo: "Metas/Objetivos", id: "Crit13" },
-    { titulo: "Planes Profesionales", id: "Crit14" },
-    { titulo: "Congruencia entre Metas y Objetivos", id: "Crit15" }
+    { titulo: "Impresion de si Mismo", id: "Crit10" },
+    { titulo: "Valores, Opiniones y Preferencias", id: "Crit11" },
+    { titulo: "Personalidad", id: "Crit12" }
   ]);
 
   const [newCriterioText, setNewCriterioText] = useState('');
@@ -57,13 +58,13 @@ const Metas = () => {
         </ul>
         <br />
         <div>
-            <Metas_Obetivos/>
+            <Impresion_de_si_mismo />
         </div>
         <div>
-            <Planes_profesionales/>
+            <Valores_Opiniones_Diferencias/>
         </div>
         <div>
-            <Congruencia_metas_objetivos />
+            <Personalidad3/>
         </div>
         {/* Agregar nuevo criterio */}
         <div className="add-criterio-container">
@@ -90,4 +91,4 @@ const Metas = () => {
   );
 }
 
-export default Metas;
+export default Personalidad;

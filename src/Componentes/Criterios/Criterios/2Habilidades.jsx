@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import '../index.css';  // Asegúrate de importar tu archivo CSS aquí
 import { v4 as uuidv4 } from 'uuid'; // Importar la función uuidv4 para generar IDs únicos
-import Aspecto_personal from './1Aspecto_personal';
-import Comunicacion_oral from './1Comunicacion_oral';
+import Actividades_Intereses from '../../2Activiades-interes';
+import Contexto_Educativo from '../../2Contexto_educativo';
+import Tacto_Acertividad from '../../2Tacto-acertividad';
+import '../index.css'; // Asegúrate de importar tu archivo CSS aquí
 
-const Presentacion = () => {
+const Habilidades = () => {
   const [criteriaScores, setCriteriaScores] = useState({});
   const [criterios, setCriterios] = useState([
-    { titulo: "Aspecto Personal", id: "Crit5" },
-    { titulo: "Comunicacion Oral", id: "Crit6" }
+    { titulo: "Tacto - Asertividad", id: "Crit7" },
+    { titulo: "Actividades e Intereses", id: "Crit8" },
+    { titulo: "Contexto Educativo", id: "Crit9" }
   ]);
 
   const [newCriterioText, setNewCriterioText] = useState('');
@@ -18,22 +20,21 @@ const Presentacion = () => {
   };
 
   const handleDeleteCriterio = (criterioId) => {
-    // Lógica para eliminar el criterio con el id proporcionado
-    // Actualizar el estado 'criterios' después de eliminar
     const updatedCriterios = criterios.filter(criterio => criterio.id !== criterioId);
     setCriterios(updatedCriterios);
   };
 
-  const handleAddCriterio = (text) => {
-    // Lógica para agregar un nuevo criterio
-    // Aquí puedes generar un ID único para el nuevo criterio
-    const newCriterio = { titulo: text, id: uuidv4() };
+  const handleAddCriterio = () => {
+    if (newCriterioText.trim() === '') {
+      return;
+    }
+
+    const newCriterio = { titulo: newCriterioText, id: uuidv4() };
     setCriterios(prevCriterios => [...prevCriterios, newCriterio]);
-    setNewCriterioText(''); // Limpiar el campo de entrada después de agregar
+    setNewCriterioText('');
   };
 
   const handleSaveScores = () => {
-    // Lógica para guardar los valores numéricos ingresados en la base de datos o donde sea necesario
     console.log(criteriaScores);
   };
 
@@ -56,10 +57,13 @@ const Presentacion = () => {
         </ul>
         <br />
         <div>
-            <Aspecto_personal />
+            <Tacto_Acertividad />
         </div>
         <div>
-            <Comunicacion_oral />
+            <Actividades_Intereses/>
+        </div>
+        <div>
+            <Contexto_Educativo/>
         </div>
         {/* Agregar nuevo criterio */}
         <div className="add-criterio-container">
@@ -86,4 +90,4 @@ const Presentacion = () => {
   );
 }
 
-export default Presentacion;
+export default Habilidades;
