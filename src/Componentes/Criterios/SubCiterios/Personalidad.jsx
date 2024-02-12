@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid'; // Importar la función uuidv4 para generar IDs únicos
 import '../../../index.css'; // Asegúrate de importar tu archivo CSS aquí
-import Impresion_de_si_mismo from '../../3Impresion_de_si_mismo';
-import Personalidad3 from '../../3Personalidad3';
-import Valores_Opiniones_Diferencias from '../../3Valores';
+import Impresion_de_si_mismo from '../../Popup/Personalidad/Popup_Impresion_de_si_Mismo';
+import Personalidad3 from '../../Popup/Personalidad/Popup_Personalidad';
+import Valores_Opiniones_Diferencias from '../../Popup/Personalidad/Popup_Valores';
 
 
 const Personalidad = () => {

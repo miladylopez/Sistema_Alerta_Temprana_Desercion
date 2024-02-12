@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-import Aspecto_personal from "./Componentes/1Aspecto_personal";
 import { AuthProvider } from './Componentes/AuthContext';
 import Aspirante from "./Componentes/Criterios/Criterios/Aspirante";
 import Ficha from './Componentes/Criterios/Criterios/Ficha';
@@ -12,6 +11,7 @@ import Error from './Componentes/Error/Error';
 import Grafica from "./Componentes/Grafica";
 import Login from './Componentes/Login/Login';
 import { NavBar } from './Componentes/NavBar/NavBar';
+import Aspecto_personal from "./Componentes/Popup/Presentacion/Popup_Aspecto_personal";
 
 function App() {
   return (

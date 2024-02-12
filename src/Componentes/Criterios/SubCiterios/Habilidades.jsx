@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid'; // Importar la función uuidv4 para generar IDs únicos
 import '../../../index.css'; // Asegúrate de importar tu archivo CSS aquí
-import Actividades_Intereses from '../../2Activiades-interes';
-import Contexto_Educativo from '../../2Contexto_educativo';
-import Tacto_Acertividad from '../../2Tacto-acertividad';
+import Actividades_Intereses from '../../Popup/Habilidades/Popup_Activiades_interes';
+import Contexto_Educativo from '../../Popup/Habilidades/Popup_Contexto_educativo';
+import Tacto_Acertividad from '../../Popup/Habilidades/Popup_Tacto_Acertividad';
 
 const Habilidades = () => {
   const [criteriaScores, setCriteriaScores] = useState({});

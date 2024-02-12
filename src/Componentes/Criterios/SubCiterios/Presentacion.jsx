@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid'; // Importar la función uuidv4 para generar IDs únicos
 import '../../../index.css'; // Asegúrate de importar tu archivo CSS aquí
-import Aspecto_personal from '../../1Aspecto_personal';
-import Comunicacion_oral from '../../1Comunicacion_oral';
+import Aspecto_personal from '../../Popup/Presentacion/Popup_Aspecto_personal';
+import Comunicacion_oral from '../../Popup/Presentacion/Popup_Comunicacion_oral';
 
 const Presentacion = () => {
   const [criteriaScores, setCriteriaScores] = useState({});

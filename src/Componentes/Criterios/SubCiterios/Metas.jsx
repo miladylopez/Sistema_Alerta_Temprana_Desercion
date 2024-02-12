@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid'; // Importar la función uuidv4 para generar IDs únicos
 import '../../../index.css'; // Asegúrate de importar tu archivo CSS aquí
-import Congruencia_metas_objetivos from '../../4Congruencia';
-import Metas_Obetivos from '../../4Metas_objetivos';
-import Planes_profesionales from '../../4Planes_Profesionales';
+import Congruencia_metas_objetivos from '../../Popup/Metas/Popup_Congruencia';
+import Metas_Obetivos from '../../Popup/Metas/Popup_Metas_Objetivos';
+import Planes_profesionales from '../../Popup/Metas/Popup_Planes_Profesionales';
 
 const Metas = () => {
   const [criteriaScores, setCriteriaScores] = useState({});
