@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import Aspirante from "./Componentes/Aspirante/Aspirante";
 import { AuthProvider } from './Componentes/AuthContext';
-import Aspirante from "./Componentes/Criterios/Criterios/Aspirante";
-import Ficha from './Componentes/Criterios/Criterios/Ficha';
+import Criterios_Evaluar from './Componentes/Criterios/Criterios/Criterios_Evaluar';
 import Habilidades from "./Componentes/Criterios/SubCiterios/Habilidades";
 import Metas from "./Componentes/Criterios/SubCiterios/Metas";
 import Personalidad from "./Componentes/Criterios/SubCiterios/Personalidad";
@@ -19,7 +19,7 @@ function App() {
       <Router>
         <NavBar />
         <Routes>
-          <Route path="/Ficha" element={<Ficha />} />
+          <Route path="/Criterios_Evaluar" element={<Criterios_Evaluar />} />
           <Route path="/Error" element={<Error />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Metas" element={<Metas/>}/>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../../../index.css';
+import '../../index.css';
 
 const Aspirante = () => {
   const navigate = useNavigate();
@@ -133,7 +133,7 @@ const Aspirante = () => {
               ) : (
                 <button className="edit-button" onClick={() => handleEditAspirante(aspirante.id)}>Editar</button>
               )}
-              <button className="ingresar-button" onClick={() => navigate("/Ficha")}>Ingresar</button>
+              <button className="ingresar-button" onClick={() => navigate("/Criterios_Evaluar")}>Ingresar</button>
 
             </div>
           </div>
