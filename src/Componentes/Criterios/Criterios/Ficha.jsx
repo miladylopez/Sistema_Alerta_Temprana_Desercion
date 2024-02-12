@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import '../index.css'; // Asegúrate de importar tu archivo CSS aquí
-import { v4 as uuidv4 } from 'uuid'; // Importar la función uuidv4 para generar IDs únicos
 import { Link } from 'react-router-dom'; // Importar Link desde react-router-dom
+import { v4 as uuidv4 } from 'uuid'; // Importar la función uuidv4 para generar IDs únicos
+import '../../../index.css'; // Asegúrate de importar tu archivo CSS aquí
 
 const Ficha = () => {
   const [criteriaScores, setCriteriaScores] = useState({});

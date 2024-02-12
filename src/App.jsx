@@ -2,16 +2,16 @@ import React from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import Aspecto_personal from "./Componentes/1Aspecto_personal";
 import { AuthProvider } from './Componentes/AuthContext';
-import Presentacion from "./Componentes/Criterios/Criterios/1Presentacion";
-import Habilidades from "./Componentes/Criterios/Criterios/2Habilidades";
-import Personalidad from "./Componentes/Criterios/Criterios/3Personalidad";
-import Metas from "./Componentes/Criterios/Criterios/4Metas";
 import Aspirante from "./Componentes/Criterios/Criterios/Aspirante";
 import Ficha from './Componentes/Criterios/Criterios/Ficha';
-import Error from './Componentes/Error';
+import Habilidades from "./Componentes/Criterios/SubCiterios/Habilidades";
+import Metas from "./Componentes/Criterios/SubCiterios/Metas";
+import Personalidad from "./Componentes/Criterios/SubCiterios/Personalidad";
+import Presentacion from "./Componentes/Criterios/SubCiterios/Presentacion";
+import Error from './Componentes/Error/Error';
 import Grafica from "./Componentes/Grafica";
-import Login from './Componentes/Login';
-import { NavBar } from './Componentes/NavBar';
+import Login from './Componentes/Login/Login';
+import { NavBar } from './Componentes/NavBar/NavBar';
 
 function App() {
   return (

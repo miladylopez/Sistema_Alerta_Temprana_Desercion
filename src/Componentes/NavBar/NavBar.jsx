@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import Imag from '../Imagenes/Perfil.jpg';
-import unacImage from '../Imagenes/UNAC_Blanco.png';
+import Imag from '../../Imagenes/Perfil.jpg';
+import unacImage from '../../Imagenes/UNAC_Blanco.png';
 
 export function NavBar() {
   // Obtener la ubicación actual

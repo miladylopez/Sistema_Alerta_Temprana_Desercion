@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid'; // Importar la función uuidv4 para generar IDs únicos
-import Congruencia_metas_objetivos from '../../4Congruencia';
-import Metas_Obetivos from '../../4Metas_objetivos';
-import Planes_profesionales from '../../4Planes_Profesionales';
-import '../index.css'; // Asegúrate de importar tu archivo CSS aquí
+import '../../../index.css'; // Asegúrate de importar tu archivo CSS aquí
+import Actividades_Intereses from '../../2Activiades-interes';
+import Contexto_Educativo from '../../2Contexto_educativo';
+import Tacto_Acertividad from '../../2Tacto-acertividad';
 
-const Metas = () => {
+const Habilidades = () => {
   const [criteriaScores, setCriteriaScores] = useState({});
   const [criterios, setCriterios] = useState([
-    { titulo: "Metas/Objetivos", id: "Crit13" },
-    { titulo: "Planes Profesionales", id: "Crit14" },
-    { titulo: "Congruencia entre Metas y Objetivos", id: "Crit15" }
+    { titulo: "Tacto - Asertividad", id: "Crit7" },
+    { titulo: "Actividades e Intereses", id: "Crit8" },
+    { titulo: "Contexto Educativo", id: "Crit9" }
   ]);
 
   const [newCriterioText, setNewCriterioText] = useState('');
@@ -41,7 +41,10 @@ const Metas = () => {
   return (
     <>
       <div>
-        
+        <ul id="titulo">
+          <h1>PRESENTACIÓN PERSONAL Y HABILIDADES DE COMUNICACIÓN</h1>
+        </ul>
+        <br />
 
         <ul id="subtitulo">
           <h1>
@@ -54,13 +57,13 @@ const Metas = () => {
         </ul>
         <br />
         <div>
-            <Metas_Obetivos/>
+            <Tacto_Acertividad />
         </div>
         <div>
-            <Planes_profesionales/>
+            <Actividades_Intereses/>
         </div>
         <div>
-            <Congruencia_metas_objetivos />
+            <Contexto_Educativo/>
         </div>
         {/* Agregar nuevo criterio */}
         <div className="add-criterio-container">
@@ -87,4 +90,4 @@ const Metas = () => {
   );
 }
 
-export default Metas;
+export default Habilidades;
