@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-
+import '../../Popup/Popup.css';
 function Subcriterio5() {
 
   const [criteriaScores, setCriteriaScores] = useState({});
