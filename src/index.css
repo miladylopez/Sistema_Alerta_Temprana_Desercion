@@ -430,15 +430,7 @@ body {
   align-items: center;
 }
 
-.popup-content,
-.popup-content1,
-.popup-content2,
-.popup-content3 {
-  background-color: white;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-}
+
 
 .graf{
   position: fixed;
