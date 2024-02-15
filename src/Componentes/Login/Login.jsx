@@ -1,9 +1,7 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../../index.css';
-
-import unacImage from '../../Imagenes/UNAC_Yellow.png';
+import '../Login/Login.css';
+import logoUnac from '../../Imagenes/UNAC_Yellow.png';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -39,47 +37,54 @@ const Login = () => {
   };
 
   return (
-    <div className="container">
-      <div className="left-half">
-        <header>
-          <h1 className="title">Sistema de Alerta Temprana</h1>
-          <img src={unacImage} alt="Logo UNAC" className="logo" />
-        </header>
-        <main>
-          {!loggedIn ? (
-            <>
+    <div className="login-container">
+      <div className="login-form p-8 bg-white rounded-lg shadow-md">
+        <form className="space-y-6">
+          <div>
+            <img src={logoUnac} alt="Mi Imagen" className="ImagenLogin" />
+          </div>
+            <div className="username-input">
               <input
+                id="username"
+                name="username"
                 type="text"
-                placeholder="Usuario"
+                placeholder="USUARIO"
                 value={username}
                 onChange={handleUsernameChange}
-                className="input-field"
+                className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
               />
+            </div>
+
+            <div className="password-input">
               <input
+                id="password"
+                name="password"
                 type="password"
-                placeholder="Contraseña"
+                placeholder="CONTRASEÑA"
                 value={password}
                 onChange={handlePasswordChange}
-                className="input-field"
+                className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
               />
-              <button onClick={handleLogin} className="button">
-                Inicio de sesión
-              </button>
-              <button onClick={handleForgotPassword} className="forgot-password-button">
-                Olvidé mi contraseña
-              </button>
-            </>
-          ) : (
-            <>
-              <p>Bienvenido, {username}!</p>
-              <button onClick={handleLogout} className="button">
-                Cerrar sesión
-              </button>
-            </>
-          )}
-        </main>
+            </div>
+
+            <button
+              type="button"
+              onClick={handleLogin}
+              className="login-button"
+            >
+              Iniciar sesión
+            </button>
+            <span
+              onClick={handleForgotPassword}
+              className="forgot-password"
+            >
+              ¿Olvidaste tu contraseña?
+            </span>
+          
+        </form>  
+        <div className="cuadro">
+        </div>
       </div>
-      <div className="right-half"></div>
     </div>
   );
 }
