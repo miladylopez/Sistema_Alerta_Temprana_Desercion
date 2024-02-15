@@ -25,7 +25,7 @@ input[type="password"] {
     color: #CACED0; /* Color del texto */
     font-size: 16px; /* Tamaño de la fuente */
     margin-bottom: 20px; /* Agrega espacio entre los campos de entrada y el botón de inicio de sesión */
-    margin-left: 280px;
+    margin-left: 240px;
 }
 
 /* Estilos para el botón de iniciar sesión */
@@ -40,7 +40,7 @@ input[type="password"] {
     border-radius: 10px; /* Bordes redondeados */
     cursor: pointer; /* Cambio de cursor al pasar el mouse */
     margin-bottom: 15px; /* Margen inferior */
-    margin-left: 280px;
+    margin-left: 240px;
 }
   
 /* Estilos cuando el mouse pasa sobre el botón */
@@ -54,7 +54,7 @@ input[type="password"] {
  /* Centrar el texto */
     cursor: pointer; /* Cambio de cursor al pasar el mouse */
     color: #6D6D6D; /* Color del texto */
-    margin-left: 360px;
+    margin-left: 340px;
     white-space: nowrap;
 }
   
@@ -63,11 +63,12 @@ input[type="password"] {
     text-decoration: underline; /* Subrayar el texto al pasar el mouse */
 }
 .ImagenLogin {
-    width: 570px;
+    width: 650px;
     height: auto;
     border-radius: 10px;
-    margin-left: 190px;
+    margin-left: 85px;
     margin-bottom: 15px;
+    margin-top: 100px;
 }
 .cuadro {
     width: 55%; /* Ancho del cuadro (la mitad de la página) */
@@ -77,5 +78,6 @@ input[type="password"] {
     top: 0; /* Alinea el cuadro en la parte superior de la página */
     left: 0; /* Alinea el cuadro en el borde izquierdo de la página */
     display: flex;
+    background: linear-gradient(105deg, rgba(246,168,0,1) 70%, rgba(246,168,0,1) 72%, rgba(255,255,255,1) 72%); 
 }
 
