@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; // Importar Link desde react-router-dom
-import { v4 as uuidv4 } from 'uuid'; // Importar la función uuidv4 para generar IDs únicos
-import '../../../index.css'; // Asegúrate de importar tu archivo CSS aquí
+import { Link } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
+import '../Criterios.css';
 
-const Ficha = () => {
+const Criterios_Evaluar = () => {
   const [criteriaScores, setCriteriaScores] = useState({});
   const [criterios, setCriterios] = useState([
     { titulo: "Presentacion Personal y Habilidades de Comunicación", id: "Crit1" },
@@ -45,13 +45,13 @@ const Ficha = () => {
         <br />
 
         <ul id="subtitulo">
-          <h1>
+          <h2>
             <div id="Crit">
               <i className="fa-sharp fa-solid fa-list-check"></i>
             </div>
             CRITERIOS A EVALUAR
             <i className="fa-sharp fa-solid fa-percent"></i>
-          </h1>
+          </h2>
         </ul>
         <br />
 
@@ -112,4 +112,4 @@ const Ficha = () => {
   );
 }
 
-export default Ficha;
+export default Criterios_Evaluar;

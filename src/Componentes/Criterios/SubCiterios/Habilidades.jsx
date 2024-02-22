@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid'; // Importar la función uuidv4 para generar IDs únicos
-import '../../../index.css'; // Asegúrate de importar tu archivo CSS aquí
 import Actividades_Intereses from '../../Popup/Habilidades/Popup_Activiades_interes';
 import Contexto_Educativo from '../../Popup/Habilidades/Popup_Contexto_educativo';
 import Tacto_Acertividad from '../../Popup/Habilidades/Popup_Tacto_Acertividad';
+import '../Criterios.css'; // Asegúrate de importar tu archivo CSS aquí
 
 const Habilidades = () => {
   const [criteriaScores, setCriteriaScores] = useState({});
@@ -47,13 +47,13 @@ const Habilidades = () => {
         <br />
 
         <ul id="subtitulo">
-          <h1>
+          <h2>
             <div id="Crit">
               <i className="fa-sharp fa-solid fa-list-check"></i>
             </div>
             CRITERIOS A EVALUAR
             <i className="fa-sharp fa-solid fa-percent"></i>
-          </h1>
+          </h2>
         </ul>
         <br />
         <div>

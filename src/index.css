@@ -22,11 +22,7 @@ body { /*z*/
   
 }
 
-.input-field { /* tex user pass / /*z/
-  margin-top: 5px;
-  margin-bottom: 5px;
-  padding: 15px;
-  max-width: 350px; /*Tamaño de agregar name pass */
+.input-field {
   border: 1px solid #ebebeb;
   border-radius: 15px;
   
@@ -121,32 +117,7 @@ nav {
 
 }
 
-#titulo h1{
-  display:flex;
-  align-items:center;
-  justify-content: center;
-  text-decoration: none;
-  font-size: 2rem;
-  font-weight: 600;
-  color: #000000;
-}
 
-#subtitulo h1{
-  display:flex;
-  align-items:center;
-  justify-content: center;
-  text-decoration:none;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #000000;
-  font-family:cursive;
-}
-
-#subtitulo i{
-  color: #F6A800;
-  font-size:40px; 
-  padding-left: 80px;
-}
 
 .logo2 {
   width: 18%;
@@ -154,42 +125,6 @@ nav {
   max-width: 300px;
   padding-bottom: 1px;
 }
-
-
-
-#Delete i {
-  color: #2B5983;
-  font-size: x-large;
-  padding-left: 1rem; /* Cambiado de 13.5cm a 1rem */
-  padding-right: 1rem; /* Añadido un padding derecho */
-}
-
-#Crit i{
-  color: #F6A800;
-  font-size:50px; 
-  padding-left: 5px; 
-  padding-right: 0.5cm;
-}
-
-.PorC1 {
-  font-size: 16px; /* Reducido el tamaño del texto para que se vea mejor en dispositivos pequeños */
-  padding: 6px 12px; /* Ajustado el padding horizontal para un mejor aspecto */
-  max-width: 100%; /* Cambiado de 500px a 100% */
-  border: 1px solid #ffffff;
-  border-radius: 15px;
-  border-style: outset;
-  margin-left: 5%; /* Ajustado el margen izquierdo */
-}
-
-
-#add {
-  color: #2B5983;
-  font-size: 3vw; /* Cambiado a unidades relativas vw (viewport width) */
-  padding-left: 10%; /* Cambiado a unidades relativas */
-  padding-top: 0;
-  padding-bottom: 1rem; /* Cambiado a unidades relativas */
-}
-
 
 #next {
   color: #2B5983;
@@ -311,23 +246,6 @@ body {
   text-align: center;
 }
 
-/* Estilos para el boton de criterios */
-.criterio-button {
-  background-color: #2b5784;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px; /* Tamaño del texto ajustado */
-  margin: 5px;
-  width: 500px; /* Ancho fijo para todos los botones */
-  text-align: center;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 2; /* Máximo de 2 líneas */
-  -webkit-box-orient: vertical;
-}
 
 
 /* Estilos para los botones */
@@ -365,30 +283,7 @@ body {
   width: 70%;
 }
 
-/* Estilos para los contenedores de criterios */
-.criterio-container {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
 
-/* Estilos para los cuadros de cada criterio */
-.criterio-box {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-/* Estilos para el contenedor de agregar criterio */
-.add-criterio-container {
-  display: flex;
-  align-items: center;
-  margin-top: 10px;
-}
 
 /* Estilos para el contenedor de botón de guardar */
 .save-button-container {

@@ -1,0 +1,46 @@
+#titulo h1{
+  display:flex;
+  align-items:center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #000000;
+}
+
+#subtitulo h2{
+  display:flex;
+  align-items:center;
+  justify-content: center;
+  text-decoration:none;
+  font-size: 1rem;
+  color: #000000;
+  font-weight: 800;
+}
+
+#subtitulo i{
+  color: #F6A800;
+  font-size:50px;
+  margin: 0.5rem;
+  padding-left: 80px;
+}
+
+#subtitulo::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 33.28rem;
+  width: 12.9rem;
+  height: 0.2rem;
+  background-color: #F6A800;
+  margin: 0 19.7rem;
+  border-radius: 5px;
+}
+
+
+
+
+
+
+
+
