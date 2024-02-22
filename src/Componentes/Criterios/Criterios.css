@@ -25,22 +25,88 @@
   padding-left: 80px;
 }
 
-#subtitulo::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 33.28rem;
-  width: 12.9rem;
-  height: 0.2rem;
-  background-color: #F6A800;
-  margin: 0 19.7rem;
+
+
+/* Estilos generales */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+}
+
+/* Estilos para el contenedor principal */
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Estilos para el contenido de la ficha */
+.ficha-container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  max-width: 800px;
+}
+
+.criterio-button{
+  margin: 10px;
+  font-size: 0.9rem;
+  padding: 0.7rem;
+  width: 420px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Estilos para los campos de entrada */
+.score-input,
+.new-criterio-input {
+  padding: 9px;
+  border: 1px solid #ccc;
   border-radius: 5px;
+  width: 7%;
+  font-size: 1rem;
+  text-align: center;
+  width: 30px;
+}
+
+
+/* Estilos para los contenedores de criterios */
+.criterio-box {
+  display: flex; /* Utiliza flexbox para alinear los elementos en una fila */
+  align-items: center; /* Alinea verticalmente los elementos */
+  justify-content: center; /* Alinea horizontalmente los elementos */
+}
+
+/* Estilos para los botones */
+.add-button,
+.delete-button,
+.save-butto {
+  border: none;
+  padding: 0.5em 1em; /* Ajusta el relleno del botón */
+  border-radius: 5px;
+  margin: 5px;
+  width: auto; /* Ancho automático para que se ajuste al contenido */
+  text-align: center;
+  overflow: hidden;
+  -webkit-line-clamp: 2; /* Máximo de 2 líneas */
+  -webkit-box-orient: vertical;
+  font-size: 1em; /* Tamaño de fuente del botón */
+  display: flex; /* Usa flexbox para alinear el ícono y el texto */
+  align-items: center; /* Alinea el texto en el centro verticalmente */
+  cursor: pointer; /* Cambia el cursor a pointer al pasar por encima */
+  background: transparent;
 }
 
 
 
-
-
-
+.delete-button:hover {
+  /* Cambia el color de fondo al pasar por encima */
+  background-color: #c8d7f5;
+}
 
 

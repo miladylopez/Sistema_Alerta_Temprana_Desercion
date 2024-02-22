@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { BsTrash } from "react-icons/bs";
 import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import '../Criterios.css';
@@ -85,7 +86,9 @@ const Criterios_Evaluar = () => {
                 value={criteriaScores[criterio.id] || ''}
                 onChange={(e) => handleScoreChange(criterio.id, e.target.value)}
               />
-              <button className="delete-button" onClick={() => handleDeleteCriterio(criterio.id)}>Borrar</button>
+                <button className="delete-button" onClick={() => handleDeleteCriterio(criterio.id)}>
+                  <BsTrash />
+                </button>
             </div>
           </div>
         ))}

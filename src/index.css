@@ -1,16 +1,4 @@
 
-body { /*z*/
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-}
-
-.container { /*z*/
-  width: 100%;
-  display: flex;
-  overflow: hidden;
-}
-
 .left-half { /*z*/
   flex: 1;
   background-color: #2b5784;
@@ -28,19 +16,7 @@ body { /*z*/
   
 }
 
-.button { /*z*/
-  background-color: #2b5784;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 15px;
-  cursor: pointer;
-  font-size: 16px;
-  margin-top: 10px;
-  letter-spacing: 1px;
-  
-  
-}
+
 
 .title{ /*z*/
   color: #f5a800;
@@ -211,32 +187,7 @@ nav {
 }
 
 
-/* Estilos generales */
-body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-  background-color: #f2f2f2;
-}
 
-/* Estilos para el contenedor principal */
-.container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-}
-
-/* Estilos para el contenido de la ficha */
-.ficha-container {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  width: 80%;
-  max-width: 800px;
-}
 
 /* Estilos para el título */
 .titulo {
@@ -248,40 +199,13 @@ body {
 
 
 
-/* Estilos para los botones */
-.add-button,
-.delete-button,
-.save-butto {
-  background-color: #2b5784;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px; /* Tamaño del texto ajustado */
-  margin: 5px;
-  width: 150px; /* Ancho fijo para todos los botones */
-  text-align: center;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 2; /* Máximo de 2 líneas */
-  -webkit-box-orient: vertical;
-}
 
 .DetCrit{
   background-color: #2b5784;
   color: #fff;
 }
 
-/* Estilos para los campos de entrada */
-.score-input,
-.new-criterio-input {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-right: 10px;
-  width: 70%;
-}
+
 
 
 
