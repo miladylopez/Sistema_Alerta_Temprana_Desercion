@@ -6,7 +6,7 @@
     background-color: #ffffff; /* Color de fondo de la página */
     margin-left: 200px;
 }
-  
+
 /* Estilos para el formulario de inicio de sesión */
 .login-form {
     width: 400px; /* Ancho del formulario */
@@ -15,9 +15,9 @@
     border-radius: 8px; /* Bordes redondeados */
     margin-left: 170px;
 }
-input[type="text"],
+/* input[type="text"], */
 input[type="password"] {
-    width: 90%; 
+    width: 90%;
     height: 30px; /* Ancho del 100% menos el ancho del borde y el relleno */
     padding: 10px;
     border: 1px solid #CACED0; /* Borde sólido con color especificado */
@@ -30,7 +30,7 @@ input[type="password"] {
 
 /* Estilos para el botón de iniciar sesión */
 .login-button {
-    width: 95%; 
+    width: 95%;
     height: 50px;/* Ancho igual al 100% del contenedor */
     padding: 10px; /* Espaciado interno */
     background-color: #6D6D6D; /* Color de fondo del botón */
@@ -42,7 +42,7 @@ input[type="password"] {
     margin-bottom: 15px; /* Margen inferior */
     margin-left: 240px;
 }
-  
+
 /* Estilos cuando el mouse pasa sobre el botón */
 .login-button:hover {
     background-color: #CACED0; /* Cambio de color de fondo al pasar el ratón */
@@ -57,7 +57,7 @@ input[type="password"] {
     margin-left: 340px;
     white-space: nowrap;
 }
-  
+
   /* Estilos para el texto "¿Olvidaste tu contraseña?" cuando se pasa el mouse sobre él */
 .forgot-password:hover {
     text-decoration: underline; /* Subrayar el texto al pasar el mouse */

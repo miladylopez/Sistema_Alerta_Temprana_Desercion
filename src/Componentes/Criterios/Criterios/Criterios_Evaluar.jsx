@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BsTrash } from "react-icons/bs";
+import { BsPlusCircleFill, BsTrashFill, BsXCircleFill } from "react-icons/bs";
 import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import '../Criterios.css';
@@ -13,6 +13,7 @@ const Criterios_Evaluar = () => {
     { titulo: "Metas Personales y Visión", id: "Crit4" }
   ]);
   const [newCriterioText, setNewCriterioText] = useState('');
+  const [showModal, setShowModal] = useState(false); // Estado para controlar la visibilidad del modal
 
   const handleScoreChange = (criterioId, score) => {
     setCriteriaScores(prevScores => ({ ...prevScores, [criterioId]: score }));
@@ -24,6 +25,7 @@ const Criterios_Evaluar = () => {
   };
 
   const handleAddCriterio = () => {
+    console.log("Nuevo criterio:", newCriterioText)
     if (newCriterioText.trim() === '') {
       return;
     }
@@ -31,6 +33,7 @@ const Criterios_Evaluar = () => {
     const newCriterio = { titulo: newCriterioText, id: uuidv4() };
     setCriterios(prevCriterios => [...prevCriterios, newCriterio]);
     setNewCriterioText('');
+    setShowModal(false); // Cierra el modal después de agregar el nuevo criterio
   };
 
   const handleSaveScores = () => {
@@ -60,17 +63,20 @@ const Criterios_Evaluar = () => {
           <div key={criterio.id} className="criterio-container">
             <div className="criterio-box">
               {/* Agregar la ruta correcta en el botón */}
-              {criterio.titulo === "Presentacion Personal y Habilidades de Comunicación" && (
+              {criterio.titulo ===
+                "Presentacion Personal y Habilidades de Comunicación" && (
                 <Link to="/Presentacion">
                   <button className="criterio-button">{criterio.titulo}</button>
                 </Link>
               )}
-              {criterio.titulo === "Habilidades de Relaciones Personales y Contexto Educativo" && (
+              {criterio.titulo ===
+                "Habilidades de Relaciones Personales y Contexto Educativo" && (
                 <Link to="/Habilidades">
                   <button className="criterio-button">{criterio.titulo}</button>
                 </Link>
               )}
-              {criterio.titulo === "Motivacion, Personalidad y Autoevaluación" && (
+              {criterio.titulo ===
+                "Motivacion, Personalidad y Autoevaluación" && (
                 <Link to="/Personalidad">
                   <button className="criterio-button">{criterio.titulo}</button>
                 </Link>
@@ -83,34 +89,42 @@ const Criterios_Evaluar = () => {
               <input
                 type="number"
                 className="score-input"
-                value={criteriaScores[criterio.id] || ''}
+                value={criteriaScores[criterio.id] || ""}
                 onChange={(e) => handleScoreChange(criterio.id, e.target.value)}
               />
-                <button className="delete-button" onClick={() => handleDeleteCriterio(criterio.id)}>
-                  <BsTrash />
-                </button>
+              <button
+                className="delete-button"
+                onClick={() => handleDeleteCriterio(criterio.id)}
+              >
+                <BsTrashFill />
+              </button>
             </div>
           </div>
         ))}
 
-        {/* Agregar nuevo criterio */}
-        <div className="add-criterio-container">
-          <input
-            type="text"
-            className="new-criterio-input"
-            placeholder="Nuevo criterio"
-            value={newCriterioText}
-            onChange={(e) => setNewCriterioText(e.target.value)}
-          />
-          <button className="add-button" onClick={handleAddCriterio}>
-            Agregar Criterio
+        <div className="add-crit">
+          {/* Botón para abrir el modal */}
+          <button className="add-button " onClick={() => setShowModal(true)}>
+            <BsPlusCircleFill />
           </button>
         </div>
       </div>
 
-      <div className="save-button-container">
-        <button className="save-button" onClick={handleSaveScores}>Guardar</button>
-      </div>
+      {/* Modal para agregar un nuevo criterio */}
+      {showModal && (
+        <div className="modal">
+          <div className="modal-content">
+            <input className='tex'
+              type="text"
+              placeholder="Nuevo criterio"
+              value={newCriterioText}
+              onChange={(e) => setNewCriterioText(e.target.value)}
+            />
+            <button className='add' onClick={handleAddCriterio}>Agregar</button>
+            <button className="close-button " onClick={() => setShowModal(false)}><BsXCircleFill /></button> {/* Botón para cerrar el modal */}
+          </div>
+        </div>
+      )}
     </>
   );
 }
