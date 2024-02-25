@@ -61,8 +61,7 @@ body {
 }
 
 /* Estilos para los campos de entrada */
-.score-input,
-.new-criterio-input {
+.score-input{
   padding: 9px;
   border: 1px solid #ccc;
   border-radius: 5px;

@@ -7,10 +7,10 @@ import '../Criterios.css';
 const Criterios_Evaluar = () => {
   const [criteriaScores, setCriteriaScores] = useState({});
   const [criterios, setCriterios] = useState([
-    { titulo: "Presentacion Personal y Habilidades de Comunicación", id: "Crit1" },
-    { titulo: "Habilidades de Relaciones Personales y Contexto Educativo", id: "Crit2" },
-    { titulo: "Motivacion, Personalidad y Autoevaluación", id: "Crit3" },
-    { titulo: "Metas Personales y Visión", id: "Crit4" }
+    { titulo: "Presentacion Personal y Habilidades de Comunicación", id: "Crit1", ruta: "Presentacion" },
+    { titulo: "Habilidades de Relaciones Personales y Contexto Educativo", id: "Crit2", ruta: "Habilidades" },
+    { titulo: "Motivacion, Personalidad y Autoevaluación", id: "Crit3", ruta: "Personalidad" },
+    { titulo: "Metas Personales y Visión", id: "Crit4", ruta: "Metas" }
   ]);
   const [newCriterioText, setNewCriterioText] = useState('');
   const [showModal, setShowModal] = useState(false); // Estado para controlar la visibilidad del modal
@@ -25,7 +25,6 @@ const Criterios_Evaluar = () => {
   };
 
   const handleAddCriterio = () => {
-    console.log("Nuevo criterio:", newCriterioText)
     if (newCriterioText.trim() === '') {
       return;
     }
@@ -34,10 +33,6 @@ const Criterios_Evaluar = () => {
     setCriterios(prevCriterios => [...prevCriterios, newCriterio]);
     setNewCriterioText('');
     setShowModal(false); // Cierra el modal después de agregar el nuevo criterio
-  };
-
-  const handleSaveScores = () => {
-    console.log(criteriaScores);
   };
 
   return (
@@ -62,30 +57,9 @@ const Criterios_Evaluar = () => {
         {criterios.map((criterio) => (
           <div key={criterio.id} className="criterio-container">
             <div className="criterio-box">
-              {/* Agregar la ruta correcta en el botón */}
-              {criterio.titulo ===
-                "Presentacion Personal y Habilidades de Comunicación" && (
-                <Link to="/Presentacion">
-                  <button className="criterio-button">{criterio.titulo}</button>
-                </Link>
-              )}
-              {criterio.titulo ===
-                "Habilidades de Relaciones Personales y Contexto Educativo" && (
-                <Link to="/Habilidades">
-                  <button className="criterio-button">{criterio.titulo}</button>
-                </Link>
-              )}
-              {criterio.titulo ===
-                "Motivacion, Personalidad y Autoevaluación" && (
-                <Link to="/Personalidad">
-                  <button className="criterio-button">{criterio.titulo}</button>
-                </Link>
-              )}
-              {criterio.titulo === "Metas Personales y Visión" && (
-                <Link to="/Metas">
-                  <button className="criterio-button">{criterio.titulo}</button>
-                </Link>
-              )}
+              <Link to={`/${criterio.ruta}`}>
+                <button className="criterio-button">{criterio.titulo}</button>
+              </Link>
               <input
                 type="number"
                 className="score-input"
@@ -114,7 +88,7 @@ const Criterios_Evaluar = () => {
       {showModal && (
         <div className="modal">
           <div className="modal-content">
-            <input className='tex'
+            <input
               type="text"
               placeholder="Nuevo criterio"
               value={newCriterioText}
