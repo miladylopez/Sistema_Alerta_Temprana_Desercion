@@ -33,25 +33,6 @@ body {
   background-color: #f2f2f2;
 }
 
-/* Estilos para el contenedor principal */
-.container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-}
-
-/* Estilos para el contenido de la ficha */
-.ficha-container {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  width: 80%;
-  max-width: 800px;
-}
-
 .criterio-button{
   margin: 10px;
   font-size: 0.9rem;
@@ -106,6 +87,25 @@ body {
   align-items: center;
   justify-content: center;
 }
+
+.navigation-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 7px;
+}
+
+.forward-button,
+.backward-button {
+  align-content: center;
+  cursor: pointer;
+  background: transparent;
+  font-weight: bold;
+  font-size: 2rem;
+  border: none;
+  color: rgb(46, 38, 168);
+}
+
 .add-button{
   display: flex;
   cursor: pointer;
@@ -143,10 +143,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.modal input[type="text"] {
-  margin-bottom: 10px;
 }
 
 .modal button {

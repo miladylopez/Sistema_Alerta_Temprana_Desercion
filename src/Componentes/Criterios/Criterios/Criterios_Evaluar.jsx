@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BsPlusCircleFill, BsTrashFill, BsXCircleFill } from "react-icons/bs";
+import { BsArrowLeftSquareFill, BsArrowRightSquareFill, BsPlusCircleFill, BsTrashFill, BsXCircleFill } from "react-icons/bs";
 import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import '../Criterios.css';
@@ -34,6 +34,15 @@ const Criterios_Evaluar = () => {
     setNewCriterioText('');
     setShowModal(false); // Cierra el modal después de agregar el nuevo criterio
   };
+
+  const handleForward = () => {
+    // Lógica para avanzar
+  };
+  
+  const handleBackward = () => {
+    // Lógica para retroceder
+  };
+  
 
   return (
     <>
@@ -81,6 +90,16 @@ const Criterios_Evaluar = () => {
           <button className="add-button " onClick={() => setShowModal(true)}>
             <BsPlusCircleFill />
           </button>
+
+          {/* Contenedor para los botones de adelante y atrás */}
+          <div className="navigation-buttons">
+            <button className="forward-button" onClick={handleForward}>
+              <BsArrowLeftSquareFill />
+            </button>
+            <button className="backward-button" onClick={handleBackward}>
+            <BsArrowRightSquareFill />
+            </button>
+          </div>
         </div>
       </div>
 
@@ -88,7 +107,7 @@ const Criterios_Evaluar = () => {
       {showModal && (
         <div className="modal">
           <div className="modal-content">
-            <input
+            <input className='tex'
               type="text"
               placeholder="Nuevo criterio"
               value={newCriterioText}
