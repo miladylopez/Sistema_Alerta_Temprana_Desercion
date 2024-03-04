@@ -42,8 +42,6 @@ body { /*z*/
   font-size: 16px;
   margin-top: 10px;
   letter-spacing: 1px;
-  
-  
 }
 
 .title{ /*z*/
@@ -88,37 +86,6 @@ main { /*z*/
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #2B5983;
-  padding: 0.1em; /* Cambiado de 1px a 1rem */
-}
-
-#navbar{
-  display: flex;
-  align-items:center;
-  justify-content: right;
-}
-
-#navbar li{
-  list-style: none;
-  padding: 14px;
-  position:sticky;
-  align-content: center;
-
-}
-
-#navbar li a{
-  text-decoration:solid;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #fff;
-  padding-left:6px;
-
 }
 
 #titulo h1{

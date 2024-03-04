@@ -10,6 +10,8 @@ import Presentacion from "./Componentes/Criterios/SubCiterios/Presentacion";
 import Error from './Componentes/Error/Error';
 import Grafica from "./Componentes/Grafica";
 import Login from './Componentes/Login/Login';
+import Inicio from './Componentes/Inicio/Inicio';
+import Usuario from './Componentes/Usuario/Usuario'
 import { NavBar } from './Componentes/NavBar/NavBar';
 import Aspecto_personal from "./Componentes/Popup/Presentacion/Popup_Aspecto_personal";
 
@@ -22,6 +24,8 @@ function App() {
           <Route path="/Criterios_Evaluar" element={<Criterios_Evaluar />} />
           <Route path="/Error" element={<Error />} />
           <Route path="/Login" element={<Login />} />
+          <Route path="/Inicio" element={<Inicio/>}/>
+          <Route path="/Usuario" element={<Usuario />} />
           <Route path="/Metas" element={<Metas/>}/>
           <Route path="/Aspirante" element={<Aspirante/>}/>
           <Route path="/Personalidad" element={<Personalidad/>}/>
