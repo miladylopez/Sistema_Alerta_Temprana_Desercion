@@ -73,3 +73,19 @@ body {
 .modal button:hover {
     background-color: #0056b3;
 }
+
+.btn-sub{
+    margin: 0 10px;
+    color: white;
+    background-color: rgb(46, 38, 168);
+    border: none;
+    padding: 0.4rem;
+    border-radius: 10px;
+    font-size: 1rem;
+    }
+    
+.edith-sub{
+    padding: 1rem;
+    width: 55rem;
+    height: 10rem;
+}

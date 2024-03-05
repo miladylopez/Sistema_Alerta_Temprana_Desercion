@@ -1,43 +1,72 @@
-import React, { useState } from 'react';
-import { BsArrowLeftSquareFill, BsArrowRightSquareFill, BsPlusCircleFill, BsTrashFill, BsXCircleFill } from "react-icons/bs"; // Importar el icono de la canasta
-import { v4 as uuidv4 } from 'uuid'; // Importar la función uuidv4 para generar IDs únicos
-import '../SubCriterios/SubCriterios.css'; // Importar los estilos
+import React, { useState } from "react";
+import {
+  BsArrowLeftSquareFill,
+  BsArrowRightSquareFill,
+  BsPlusCircleFill,
+  BsTrashFill,
+  BsXCircleFill,
+} from "react-icons/bs"; // Importar el icono de la canasta
+import { v4 as uuidv4 } from "uuid"; // Importar la función uuidv4 para generar IDs únicos
+import "../SubCriterios/SubCriterios.css"; // Importar los estilos
 
 const Presentacion = () => {
   const [criteriaScores, setCriteriaScores] = useState({});
   const [criterios, setCriterios] = useState([
-    { titulo: "Aspecto Personal", id: "Crit5", contenido: ["- Impacto general que genera el estudiante (agradable, confianza, seguridad, etc).", "- Forma de vestir (adecuada, llamatica, etc)."] },
-    { titulo: "Comunicacion Oral", id: "Crit6", contenido: ["- La comunicación oral se evalúa en la medida que se va desarrollando la entrevista con las preguntas que se realicen al estudiante.", "- Claridad, seguridad, lógica, riqueza de vocabulario.", "- Contacto visual.", "- Postura.", "- Gesticulación.", "- Tono, timbre, volumen."] }
+    {
+      titulo: "Aspecto Personal",
+      id: "Crit5",
+      contenido: [
+        "- Impacto general que genera el estudiante (agradable, confianza, seguridad, etc).",
+        "- Forma de vestir (adecuada, llamatica, etc).",
+      ],
+    },
+    {
+      titulo: "Comunicacion Oral",
+      id: "Crit6",
+      contenido: [
+        "- La comunicación oral se evalúa en la medida que se va desarrollando la entrevista con las preguntas que se realicen al estudiante.",
+        "- Claridad, seguridad, lógica, riqueza de vocabulario.",
+        "- Contacto visual.",
+        "- Postura.",
+        "- Gesticulación.",
+        "- Tono, timbre, volumen.",
+      ],
+    },
   ]);
 
   // Estados para controlar la visibilidad de los modales
-  const [showAspectoPersonalModal, setShowAspectoPersonalModal] = useState(false);
-  const [showComunicacionOralModal, setShowComunicacionOralModal] = useState(false);
-  
+  const [showAspectoPersonalModal, setShowAspectoPersonalModal] =
+    useState(false);
+  const [showComunicacionOralModal, setShowComunicacionOralModal] =
+    useState(false);
+
   // Estado para controlar la visibilidad del modal de agregar nuevo criterio
   const [showModal, setShowModal] = useState(false);
 
   // Estado para controlar el texto del nuevo criterio
-  const [newCriterioText, setNewCriterioText] = useState('');
+  const [newCriterioText, setNewCriterioText] = useState("");
 
   // Estado para controlar si el contenido del modal está en modo de edición o no
   const [editMode, setEditMode] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
-  const [editedContent, setEditedContent] = useState('');
+  const [editedContent, setEditedContent] = useState("");
 
   const handleScoreChange = (criterioId, score) => {
-    setCriteriaScores(prevScores => ({ ...prevScores, [criterioId]: score }));
+    setCriteriaScores((prevScores) => ({ ...prevScores, [criterioId]: score }));
   };
 
   const handleDeleteCriterio = (criterioId) => {
-    const updatedCriterios = criterios.filter(criterio => criterio.id !== criterioId);
+    const updatedCriterios = criterios.filter(
+      (criterio) => criterio.id !== criterioId
+    );
     setCriterios(updatedCriterios);
   };
 
   const handleAddCriterio = (text) => {
     const newCriterio = { titulo: text, id: uuidv4(), contenido: [] };
-    setCriterios(prevCriterios => [...prevCriterios, newCriterio]);
-    setNewCriterioText('');
+    setCriterios((prevCriterios) => [...prevCriterios, newCriterio]);
+    setNewCriterioText("");
+    setShowModal(false); // Cerrar el modal de agregar después de agregar el criterio
   };
 
   const handleSaveScores = () => {
@@ -47,9 +76,11 @@ const Presentacion = () => {
   // Funciones para mostrar/ocultar los modales
   const toggleModal = (criterioId) => {
     if (criterioId === "Crit5") {
-      setShowAspectoPersonalModal(prevState => !prevState);
+      setShowAspectoPersonalModal((prevState) => !prevState);
+      setShowComunicacionOralModal(false); // Asegúrate de ocultar el otro modal si es necesario
     } else if (criterioId === "Crit6") {
-      setShowComunicacionOralModal(prevState => !prevState);
+      setShowAspectoPersonalModal(false); // Asegúrate de ocultar el otro modal si es necesario
+      setShowComunicacionOralModal((prevState) => !prevState);
     }
   };
 
@@ -57,16 +88,16 @@ const Presentacion = () => {
   const toggleEditMode = (index) => {
     setEditMode(true);
     setEditIndex(index);
-    setEditedContent(criterios[index].contenido.join('\n'));
+    setEditedContent(criterios[index].contenido.join("\n"));
   };
 
   const handleEdit = () => {
     const updatedCriterios = [...criterios];
-    updatedCriterios[editIndex].contenido = editedContent.split('\n');
+    updatedCriterios[editIndex].contenido = editedContent.split("\n");
     setCriterios(updatedCriterios);
     setEditMode(false);
     setEditIndex(null);
-    setEditedContent('');
+    setEditedContent("");
   };
 
   // Funciones para avanzar y retroceder
@@ -101,22 +132,27 @@ const Presentacion = () => {
         {criterios.map((criterio, index) => (
           <div key={criterio.id}>
             <div className="criterio-box">
-              <button className='criterio-button-presentacion' onClick={() => toggleModal(criterio.id)}>
+              <button
+                className="criterio-button-presentacion"
+                onClick={() => toggleModal(criterio.id)}
+              >
                 {criterio.titulo}
               </button>
               {/* Input numérico */}
               <input
                 type="number"
                 className="score-input"
-                value={criteriaScores[criterio.id] || ''}
+                value={criteriaScores[criterio.id] || ""}
                 onChange={(e) => handleScoreChange(criterio.id, e.target.value)}
               />
               {/* Botón para borrar con icono de la canasta */}
-              <button className="delete-button" onClick={() => handleDeleteCriterio(criterio.id)}>
+              <button
+                className="delete-button"
+                onClick={() => handleDeleteCriterio(criterio.id)}
+              >
                 <BsTrashFill />
               </button>
               {/* Botón para editar */}
-              
             </div>
           </div>
         ))}
@@ -132,22 +168,24 @@ const Presentacion = () => {
                   <h2>{criterio.titulo}</h2>
                   {editMode && editIndex === index ? (
                     // Modo de edición
-                    <textarea
+                    <textarea className="edith-sub"
                       value={editedContent}
                       onChange={(e) => setEditedContent(e.target.value)}
                     ></textarea>
                   ) : (
                     // Modo de visualización
-                    criterio.contenido.map((item, i) => (
-                      <p key={i}>{item}</p>
-                    ))
+                    criterio.contenido.map((item, i) => <p key={i}>{item}</p>)
                   )}
                   {/* Botones para cerrar y editar/guardar */}
-                  <button onClick={() => toggleModal(criterio.id)}>Cerrar</button>
+                  <button className="btn-sub" onClick={() => toggleModal(criterio.id)}>
+                    Cerrar
+                  </button>
                   {editMode && editIndex === index ? (
-                    <button onClick={handleEdit}>Guardar</button>
+                    <button className="btn-sub" onClick={handleEdit}>Guardar</button>
                   ) : (
-                    <button onClick={() => toggleEditMode(index)}>Editar</button>
+                    <button className="btn-sub" onClick={() => toggleEditMode(index)}>
+                      Editar
+                    </button>
                   )}
                 </div>
               </div>
@@ -161,22 +199,24 @@ const Presentacion = () => {
                   <h2>{criterio.titulo}</h2>
                   {editMode && editIndex === index ? (
                     // Modo de edición
-                    <textarea
+                    <textarea className="edith-sub"
                       value={editedContent}
                       onChange={(e) => setEditedContent(e.target.value)}
                     ></textarea>
                   ) : (
                     // Modo de visualización
-                    criterio.contenido.map((item, i) => (
-                      <p key={i}>{item}</p>
-                    ))
+                    criterio.contenido.map((item, i) => <p key={i}>{item}</p>)
                   )}
                   {/* Botones para cerrar y editar/guardar */}
-                  <button onClick={() => toggleModal(criterio.id)}>Cerrar</button>
+                  <button className="btn-sub" onClick={() => toggleModal(criterio.id)}>
+                    Cerrar
+                  </button>
                   {editMode && editIndex === index ? (
-                    <button onClick={handleEdit}>Guardar</button>
+                    <button className="btn-sub" onClick={handleEdit}>Guardar</button>
                   ) : (
-                    <button onClick={() => toggleEditMode(index)}>Editar</button>
+                    <button className="btn-sub" onClick={() => toggleEditMode(index)}>
+                      Editar
+                    </button>
                   )}
                 </div>
               </div>
@@ -206,19 +246,31 @@ const Presentacion = () => {
       {showModal && (
         <div className="modal">
           <div className="modal-content">
-            <input className='tex'
+            <input
+              className="tex"
               type="text"
               placeholder="Nuevo criterio"
               value={newCriterioText}
               onChange={(e) => setNewCriterioText(e.target.value)}
             />
-            <button className='add' onClick={() => handleAddCriterio(newCriterioText)}>Agregar</button>
-            <button className="close-button " onClick={() => setShowModal(false)}><BsXCircleFill /></button> {/* Botón para cerrar el modal */}
+            <button
+              className="add"
+              onClick={() => handleAddCriterio(newCriterioText)}
+            >
+              Agregar
+            </button>
+            <button
+              className="close-button "
+              onClick={() => setShowModal(false)}
+            >
+              <BsXCircleFill />
+            </button>{" "}
+            {/* Botón para cerrar el modal */}
           </div>
         </div>
       )}
     </>
   );
-}
+};
 
 export default Presentacion;

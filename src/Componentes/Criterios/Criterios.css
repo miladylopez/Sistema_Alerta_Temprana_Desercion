@@ -161,7 +161,7 @@ body {
     padding: 10px;
     border: 1px solid #CACED0; /* Borde sólido con color especificado */
     border-radius: 10px;
-    color: #CACED0; /* Color del texto */
+    color: #4e5052; /* Color del texto */
     font-size: 16px; /* Tamaño de la fuente */
 }
 
@@ -175,6 +175,7 @@ body {
   display: flex;
   border: none;
   background-color: transparent;
-  color: blue;
+  color: rgb(46, 38, 168);
   font-size: 1.5rem;
 }
+
