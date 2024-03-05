@@ -1,146 +1,34 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import '../../index.css';
+import '../Aspirante/Aspirante.css';
 
-const Aspirante = () => {
-  const navigate = useNavigate();
-  const [aspirantes, setAspirantes] = useState([]);
-  const [newAspiranteText, setNewAspiranteText] = useState('');
-  const [newApellidoText, setNewApellidoText] = useState('');
-  const [newCodigoText, setNewCodigoText] = useState('');
-  const [editingAspiranteId, setEditingAspiranteId] = useState(null);
-  const [editedAspiranteText, setEditedAspiranteText] = useState('');
-  const [editedApellidoText, setEditedApellidoText] = useState('');
-  const [editedCodigoText, setEditedCodigoText] = useState('');
-  const [nextId, setNextId] = useState(1);
+function AgregarAspirante() {
+  const [nombre, setNombre] = useState('');
+  const [codigo, setCodigo] = useState('');
 
-  const handleAddAspirante = () => {
-    if (newAspiranteText.trim() === '' || newApellidoText.trim() === '' || newCodigoText.trim() === '') {
-      return;
-    }
-
-    const newAspirante = {
-      id: nextId,
-      nombre: newAspiranteText,
-      apellido: newApellidoText,
-      codigo: newCodigoText
-    };
-
-    setNextId(prevId => prevId + 1);
-    setAspirantes(prevAspirantes => [...prevAspirantes, newAspirante]);
-    setNewAspiranteText('');
-    setNewApellidoText('');
-    setNewCodigoText('');
-  };
-
-  const handleDeleteAspirante = (aspiranteId) => {
-    const updatedAspirantes = aspirantes.filter(aspirante => aspirante.id !== aspiranteId);
-    setAspirantes(updatedAspirantes);
-  };
-
-  const handleEditAspirante = (aspiranteId) => {
-    setEditingAspiranteId(aspiranteId);
-    const aspiranteToEdit = aspirantes.find(aspirante => aspirante.id === aspiranteId);
-    setEditedAspiranteText(aspiranteToEdit.nombre);
-    setEditedApellidoText(aspiranteToEdit.apellido);
-    setEditedCodigoText(aspiranteToEdit.codigo);
-  };
-
-  const handleSaveEdit = () => {
-    const updatedAspirantes = aspirantes.map(aspirante => {
-      if (aspirante.id === editingAspiranteId) {
-        return {
-          ...aspirante,
-          nombre: editedAspiranteText,
-          apellido: editedApellidoText,
-          codigo: editedCodigoText
-        };
-      }
-      return aspirante;
-    });
-
-    setAspirantes(updatedAspirantes);
-    setEditingAspiranteId(null);
-    setEditedAspiranteText('');
-    setEditedApellidoText('');
-    setEditedCodigoText('');
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Aquí puedes enviar los datos del aspirante al servidor
+    console.log('Nombre:', nombre);
+    console.log('Código:', codigo);
+    // Lógica para enviar los datos al servidor
   };
 
   return (
-    <div className="container">
-      <header>
-        <h1 className="title">Sistema de Alerta Temprana - Aspirantes</h1>
-      </header>
-      <main>
-        <div className="add-criterio-container">
-          <input
-            type="text"
-            className="new-criterio-input"
-            placeholder="Nuevo aspirante"
-            value={newAspiranteText}
-            onChange={(e) => setNewAspiranteText(e.target.value)}
-          />
-          <input
-            type="text"
-            className="new-criterio-input"
-            placeholder="Nuevo apellido"
-            value={newApellidoText}
-            onChange={(e) => setNewApellidoText(e.target.value)}
-          />
-          <input
-            type="text"
-            className="new-codigo-input"
-            placeholder="Código"
-            value={newCodigoText}
-            onChange={(e) => setNewCodigoText(e.target.value)}
-            inputMode="numeric"
-            pattern="[0-9]*"
-          />
-          <button
-            className="add-button"
-            onClick={handleAddAspirante}
-          >
-            Agregar Aspirante
-          </button>
+    <div>
+      <h2>Agregar Aspirante</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Nombre:</label>
+          <input type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} />
         </div>
-
-        {aspirantes.map((aspirante) => (
-          <div key={aspirante.id} className="criterio-container">
-            <div className="criterio-box">
-              <div className="criterio-text-box">
-                <p className="criterio-text">{aspirante.id} - {aspirante.nombre} {aspirante.apellido} - {aspirante.codigo}</p>
-              </div>
-              <button className="delete-button" onClick={() => handleDeleteAspirante(aspirante.id)}>Borrar</button>
-              {editingAspiranteId === aspirante.id ? (
-                <>
-                  <input
-                    type="text"
-                    value={editedAspiranteText}
-                    onChange={(e) => setEditedAspiranteText(e.target.value)}
-                  />
-                  <input
-                    type="text"
-                    value={editedApellidoText}
-                    onChange={(e) => setEditedApellidoText(e.target.value)}
-                  />
-                  <input
-                    type="text"
-                    value={editedCodigoText}
-                    onChange={(e) => setEditedCodigoText(e.target.value)}
-                  />
-                  <button onClick={handleSaveEdit}>Guardar</button>
-                </>
-              ) : (
-                <button className="edit-button" onClick={() => handleEditAspirante(aspirante.id)}>Editar</button>
-              )}
-              <button className="ingresar-button" onClick={() => navigate("/Criterios_Evaluar")}>Ingresar</button>
-
-            </div>
-          </div>
-        ))}
-      </main>
+        <div>
+          <label>Código:</label>
+          <input type="text" value={codigo} onChange={(e) => setCodigo(e.target.value)} />
+        </div>
+        <button type="submit">Agregar Aspirante</button>
+      </form>
     </div>
   );
 }
 
-export default Aspirante;
+export default AgregarAspirante;

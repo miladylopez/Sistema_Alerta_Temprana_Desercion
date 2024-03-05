@@ -2,7 +2,6 @@ import React from 'react';
 import '../Inicio/Inicio.css';
 import { Link } from 'react-router-dom';
 
-
 const Inicio = () => {
   return (
     <div className="container">
@@ -15,7 +14,7 @@ const Inicio = () => {
       </p>
       <div className="botones">
         <Link to="/Aspirante" className="boton">Añadir Aspirante</Link>
-        <button className="boton">Ver Aspirantes</button>
+        <Link to="/VerAspirante" className="boton">Ver Aspirante</Link>
       </div>
     </div>
   );
