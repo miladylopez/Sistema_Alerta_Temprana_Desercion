@@ -50,3 +50,26 @@ body {
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
+.modal-sub i{
+    color: #F6A800;
+    font-size: 50px;
+}
+
+.modal-sub {
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    margin: 0 15rem;
+    text-align: center;
+}
+
+.modal button {
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 10px;
+}
+
+.modal button:hover {
+    background-color: #0056b3;
+}
