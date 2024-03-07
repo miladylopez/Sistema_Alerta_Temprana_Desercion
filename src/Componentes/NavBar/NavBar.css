@@ -14,7 +14,8 @@ nav {
 }
   
 .logo {
-    height: 60px; /* ajusta el tamaño según sea necesario */
+    height: 40px;
+    right: 30 px; /* ajusta el tamaño según sea necesario */
     margin-left: 20px; /* ajusta el espacio entre el logo y el borde izquierdo */
 }
 
