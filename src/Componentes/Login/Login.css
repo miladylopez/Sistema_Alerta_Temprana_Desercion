@@ -25,7 +25,7 @@ input[type="password"] {
     color: #CACED0; /* Color del texto */
     font-size: 16px; /* Tamaño de la fuente */
     margin-bottom: 20px; /* Agrega espacio entre los campos de entrada y el botón de inicio de sesión */
-    margin-left: 240px;
+    margin-left: 290px;
 }
 
 /* Estilos para el botón de iniciar sesión */
@@ -40,7 +40,7 @@ input[type="password"] {
     border-radius: 10px; /* Bordes redondeados */
     cursor: pointer; /* Cambio de cursor al pasar el mouse */
     margin-bottom: 15px; /* Margen inferior */
-    margin-left: 240px;
+    margin-left: 290px;
 }
 
 /* Estilos cuando el mouse pasa sobre el botón */
@@ -54,7 +54,7 @@ input[type="password"] {
  /* Centrar el texto */
     cursor: pointer; /* Cambio de cursor al pasar el mouse */
     color: #6D6D6D; /* Color del texto */
-    margin-left: 340px;
+    margin-left: 370px;
     white-space: nowrap;
 }
 

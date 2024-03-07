@@ -1,0 +1,34 @@
+/* navbar.css */
+nav {
+    background-color: #2b5784;
+    padding: 10px;
+}
+  
+#navbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+  
+.logo {
+    height: 40px;
+    right: 30 px; /* ajusta el tamaño según sea necesario */
+    margin-left: 20px; /* ajusta el espacio entre el logo y el borde izquierdo */
+}
+
+#logos-container {
+    display: flex; /* Hace que los elementos se alineen en una sola línea */
+    align-items: center; /* Centra verticalmente los elementos en el contenedor */
+  }
+  
+  /* Estilos para los iconos */
+.icon {
+    font-size: 40px; /* Ajusta el tamaño del icono */
+    color: white; /* Color blanco para los iconos */
+    margin-left: 80px; 
+    
+}
+  

@@ -20,7 +20,7 @@ const Login = () => {
   const handleLogin = () => {
     if (username === 'Zamirt' && password === '12345') {
       setLoggedIn(true);
-      navigate('/Aspirante');
+      navigate('/Inicio');
     } else {
       alert('Credenciales inválidas');
     }
