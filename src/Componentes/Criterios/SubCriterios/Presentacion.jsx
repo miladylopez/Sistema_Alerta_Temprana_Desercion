@@ -6,7 +6,6 @@ import {
   BsTrashFill,
   BsXCircleFill,
 } from "react-icons/bs"; // Importar el icono de la canasta
-import { v4 as uuidv4 } from "uuid"; // Importar la función uuidv4 para generar IDs únicos
 import "../SubCriterios/SubCriterios.css"; // Importar los estilos
 
 const Presentacion = () => {
@@ -63,7 +62,7 @@ const Presentacion = () => {
   };
 
   const handleAddCriterio = (text) => {
-    const newCriterio = { titulo: text, id: uuidv4(), contenido: [] };
+    const newCriterio = { titulo: text, id: text.replace(/\s+/g, '-'), contenido: [] };
     setCriterios((prevCriterios) => [...prevCriterios, newCriterio]);
     setNewCriterioText("");
     setShowModal(false); // Cerrar el modal de agregar después de agregar el criterio
@@ -82,6 +81,7 @@ const Presentacion = () => {
       setShowAspectoPersonalModal(false); // Asegúrate de ocultar el otro modal si es necesario
       setShowComunicacionOralModal((prevState) => !prevState);
     }
+    console.log("Modal abierto para el criterio:", criterioId);
   };
 
   // Función para cambiar el modo de edición
