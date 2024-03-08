@@ -72,6 +72,13 @@ const Presentacion = () => {
     console.log(criteriaScores);
   };
 
+  // Función para abrir el modal de edición del criterio                   Eliminar
+  const handleOpenModal = (index) => {
+    setEditMode(true);
+    setEditIndex(index);
+    setEditedContent(criterios[index].contenido.join("\n"));
+  };
+
   // Funciones para mostrar/ocultar los modales
   const toggleModal = (criterioId) => {
     if (criterioId === "Crit5") {
