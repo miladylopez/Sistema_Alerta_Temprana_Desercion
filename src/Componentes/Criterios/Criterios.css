@@ -41,7 +41,6 @@ body {
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-/* Estilos para los campos de entrada */
 .score-input{
   padding: 9px;
   border: 1px solid #ccc;
@@ -51,7 +50,6 @@ body {
   text-align: center;
   width: 30px;
 }
-
 
 /* Estilos para los contenedores de criterios */
 .criterio-box {

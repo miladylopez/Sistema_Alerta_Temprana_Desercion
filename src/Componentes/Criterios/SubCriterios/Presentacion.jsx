@@ -9,14 +9,13 @@ import {
 import "../SubCriterios/SubCriterios.css"; // Importar los estilos
 
 const Presentacion = () => {
-  const [criteriaScores, setCriteriaScores] = useState({});
   const [criterios, setCriterios] = useState([
     {
       titulo: "Aspecto Personal",
       id: "Crit5",
       contenido: [
         "- Impacto general que genera el estudiante (agradable, confianza, seguridad, etc).",
-        "- Forma de vestir (adecuada, llamatica, etc).",
+        "- Forma de vestir (adecuada, llamativa, etc).",
       ],
     },
     {
@@ -39,7 +38,7 @@ const Presentacion = () => {
   const [showComunicacionOralModal, setShowComunicacionOralModal] =
     useState(false);
 
-  // Estado para controlar la visibilidad del modal de agregar nuevo criterio
+  // Estado para controlar el visibilidad del modal de agregar nuevo criterio
   const [showModal, setShowModal] = useState(false);
 
   // Estado para controlar el texto del nuevo criterio
@@ -50,33 +49,39 @@ const Presentacion = () => {
   const [editIndex, setEditIndex] = useState(null);
   const [editedContent, setEditedContent] = useState("");
 
-  const handleScoreChange = (criterioId, score) => {
-    setCriteriaScores((prevScores) => ({ ...prevScores, [criterioId]: score }));
-  };
+  // Estado para controlar el rango del dropdown
+  const [criteriaDropdownRange, setCriteriaDropdownRange] = useState(5);
+
+  // Estado para almacenar los valores seleccionados para cada criterio
+  const [criteriaScores, setCriteriaScores] = useState({});
 
   const handleDeleteCriterio = (criterioId) => {
     const updatedCriterios = criterios.filter(
       (criterio) => criterio.id !== criterioId
     );
     setCriterios(updatedCriterios);
+    // Eliminar el valor seleccionado para el criterio eliminado
+    const updatedScores = { ...criteriaScores };
+    delete updatedScores[criterioId];
+    setCriteriaScores(updatedScores);
   };
 
   const handleAddCriterio = (text) => {
-    const newCriterio = { titulo: text, id: text.replace(/\s+/g, '-'), contenido: [] };
+    const newCriterio = {
+      titulo: text,
+      id: text.replace(/\s+/g, "-"),
+      contenido: [],
+    };
     setCriterios((prevCriterios) => [...prevCriterios, newCriterio]);
+    // Asignar el rango del dropdown solo si es un valor nuevo
+    if (!criteriaScores[newCriterio.id]) {
+      setCriteriaScores((prevScores) => ({
+        ...prevScores,
+        [newCriterio.id]: 0,
+      }));
+    }
     setNewCriterioText("");
     setShowModal(false); // Cerrar el modal de agregar después de agregar el criterio
-  };
-
-  const handleSaveScores = () => {
-    console.log(criteriaScores);
-  };
-
-  // Función para abrir el modal de edición del criterio                   Eliminar
-  const handleOpenModal = (index) => {
-    setEditMode(true);
-    setEditIndex(index);
-    setEditedContent(criterios[index].contenido.join("\n"));
   };
 
   // Funciones para mostrar/ocultar los modales
@@ -145,13 +150,23 @@ const Presentacion = () => {
               >
                 {criterio.titulo}
               </button>
-              {/* Input numérico */}
-              <input
-                type="number"
-                className="score-input"
-                value={criteriaScores[criterio.id] || ""}
-                onChange={(e) => handleScoreChange(criterio.id, e.target.value)}
-              />
+              {/* Dropdown para seleccionar puntaje */}
+              <select
+                className="score-dropdown"
+                value={criteriaScores[criterio.id] || 0}
+                onChange={(e) =>
+                  setCriteriaScores({
+                    ...criteriaScores,
+                    [criterio.id]: e.target.value,
+                  })
+                }
+              >
+                {[...Array(criteriaDropdownRange + 1).keys()].map((number) => (
+                  <option key={number} value={number}>
+                    {number}
+                  </option>
+                ))}
+              </select>
               {/* Botón para borrar con icono de la canasta */}
               <button
                 className="delete-button"
@@ -174,14 +189,15 @@ const Presentacion = () => {
                   <h1>Para tener en cuenta</h1>
                   <h2>{criterio.titulo}</h2>
                   {editMode && editIndex === index ? (
-                    // Modo de edición
-                    <textarea className="edith-sub"
+                    <textarea
+                      className="edith-sub"
                       value={editedContent}
                       onChange={(e) => setEditedContent(e.target.value)}
                     ></textarea>
                   ) : (
-                    // Modo de visualización
-                    criterio.contenido.map((item, i) => <p key={i}>{item}</p>)
+                    criterio.contenido.map((item, i) => (
+                      <p key={i}>{item}</p>
+                    ))
                   )}
                   {/* Botones para cerrar y editar/guardar */}
                   <button className="btn-sub" onClick={() => toggleModal(criterio.id)}>
@@ -205,14 +221,15 @@ const Presentacion = () => {
                   <h1>Para tener en cuenta</h1>
                   <h2>{criterio.titulo}</h2>
                   {editMode && editIndex === index ? (
-                    // Modo de edición
-                    <textarea className="edith-sub"
+                    <textarea
+                      className="edith-sub"
                       value={editedContent}
                       onChange={(e) => setEditedContent(e.target.value)}
                     ></textarea>
                   ) : (
-                    // Modo de visualización
-                    criterio.contenido.map((item, i) => <p key={i}>{item}</p>)
+                    criterio.contenido.map((item, i) => (
+                      <p key={i}>{item}</p>
+                    ))
                   )}
                   {/* Botones para cerrar y editar/guardar */}
                   <button className="btn-sub" onClick={() => toggleModal(criterio.id)}>
@@ -259,6 +276,16 @@ const Presentacion = () => {
               placeholder="Nuevo criterio"
               value={newCriterioText}
               onChange={(e) => setNewCriterioText(e.target.value)}
+            />
+            {/* Input para definir el rango del dropdown */}
+            <input
+              type="number"
+              className="dropdown-range-input"
+              placeholder="Rango del dropdown"
+              value={criteriaDropdownRange}
+              onChange={(e) => setCriteriaDropdownRange(e.target.value)}
+              min="0"
+              step="1"
             />
             <button
               className="add"

@@ -42,6 +42,46 @@ body {
     min-height: 100vh;
 }
 
+/* Estilos para los campos de entrada */
+.score-dropdown {
+    appearance: none;
+    border: 1px solid #ccc;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+}
+
+.score-dropdown:focus {
+    outline: none;
+    border-color: blue;
+}
+
+  /* Estilo cuando se ha seleccionado un valor */
+.score-dropdown.has-value {
+    background-color: lightgreen;
+}
+
+  /* Estilo del botón */
+.dropdown-button {
+    appearance: none;
+    border: 1px solid #ccc;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: lightgray;
+}
+
+.dropdown-button:hover {
+    background-color: #ddd;
+}
+
+  /* Estilo del botón cuando se ha seleccionado un valor */
+.dropdown-button.has-value {
+    background-color: lightgreen;
+}
+
+
 .criterio-button-presentacion{
     margin: 10px;
     font-size: 0.9rem;
