@@ -51,10 +51,9 @@ const Personalidad = () => {
   ]);
 
   // Estados para controlar la visibilidad de los modales
-  const [showAspectoPersonalModal, setShowAspectoPersonalModal] =
-    useState(false);
-  const [showComunicacionOralModal, setShowComunicacionOralModal] =
-    useState(false);
+  const [showImpresionModal, setShowImpresionModal] = useState(false);
+  const [showValoresModal, setShowValoresModal] = useState(false);
+  const [showPersonalidadModal, setShowPersonalidadModal] = useState(false);
 
   // Estado para controlar el visibilidad del modal de agregar nuevo criterio
   const [showModal, setShowModal] = useState(false);
@@ -104,15 +103,18 @@ const Personalidad = () => {
 
   // Funciones para mostrar/ocultar los modales
   const toggleModal = (criterioId) => {
-    if (criterioId === "Crit13") {
-      setShowAspectoPersonalModal((prevState) => !prevState);
-      setShowComunicacionOralModal(false); // Asegúrate de ocultar el otro modal si es necesario
-    } else if (criterioId === "Crit11") {
-      setShowAspectoPersonalModal(false); // Asegúrate de ocultar el otro modal si es necesario
-      setShowComunicacionOralModal((prevState) => !prevState);
-    } else if (criterioId === "Crit12") {
-      setShowAspectoPersonalModal(false); // Asegúrate de ocultar el otro modal si es necesario
-      setShowComunicacionOralModal(false);
+    if (criterioId === "SubCtrPr1") {
+      setShowImpresionModal((prevState) => !prevState);
+      setShowValoresModal(false); // Asegúrate de ocultar el otro modal si es necesario
+      setShowPersonalidadModal(false); // Asegúrate de ocultar el otro modal si es necesario
+    } else if (criterioId === "SubCtrPr2") {
+      setShowImpresionModal(false); // Asegúrate de ocultar el otro modal si es necesario
+      setShowValoresModal((prevState) => !prevState);
+      setShowPersonalidadModal(false); // Asegúrate de ocultar el otro modal si es necesario
+    } else if (criterioId === "SubCtrPr3") {
+      setShowImpresionModal(false); // Asegúrate de ocultar el otro modal si es necesario
+      setShowValoresModal(false); // Asegúrate de ocultar el otro modal si es necesario
+      setShowPersonalidadModal((prevState) => !prevState);
     }
     console.log("Modal abierto para el criterio:", criterioId);
   };
@@ -203,7 +205,7 @@ const Personalidad = () => {
         {/* Modales para los criterios */}
         {criterios.map((criterio, index) => (
           <div key={criterio.id}>
-            {showAspectoPersonalModal && criterio.id === "Crit5" && (
+            {showImpresionModal && criterio.id === "SubCtrPr1" && (
               <div className="modal-sub">
                 <div className="modal-content-sub">
                   <i className="fa-solid fa-list"></i>
@@ -235,7 +237,39 @@ const Personalidad = () => {
               </div>
             )}
 
-            {showComunicacionOralModal && criterio.id === "Crit6" && (
+            {showValoresModal && criterio.id === "SubCtrPr2" && (
+              <div className="modal-sub">
+                <div className="modal-content-sub">
+                  <i className="fa-solid fa-list"></i>
+                  <h1>Para tener en cuenta</h1>
+                  <h2>{criterio.titulo}</h2>
+                  {editMode && editIndex === index ? (
+                    <textarea
+                      className="edith-sub"
+                      value={editedContent}
+                      onChange={(e) => setEditedContent(e.target.value)}
+                    ></textarea>
+                  ) : (
+                    criterio.contenido.map((item, i) => (
+                      <p key={i}>{item}</p>
+                    ))
+                  )}
+                  {/* Botones para cerrar y editar/guardar */}
+                  <button className="btn-sub" onClick={() => toggleModal(criterio.id)}>
+                    Cerrar
+                  </button>
+                  {editMode && editIndex === index ? (
+                    <button className="btn-sub" onClick={handleEdit}>Guardar</button>
+                  ) : (
+                    <button className="btn-sub" onClick={() => toggleEditMode(index)}>
+                      Editar
+                    </button>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {showPersonalidadModal && criterio.id === "SubCtrPr3" && (
               <div className="modal-sub">
                 <div className="modal-content-sub">
                   <i className="fa-solid fa-list"></i>

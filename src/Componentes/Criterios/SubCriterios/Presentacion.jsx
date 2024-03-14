@@ -86,10 +86,10 @@ const Presentacion = () => {
 
   // Funciones para mostrar/ocultar los modales
   const toggleModal = (criterioId) => {
-    if (criterioId === "Crit5") {
+    if (criterioId === "SubCtrPt1") {
       setShowAspectoPersonalModal((prevState) => !prevState);
       setShowComunicacionOralModal(false); // Asegúrate de ocultar el otro modal si es necesario
-    } else if (criterioId === "Crit6") {
+    } else if (criterioId === "SubCtrPt2") {
       setShowAspectoPersonalModal(false); // Asegúrate de ocultar el otro modal si es necesario
       setShowComunicacionOralModal((prevState) => !prevState);
     }
@@ -182,7 +182,7 @@ const Presentacion = () => {
         {/* Modales para los criterios */}
         {criterios.map((criterio, index) => (
           <div key={criterio.id}>
-            {showAspectoPersonalModal && criterio.id === "Crit5" && (
+            {showAspectoPersonalModal && criterio.id === "SubCtrPt1" && (
               <div className="modal-sub">
                 <div className="modal-content-sub">
                   <i className="fa-solid fa-list"></i>
@@ -214,7 +214,7 @@ const Presentacion = () => {
               </div>
             )}
 
-            {showComunicacionOralModal && criterio.id === "Crit6" && (
+            {showComunicacionOralModal && criterio.id === "SubCtrPt2" && (
               <div className="modal-sub">
                 <div className="modal-content-sub">
                   <i className="fa-solid fa-list"></i>

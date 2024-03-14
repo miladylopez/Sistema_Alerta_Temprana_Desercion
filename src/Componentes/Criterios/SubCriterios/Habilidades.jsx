@@ -56,22 +56,12 @@ const Habilidades = () => {
     useState(false);
   const [showComunicacionOralModal, setShowComunicacionOralModal] =
     useState(false);
-
-  // Estado para controlar el visibilidad del modal de agregar nuevo criterio
-  const [showModal, setShowModal] = useState(false);
-
-  // Estado para controlar el texto del nuevo criterio
-  const [newCriterioText, setNewCriterioText] = useState("");
-
-  // Estado para controlar si el contenido del modal está en modo de edición o no
-  const [editMode, setEditMode] = useState(false);
+  const [showModal, setShowModal] = useState(false); // Estado para controlar el visibilidad del modal de agregar nuevo criterio
+  const [newCriterioText, setNewCriterioText] = useState(""); // Estado para controlar el texto del nuevo criterio
+  const [editMode, setEditMode] = useState(false); // Estado para controlar si el contenido del modal está en modo de edición o no
   const [editIndex, setEditIndex] = useState(null);
-  const [editedContent, setEditedContent] = useState("");
-
-  // Estado para controlar el rango del dropdown
+  const [editedContent, setEditedContent] = useState(""); // Estado para almacenar los valores seleccionados para cada criterio
   const [criteriaDropdownRange, setCriteriaDropdownRange] = useState(5);
-
-  // Estado para almacenar los valores seleccionados para cada criterio
   const [criteriaScores, setCriteriaScores] = useState({});
 
   const handleDeleteCriterio = (criterioId) => {
@@ -105,10 +95,10 @@ const Habilidades = () => {
 
   // Funciones para mostrar/ocultar los modales
   const toggleModal = (criterioId) => {
-    if (criterioId === "Crit5") {
+    if (criterioId === "SubCtrHb1") {
       setShowAspectoPersonalModal((prevState) => !prevState);
       setShowComunicacionOralModal(false); // Asegúrate de ocultar el otro modal si es necesario
-    } else if (criterioId === "Crit6") {
+    } else if (criterioId === "SubCtrHb2") {
       setShowAspectoPersonalModal(false); // Asegúrate de ocultar el otro modal si es necesario
       setShowComunicacionOralModal((prevState) => !prevState);
     }
@@ -201,7 +191,7 @@ const Habilidades = () => {
         {/* Modales para los criterios */}
         {criterios.map((criterio, index) => (
           <div key={criterio.id}>
-            {showAspectoPersonalModal && criterio.id === "Crit5" && (
+            {showAspectoPersonalModal && criterio.id === "SubCtrHb1" && (
               <div className="modal-sub">
                 <div className="modal-content-sub">
                   <i className="fa-solid fa-list"></i>
@@ -233,7 +223,7 @@ const Habilidades = () => {
               </div>
             )}
 
-            {showComunicacionOralModal && criterio.id === "Crit6" && (
+            {showComunicacionOralModal && criterio.id === "SubCtrHb2" && (
               <div className="modal-sub">
                 <div className="modal-content-sub">
                   <i className="fa-solid fa-list"></i>
