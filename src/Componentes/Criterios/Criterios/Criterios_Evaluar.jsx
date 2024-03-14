@@ -7,10 +7,10 @@ import '../Criterios.css';
 const Criterios_Evaluar = () => {
   const [criteriaScores, setCriteriaScores] = useState({});
   const [criterios, setCriterios] = useState([
-    { titulo: "Presentacion Personal y Habilidades de Comunicación", id: "Crit1", ruta: "Presentacion" },
-    { titulo: "Habilidades de Relaciones Personales y Contexto Educativo", id: "Crit2", ruta: "Habilidades" },
-    { titulo: "Motivacion, Personalidad y Autoevaluación", id: "Crit3", ruta: "Personalidad" },
-    { titulo: "Metas Personales y Visión", id: "Crit4", ruta: "Metas" }
+    { titulo: "Presentacion Personal y Habilidades de Comunicación", id: "CritEv1", ruta: "Presentacion" },
+    { titulo: "Habilidades de Relaciones Personales y Contexto Educativo", id: "CritEv2", ruta: "Habilidades" },
+    { titulo: "Motivacion, Personalidad y Autoevaluación", id: "CritEv3", ruta: "Personalidad" },
+    { titulo: "Metas Personales y Visión", id: "CritEv4", ruta: "Metas" }
   ]);
   const [newCriterioText, setNewCriterioText] = useState('');
   const [showModal, setShowModal] = useState(false); // Estado para controlar la visibilidad del modal

@@ -9,12 +9,11 @@ import Personalidad from "./Componentes/Criterios/SubCriterios/Personalidad";
 import Presentacion from "./Componentes/Criterios/SubCriterios/Presentacion";
 import Error from './Componentes/Error/Error';
 import Grafica from "./Componentes/Grafica";
-import Login from './Componentes/Login/Login';
 import Inicio from './Componentes/Inicio/Inicio';
-import Usuario from './Componentes/Usuario/Usuario'
-import VerAspirante from './Componentes/VerAspirante/VerAspirante'
+import Login from './Componentes/Login/Login';
 import { NavBar } from './Componentes/NavBar/NavBar';
-import Aspecto_personal from "./Componentes/Popup/Presentacion/Popup_Aspecto_personal";
+import Usuario from './Componentes/Usuario/Usuario';
+import VerAspirante from './Componentes/VerAspirante/VerAspirante';
 
 function App() {
   return (
@@ -34,7 +33,6 @@ function App() {
           <Route path="/Presentacion" element={<Presentacion/>}/>
           <Route path="/Habilidades" element={<Habilidades/>}/>
           <Route path="/Grafica" element={<Grafica/>}/>
-          <Route path="/Aspecto_personal" element={<Aspecto_personal/>}/>
           {/* Otras rutas */}
         </Routes>
       </Router>

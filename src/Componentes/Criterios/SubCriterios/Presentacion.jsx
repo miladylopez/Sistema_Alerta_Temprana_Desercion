@@ -12,7 +12,7 @@ const Presentacion = () => {
   const [criterios, setCriterios] = useState([
     {
       titulo: "Aspecto Personal",
-      id: "Crit5",
+      id: "SubCtrPt1",
       contenido: [
         "- Impacto general que genera el estudiante (agradable, confianza, seguridad, etc).",
         "- Forma de vestir (adecuada, llamativa, etc).",
@@ -20,7 +20,7 @@ const Presentacion = () => {
     },
     {
       titulo: "Comunicacion Oral",
-      id: "Crit6",
+      id: "SubCtrPt2",
       contenido: [
         "- La comunicación oral se evalúa en la medida que se va desarrollando la entrevista con las preguntas que se realicen al estudiante.",
         "- Claridad, seguridad, lógica, riqueza de vocabulario.",
