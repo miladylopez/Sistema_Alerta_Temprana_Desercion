@@ -1,8 +1,9 @@
 import React from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import InformacionBasica from './Componentes//Criterios/SubCriterios/InformacionBasica';
 import Aspirante from "./Componentes/Aspirante/Aspirante";
 import { AuthProvider } from './Componentes/AuthContext';
-import Criterios_Evaluar from './Componentes/Criterios/Criterios/Criterios_Evaluar';
+import CriteriosEvaluar from './Componentes/Criterios/Criterios/Criterios_Evaluar'; // Cambiado el nombre del componente
 import Habilidades from "./Componentes/Criterios/SubCriterios/Habilidades";
 import Metas from "./Componentes/Criterios/SubCriterios/Metas";
 import Personalidad from "./Componentes/Criterios/SubCriterios/Personalidad";
@@ -21,7 +22,7 @@ function App() {
       <Router>
         <NavBar />
         <Routes>
-          <Route path="/Criterios_Evaluar" element={<Criterios_Evaluar />} />
+          <Route path="/Criterios_Evaluar" element={<CriteriosEvaluar />} />
           <Route path="/Error" element={<Error />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Inicio" element={<Inicio/>}/>
@@ -33,6 +34,7 @@ function App() {
           <Route path="/Presentacion" element={<Presentacion/>}/>
           <Route path="/Habilidades" element={<Habilidades/>}/>
           <Route path="/Grafica" element={<Grafica/>}/>
+          <Route path="/InformacionBasica" element={<InformacionBasica/>}/>
           {/* Otras rutas */}
         </Routes>
       </Router>
@@ -41,4 +43,3 @@ function App() {
 }
 
 export default App;
-
