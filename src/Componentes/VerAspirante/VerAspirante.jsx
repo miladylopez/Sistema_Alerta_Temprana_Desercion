@@ -118,7 +118,7 @@ const Inicio = ()=>{
                     <div className="btn-group" role="group" aria-label="Basic example">
                       <button type="button" className="btn btn-info" onClick={() => mostrarModalActualizar(val)}>Editar</button>
                       <button type="button" onClick={()=>deleteAspir(val)} className="btn btn-danger">Eliminar</button>
-                      <button type="button" className="btn btn-success">Entrevista</button>
+                      <button type="button" onClick={() => window.location.href = "/Criterios_Evaluar"} className="btn btn-success">Entrevista</button>
                     </div>
                   </td>
                 </tr>
