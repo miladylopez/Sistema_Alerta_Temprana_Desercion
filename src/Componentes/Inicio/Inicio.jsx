@@ -1,6 +1,5 @@
 import React from 'react';
 import '../Inicio/Inicio.css';
-import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Inicio = () => {

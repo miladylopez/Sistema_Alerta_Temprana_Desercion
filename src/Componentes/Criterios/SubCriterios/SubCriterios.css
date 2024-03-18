@@ -1,0 +1,131 @@
+#tituloPresentacion h1{
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #000000;
+}
+
+#subtituloPresentacion h2{
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    text-decoration:none;
+    font-size: 1rem;
+    color: #000000;
+    font-weight: 800;
+}
+
+#subtituloPresentacion i{
+    color: #F6A800;
+    font-size:50px;
+    margin: 0.5rem;
+    padding-left: 35px;
+}
+
+/* Estilos generales */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+}
+
+/* Estilos para el contenedor principal */
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Estilos para los campos de entrada */
+.score-dropdown {
+    appearance: none;
+    border: 1px solid #ccc;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+}
+
+.score-dropdown:focus {
+    outline: none;
+    border-color: blue;
+}
+
+  /* Estilo cuando se ha seleccionado un valor */
+.score-dropdown.has-value {
+    background-color: lightgreen;
+}
+
+  /* Estilo del botón */
+.dropdown-button {
+    appearance: none;
+    border: 1px solid #ccc;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: lightgray;
+}
+
+.dropdown-button:hover {
+    background-color: #ddd;
+}
+
+  /* Estilo del botón cuando se ha seleccionado un valor */
+.dropdown-button.has-value {
+    background-color: lightgreen;
+}
+
+
+.criterio-button-presentacion{
+    margin: 10px;
+    font-size: 0.9rem;
+    padding: 0.7rem;
+    width: 420px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.modal-sub i{
+    color: #F6A800;
+    font-size: 50px;
+}
+
+.modal-sub {
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    margin: 0 15rem;
+    text-align: center;
+}
+
+.modal button {
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 10px;
+}
+
+.modal button:hover {
+    background-color: #0056b3;
+}
+
+.btn-sub{
+    margin: 0 10px;
+    color: white;
+    background-color: rgb(46, 38, 168);
+    border: none;
+    padding: 0.4rem;
+    border-radius: 10px;
+    font-size: 1rem;
+    }
+    
+.edith-sub{
+    padding: 1rem;
+    width: 55rem;
+    height: 10rem;
+}

@@ -52,7 +52,7 @@ function AgregarAspirante() {
             onChange={(event)=>{
               setNombre(event.target.value);
             }}
-            className="form-control h-100" placeholder="Escribe el nombre del aspirante" aria-label="Username" aria-describedby="basic-addon1"/>
+            className="form-control h-150" placeholder="Escribe el nombre del aspirante" aria-label="Username" aria-describedby="basic-addon1"/>
           </div>
           <div className="input-group mb-3 ">
             <span className="input-group-text" id="basic-addon1">Codigo Aspirante: </span>
@@ -60,7 +60,7 @@ function AgregarAspirante() {
             onChange={(event)=>{
               setCodigoCarnet(event.target.value);
             }}
-            className="form-control h-100" placeholder="Escribe el codigo del aspirante" aria-label="Username" aria-describedby="basic-addon1"/>
+            className="form-control h-150" placeholder="Escribe el codigo del aspirante" aria-label="Username" aria-describedby="basic-addon1"/>
           </div>
           <div className="input-group mb-3 ">
             <span className="input-group-text" id="basic-addon1">Email: </span>
@@ -68,7 +68,7 @@ function AgregarAspirante() {
                 onChange={(event)=>{
                   setEmail(event.target.value);
                 }}
-                className="form-control h-100" placeholder="Escribe el Email del aspirante" aria-label="Username" aria-describedby="basic-addon1"/>
+                className="form-control h-150" placeholder="Escribe el Email del aspirante" aria-label="Username" aria-describedby="basic-addon1"/>
           </div>
           <div className="input-group mb-3 ">
             <span className="input-group-text" id="basic-addon1">Numero Telefono: </span>
@@ -76,7 +76,7 @@ function AgregarAspirante() {
                 onChange={(event)=>{
                   setTelefono(event.target.value); 
                 }}
-                className="form-control h-100" placeholder="Escribe el numero telefónico del aspirante" aria-label="Username" aria-describedby="basic-addon1"/>
+                className="form-control h-150" placeholder="Escribe el numero telefónico del aspirante" aria-label="Username" aria-describedby="basic-addon1"/>
           </div>
         </div>
         <div className="card-footer text-muted">
