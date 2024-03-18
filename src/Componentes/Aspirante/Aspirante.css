@@ -1,0 +1,43 @@
+.App {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.datos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
+}
+.datos input {
+    width: 300px;
+    height: 30px;
+    font-size: 20px;
+    padding-left: 10px;
+    border-radius: 5px;
+    margin: 5px;
+}
+.datos button {
+    width: 320px;
+    height: 50px;
+    margin-top: 5px;
+}
+.enca{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 20px;
+}
+.btn-sucess{
+    background-color:white;
+    border-color: aliceblue;
+    color: aliceblue;
+}
+
+.botonG{
+    border-color: aliceblue;
+    color: black;
+    height: 43.5px; 
+}
+.input-group-text {
+    height: 43.5px; /* Ajusta la altura según sea necesario */
+}

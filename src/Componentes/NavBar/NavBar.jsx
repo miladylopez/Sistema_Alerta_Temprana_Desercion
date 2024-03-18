@@ -2,10 +2,10 @@ import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import './NavBar.css'; // Importa la hoja de estilos
 import unacImage from '../../Imagenes/UNAC_Blanco.png';
-import Imag from '../../Imagenes/Perfil.jpg';
 import { IoHome } from "react-icons/io5";
 import { IoLogOut } from "react-icons/io5";
 import { BsPersonVcardFill } from "react-icons/bs";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export function NavBar() {
   // Obtener la ubicación actual
@@ -24,7 +24,7 @@ export function NavBar() {
       <nav>
         <a href="index.html"></a>
         <div id="logos-container">
-          <img src={unacImage} alt="Logo UNAC" className="logo" />
+          <img src={unacImage} className="rounded float-start" alt="Logo UNAC"></img>
           <div>
             <ul id="navbar">
               <li>
