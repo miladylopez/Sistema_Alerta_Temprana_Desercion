@@ -96,40 +96,39 @@ const Inicio = ()=>{
           Aspirantes 
         </div>
         <ul className="list-group list-group-flush">
-        <table className="table table-striped table-hover">
-          <thead>
-            <tr>
-              <th scope="col">Nombre</th>
-              <th scope="col">Código</th>
-              <th scope="col">Email</th>
-              <th scope="col">Telefono</th>
-              <th scope="col">Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {aspirantesList.map((val,key) => {
-              return (
-                <tr key={val.id_aspirante}>
-                  <td>{val.nombre_aspirante}</td>
-                  <td>{val.codigo_carnet}</td>
-                  <td>{val.email_aspirante}</td>
-                  <td>{val.telefono_aspirante}</td>
-                  <td>  
-                    <div className="btn-group" role="group" aria-label="Basic example">
-                      <button type="button" className="btn btn-info" onClick={() => mostrarModalActualizar(val)}>Editar</button>
-                      <button type="button" onClick={()=>deleteAspir(val)} className="btn btn-danger">Eliminar</button>
-                      <button type="button" onClick={() => window.location.href = "/Criterios_Evaluar"} className="btn btn-success">Entrevista</button>
-                    </div>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+          <table className="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Código</th>
+                <th scope="col">Email</th>
+                <th scope="col">Telefono</th>
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {aspirantesList.map((val,key) => {
+                return (
+                  <tr key={val.id_aspirante}>
+                    <td>{val.nombre_aspirante}</td>
+                    <td>{val.codigo_carnet}</td>
+                    <td>{val.email_aspirante}</td>
+                    <td>{val.telefono_aspirante}</td>
+                    <td>  
+                      <div className="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" className="btn btn-info" onClick={() => mostrarModalActualizar(val)}>Editar</button>
+                        <button type="button" onClick={()=>deleteAspir(val)} className="btn btn-danger">Eliminar</button>
+                        <button type="button" onClick={() => window.location.href = "/Criterios_Evaluar"} className="btn btn-success">Entrevista</button>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </ul>
       </div>
-      
-      <Modal isOpen={modalActualizar}>
+      <Modal isOpen={modalActualizar} className="custom-modal">
         <ModalHeader>
           <div><h3>Editar Registro Aspirante</h3></div>
         </ModalHeader>
@@ -138,31 +137,30 @@ const Inicio = ()=>{
             <span className="input-group-text" id="basic-addon1">Nombre:</span>
             <input type="text" value= {nombre_aspirante}
               onChange={(event) => setNombre(event.target.value)}
-              className="form-control h-100"/>
+              className="form-control h-150"/>
           </div>
           <div className="input-group mb-3">
             <span className="input-group-text" id="basic-addon1">Codigo Aspirante: </span>
             <input type="text" value= {codigo_carnet}
               onChange={(event) => setCodigoCarnet(event.target.value)}
-              className="form-control h-100"  />
+              className="form-control h-150"  />
           </div>
           <div className="input-group mb-3">
             <span className="input-group-text" id="basic-addon1">Email: </span>
             <input type="text" value= {email_aspirante} 
               onChange={(event) => setEmail(event.target.value)}
-              className="form-control h-100" />
+              className="form-control h-150" />
           </div>
           <div className="input-group mb-3">
             <span className="input-group-text" id="basic-addon1">Numero Telefono: </span>
             <input type="text"  value= {telefono_aspirante}
               onChange={(event) => setTelefono(event.target.value)}
-              className="form-control h-100" />
+              className="form-control h-150" />
           </div>
         </ModalBody>
         <ModalFooter>
           <Button className="btn btn-warning" onClick={update}>Actualizar</Button>
           <Button className="btn btn-danger" onClick={cerrarModalActualizar}>Cancelar</Button>
-          
         </ModalFooter>
       </Modal>
     </div>
