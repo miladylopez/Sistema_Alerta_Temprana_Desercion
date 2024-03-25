@@ -1,12 +1,8 @@
 import React, { useState } from "react";
-import {
-  BsArrowLeftSquareFill,
-  BsArrowRightSquareFill,
-  BsPlusCircleFill,
-  BsTrashFill,
-  BsXCircleFill,
-} from "react-icons/bs"; // Importar el icono de la canasta
-import "../SubCriterios/SubCriterios.css"; // Importar los estilos
+import { BsArrowLeftSquareFill, BsArrowRightSquareFill, BsPlusCircleFill, BsTrashFill } from "react-icons/bs";
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.css';
+import "../SubCriterios/SubCriterios.css";
 
 const InformacionBasica = () => {
   const [criterios, setCriterios] = useState([
@@ -17,80 +13,78 @@ const InformacionBasica = () => {
         "- Descripción",
         "- Descripción",
       ],
+      puntajeMaximo: 3,
     },
     {
       titulo: "Estado civil",
       id: "SubCtrIb2",
-      contenido: ["- Descripción", "- Descripción"],
+      contenido: ["- Descripción", "- Descripción"
+    ],
+    puntajeMaximo: 2,
     },
     {
-      titulo: "Departamento",
+      titulo: "Departamento, Municipio, Dirección",
       id: "SubCtrIb3",
-      contenido: ["- Descripción", "- Descripción"],
-    },
-    {
-      titulo: "Municipio",
-      id: "SubCtrIb4",
-      contenido: ["- Descripción", "- Descripción"],
-    },
-    {
-      titulo: "Dirección",
-      id: "SubCtrIb5",
-      contenido: ["- Descripción", "- Descripción"],
+      contenido: ["- Descripción", "- Descripción"
+    ],
+    puntajeMaximo: 2,
     },
     {
       titulo:
-        "Grupo especial de proteccion constitucional (Grupo etnico, victima conflicto armado, discapacidad, madre cabeza de hogar)",
-      id: "SubCtrIb6",
-      contenido: ["- Descripción", "- Descripción"],
+        "Grupo especial de proteccion constitucional",
+      id: "SubCtrIb4",
+      contenido: [
+        "- Grupo etnico",
+        "- victima conflicto armado",
+        "- discapacidad",
+        "- madre cabeza de hogar"
+    ],
+    puntajeMaximo: 3,
     },
     {
       titulo: "Necesidad educativa",
-      id: "SubCtrIb7",
-      contenido: ["- Descripción", "- Descripción"],
+      id: "SubCtrIb5",
+      contenido: ["- Descripción", "- Descripción"
+    ],
+    puntajeMaximo: 2,
     },
     {
       titulo: "Validó bachillerato",
-      id: "SubCtrIb8",
-      contenido: ["- Descripción", "- Descripción"],
+      id: "SubCtrIb6",
+      contenido: ["- Descripción", "- Descripción"
+    ],
+    puntajeMaximo: 2,
     },
     {
       titulo: "Discapacidad",
-      id: "SubCtrIb9",
-      contenido: ["- Descripción", "- Descripción"],
+      id: "SubCtrIb7",
+      contenido: ["- Descripción", "- Descripción"
+    ],
+    puntajeMaximo: 3,
     },
     {
-      titulo: "N personas a cargo",
-      id: "SubCtrIb10",
-      contenido: ["- Descripción", "- Descripción"],
+      titulo: "Personas a cargo",
+      id: "SubCtrIb8",
+      contenido: ["- Descripción", "- Descripción"
+    ],
+    puntajeMaximo: 3,
     },
     {
       titulo: "EPS",
-      id: "SubCtrIb11",
-      contenido: ["- Descripción", "- Descripción"],
+      id: "SubCtrIb9",
+      contenido: ["- Descripción", "- Descripción"
+    ],
+    puntajeMaximo: 2,
     },
     {
       titulo: "Trabaja en ese periodo - Tipo trabajo",
-      id: "SubCtrIb12",
-      contenido: ["- Descripción", "- Descripción"],
+      id: "SubCtrIb10",
+      contenido: ["- Descripción", "- Descripción"
+    ],
+    puntajeMaximo: 3,
     },
   ]);
 
-  // Estado para controlar el id del modal abierto
-  const [showModalId, setShowModalId] = useState(null);
-
-  // Estados para controlar el texto del nuevo criterio
-  const [newCriterioText, setNewCriterioText] = useState("");
-
-  // Estado para controlar si el contenido del modal está en modo de edición o no
-  const [editMode, setEditMode] = useState(false);
-  const [editIndex, setEditIndex] = useState(null);
-  const [editedContent, setEditedContent] = useState("");
-
-  // Estado para controlar el rango del dropdown
-  const [criteriaDropdownRange, setCriteriaDropdownRange] = useState(5);
-
-  // Estado para almacenar los valores seleccionados para cada criterio
   const [criteriaScores, setCriteriaScores] = useState({});
 
   const handleDeleteCriterio = (criterioId) => {
@@ -98,70 +92,105 @@ const InformacionBasica = () => {
       (criterio) => criterio.id !== criterioId
     );
     setCriterios(updatedCriterios);
-    // Eliminar el valor seleccionado para el criterio eliminado
     const updatedScores = { ...criteriaScores };
     delete updatedScores[criterioId];
     setCriteriaScores(updatedScores);
   };
 
-  const handleAddCriterio = (text) => {
-    const newCriterio = {
-      titulo: text,
-      id: text.replace(/\s+/g, "-"),
-      contenido: [],
-    };
-    setCriterios((prevCriterios) => [...prevCriterios, newCriterio]);
-    // Asignar el rango del dropdown solo si es un valor nuevo
-    if (!criteriaScores[newCriterio.id]) {
-      setCriteriaScores((prevScores) => ({
-        ...prevScores,
-        [newCriterio.id]: 0,
-      }));
-    }
-    setNewCriterioText("");
-    setShowModalId(null); // Cerrar el modal de agregar después de agregar el criterio
+  const handleEditCriterio = (criterioId) => {
+    const criterio = criterios.find(c => c.id === criterioId);
+    Swal.fire({
+      title: criterio.titulo,
+      html: `<textarea id="swal-input" class="swal2-input">${criterio.contenido.join('\n')}</textarea>`,
+      showCancelButton: true,
+      confirmButtonText: 'Guardar',
+      focusConfirm: false,
+      preConfirm: () => {
+        const editedContent = document.getElementById('swal-input').value.split('\n');
+        setCriterios(prevCriterios => {
+          return prevCriterios.map(c => {
+            if (c.id === criterioId) {
+              return {
+                ...c,
+                contenido: editedContent,
+              };
+            }
+            return c;
+          });
+        });
+      }
+    });
   };
 
-  // Función para mostrar/ocultar los modales
   const toggleModal = (criterioId) => {
-    if (showModalId === criterioId) {
-      setShowModalId(null);
-    } else {
-      setShowModalId(criterioId);
-    }
-    console.log("Modal abierto para el criterio:", criterioId);
+    const criterio = criterios.find(c => c.id === criterioId);
+    Swal.fire({
+      title: criterio.titulo,
+      html: criterio.contenido.map(item => `<p>${item}</p>`).join(''),
+      showCancelButton: true,
+      confirmButtonText: 'Editar',
+      focusConfirm: false,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        handleEditCriterio(criterioId);
+      }
+    });
   };
 
-  // Función para cambiar el modo de edición
-  const toggleEditMode = (index) => {
-    setEditMode(true);
-    setEditIndex(index);
-    setEditedContent(criterios[index].contenido.join("\n"));
-  };
-
-  const handleEdit = () => {
-    const updatedCriterios = [...criterios];
-    updatedCriterios[editIndex].contenido = editedContent.split("\n");
-    setCriterios(updatedCriterios);
-    setEditMode(false);
-    setEditIndex(null);
-    setEditedContent("");
-  };
-
-  // Funciones para avanzar y retroceder
   const handleForward = () => {
+    guardarCriterios();
     // Lógica para avanzar
   };
 
   const handleBackward = () => {
+    guardarCriterios();
     // Lógica para retroceder
+  };
+
+  const handleAddCriterio = () => {
+    Swal.fire({
+      title: 'Agregar nuevo criterio',
+      html: `
+        <input id="swal-input-titulo" class="swal2-input" placeholder="Título del criterio">
+        <textarea id="swal-textarea" class="swal2-input" placeholder="Descripción del criterio"></textarea>
+        <input type="number" id="swal-input-puntaje" class="swal2-input" placeholder="Puntaje máximo">
+      `,
+      showCancelButton: true,
+      confirmButtonText: 'Agregar',
+      focusConfirm: false,
+      preConfirm: () => {
+        const titulo = document.getElementById('swal-input-titulo').value;
+        const descripcion = document.getElementById('swal-textarea').value;
+        const puntajeMaximo = document.getElementById('swal-input-puntaje').value;
+        if (!titulo || !descripcion || !puntajeMaximo) {
+          Swal.showValidationMessage('¡Debes ingresar un título, una descripción y un puntaje máximo!');
+        }
+        return { titulo, descripcion, puntajeMaximo };
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const newCriterio = {
+          titulo: result.value.titulo,
+          id: result.value.titulo.replace(/\s+/g, '-'),
+          contenido: [result.value.descripcion],
+          puntajeMaximo: parseInt(result.value.puntajeMaximo),
+        };
+        setCriterios((prevCriterios) => [...prevCriterios, newCriterio]);
+        Swal.fire('¡Criterio agregado!', '', 'success');
+      }
+    });
+  };
+
+  const guardarCriterios = () => {
+    // Lógica para guardar criterios y valores asignados
+    console.log('Criterios y valores guardados');
   };
 
   return (
     <>
       <div>
         <ul id="tituloPresentacion">
-          <h1>INFORMACIÓN BÁSICA</h1>
+          <h1>PRESENTACIÓN PERSONAL Y HABILIDADES DE COMUNICACIÓN</h1>
         </ul>
         <br />
 
@@ -176,7 +205,6 @@ const InformacionBasica = () => {
         </ul>
         <br />
 
-        {/* Renderizar los criterios y sus respectivos modales */}
         {criterios.map((criterio, index) => (
           <div key={criterio.id}>
             <div className="criterio-box">
@@ -186,7 +214,6 @@ const InformacionBasica = () => {
               >
                 {criterio.titulo}
               </button>
-              {/* Dropdown para seleccionar puntaje */}
               <select
                 className="score-dropdown"
                 value={criteriaScores[criterio.id] || 0}
@@ -197,118 +224,43 @@ const InformacionBasica = () => {
                   })
                 }
               >
-                {[...Array(criteriaDropdownRange + 1).keys()].map((number) => (
+                {[...Array(criterio.puntajeMaximo + 1).keys()].map((number) => (
                   <option key={number} value={number}>
                     {number}
                   </option>
                 ))}
               </select>
-              {/* Botón para borrar con icono de la canasta */}
               <button
                 className="delete-button"
-                onClick={() => handleDeleteCriterio(criterio.id)}
-              >
-                <BsTrashFill />
-              </button>
-              {/* Botón para editar */}
-            </div>
-          </div>
-        ))}
-
-        {/* Modales para los criterios */}
-        {criterios.map((criterio) => (
-          <div key={criterio.id}>
-            {showModalId === criterio.id && (
-              <div className="modal-sub">
-                <div className="modal-content-sub">
-                  <i className="fa-solid fa-list"></i>
-                  <h1>Para tener en cuenta</h1>
-                  <h2>{criterio.titulo}</h2>
-                  {editMode ? (
-                    <textarea
-                      className="edith-sub"
-                      value={editedContent}
-                      onChange={(e) => setEditedContent(e.target.value)}
-                    ></textarea>
-                  ) : (
-                    criterio.contenido.map((item, i) => (
-                      <p key={i}>{item}</p>
-                    ))
-                  )}
-                  {/* Botones para cerrar y editar/guardar */}
-                  <button className="btn-sub" onClick={() => toggleModal(criterio.id)}>
-                    Cerrar
+                onClick={() =>
+                  handleDeleteCriterio(criterio.id)}
+                  >
+                    <BsTrashFill />
                   </button>
-                  {editMode ? (
-                    <button className="btn-sub" onClick={handleEdit}>Guardar</button>
-                  ) : (
-                    <button className="btn-sub" onClick={() => toggleEditMode(criterio.id)}>
-                      Editar
-                    </button>
-                  )}
                 </div>
               </div>
-            )}
+            ))}
+    
+            <div className="add-crit">
+              <button className="add-button " onClick={handleAddCriterio}>
+                <BsPlusCircleFill />
+              </button>
+              <button className="save-button" onClick={guardarCriterios}>
+                Guardar
+              </button>
+              <div className="navigation-buttons">
+                <button className="forward-button" onClick={handleForward}>
+                  <BsArrowLeftSquareFill />
+                </button>
+                <button className="backward-button" onClick={handleBackward}>
+                  <BsArrowRightSquareFill />
+                </button>
+              </div>
+            </div>
           </div>
-        ))}
-
-        <div className="add-crit">
-          {/* Botón para abrir el modal de agregar nuevo criterio */}
-          <button className="add-button " onClick={() => setShowModalId("NuevoCriterio")}>
-            <BsPlusCircleFill />
-          </button>
-
-          {/* Contenedor para los botones de adelante y atrás */}
-          <div className="navigation-buttons">
-            <button className="forward-button" onClick={handleForward}>
-              <BsArrowLeftSquareFill />
-            </button>
-            <button className="backward-button" onClick={handleBackward}>
-              <BsArrowRightSquareFill />
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Modal para agregar un nuevo criterio */}
-      {showModalId === "NuevoCriterio" && (
-        <div className="modal">
-          <div className="modal-content">
-            <input
-              className="tex"
-              type="text"
-              placeholder="Nuevo criterio"
-              value={newCriterioText}
-              onChange={(e) => setNewCriterioText(e.target.value)}
-            />
-            {/* Input para definir el rango del dropdown */}
-            <input
-              type="number"
-              className="dropdown-range-input"
-              placeholder="Rango del dropdown"
-              value={criteriaDropdownRange}
-              onChange={(e) => setCriteriaDropdownRange(e.target.value)}
-              min="0"
-              step="1"
-            />
-            <button
-              className="add"
-              onClick={() => handleAddCriterio(newCriterioText)}
-            >
-              Agregar
-            </button>
-            <button
-              className="close-button "
-              onClick={() => setShowModalId(null)}
-            >
-              <BsXCircleFill />
-            </button>{" "}
-            {/* Botón para cerrar el modal */}
-          </div>
-        </div>
-      )}
-    </>
-  );
-};
-
-export default InformacionBasica;
+        </>
+      );
+    };
+    
+    export default InformacionBasica;
+    
