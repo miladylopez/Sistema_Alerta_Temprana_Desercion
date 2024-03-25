@@ -122,10 +122,17 @@ body {
     padding: 0.4rem;
     border-radius: 10px;
     font-size: 1rem;
-    }
-    
+}
+
 .edith-sub{
     padding: 1rem;
-    width: 55rem;
-    height: 10rem;
+    width: 28rem;
+    height: 15rem;
+}
+
+.edith-sub-add{
+    width: 17.5rem;
+    height:  3.5rem;
+    margin: 1.4rem 0 0;
+    padding: 1.2rem 1rem;
 }

@@ -65,7 +65,7 @@ const Personalidad = () => {
     const criterio = criterios.find(c => c.id === criterioId);
     Swal.fire({
       title: criterio.titulo,
-      html: `<textarea id="swal-input" class="swal2-input">${criterio.contenido.join('\n')}</textarea>`,
+      html: `<textarea id="swal-input" class="edith-sub">${criterio.contenido.join('\n')}</textarea>`,
       showCancelButton: true,
       confirmButtonText: 'Guardar',
       focusConfirm: false,
@@ -116,7 +116,7 @@ const Personalidad = () => {
       title: 'Agregar nuevo criterio',
       html: `
         <input id="swal-input-titulo" class="swal2-input" placeholder="Título del criterio">
-        <textarea id="swal-textarea" class="swal2-input" placeholder="Descripción del criterio"></textarea>
+        <textarea id="swal-textarea" class="edith-sub-add" placeholder="Descripción del criterio"></textarea>
         <input type="number" id="swal-input-puntaje" class="swal2-input" placeholder="Puntaje máximo">
       `,
       showCancelButton: true,
