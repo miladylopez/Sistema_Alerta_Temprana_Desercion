@@ -1,16 +1,23 @@
 const express = require("express");
 const app = express();
-const mysql = require('mysql'); // Importa el paquete mysql
+const mysql = require('mysql2');
 const cors = require("cors");
 
 app.use(cors());
 app.use(express.json());
-
-// Crea una conexión con la base de datos
+/*
 const connection = mysql.createConnection({
-  host: '127.0.0.1',
+  host: 'localhost',
   user: 'root',
   password: 'SistemaAlerta',
+  database: 'sistema_alerta_temprana'
+});
+
+*/
+const connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'root-SAT',
+  password: 'SistemaAlerta12345!',
   database: 'sistema_alerta_temprana'
 });
 
@@ -97,3 +104,5 @@ app.get("/entrevistador", (req, res) => {
 app.listen(3001,()=>{
   console.log("Corriendo en el puerto 3001")
 })
+
+
