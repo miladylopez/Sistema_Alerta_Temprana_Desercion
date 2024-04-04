@@ -90,7 +90,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 7px;
+  margin-top: -7px;
 }
 
 .forward-button,
@@ -114,7 +114,15 @@ body {
   font-size: 2rem;
   align-items: center;
   justify-content: center;
-  margin: 20px;
+  margin: 20px 0;
+}
+
+.save-button{
+  background-color: rgb(46, 38, 168);
+  color: white;
+  border-radius: 50px;
+  border: none;
+  margin: 10px;
 }
 
 /* Estilos CSS para el modal */

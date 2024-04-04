@@ -26,10 +26,10 @@ app.post("/create", (req, res) => {
   const codigo_carnet = req.body.codigo_carnet;
   const email_aspirante = req.body.email_aspirante;
   const telefono_aspirante = req.body.telefono_aspirante;
-  const id_periodo = req.body.id_periodo; 
-  const id_entrevistador = req.body.id_entrevistador; 
+  const id_periodo = req.body.id_periodo;
+  const id_entrevistador = req.body.id_entrevistador;
 
-  connection.query('INSERT INTO aspirantes(nombre_aspirante, codigo_carnet, email_aspirante, telefono_aspirante, id_periodo,id_entrevistador ) VALUES (?, ?, ?, ?, ?, ?)', 
+  connection.query('INSERT INTO aspirantes(nombre_aspirante, codigo_carnet, email_aspirante, telefono_aspirante, id_periodo,id_entrevistador ) VALUES (?, ?, ?, ?, ?, ?)',
   [nombre_aspirante, codigo_carnet, email_aspirante, telefono_aspirante, id_periodo,id_entrevistador], (err, result) => {
     if (err) {
       console.log(err);
@@ -70,7 +70,7 @@ app.delete("/delete/:id_aspirante", (req, res) => {
   const id_aspirante = req.params.id_aspirante;
   
   connection.query('DELETE FROM aspirantes WHERE id_aspirante= ?',id_aspirante,
-   (err, result) => {
+    (err, result) => {
     if (err) {
       console.log(err);
     } else {
