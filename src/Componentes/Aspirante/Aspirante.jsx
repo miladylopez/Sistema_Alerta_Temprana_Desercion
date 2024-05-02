@@ -3,6 +3,9 @@ import '../Aspirante/Aspirante.css';
 import Axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Swal from 'sweetalert2';
+import {
+  MDBIcon,
+} from "mdb-react-ui-kit";
 
 function AgregarAspirante() {
   const [nombre_aspirante, setNombre] = useState('');
@@ -13,6 +16,8 @@ function AgregarAspirante() {
   const [periodo, setPeriodo] = useState([]); 
   const [id_entrevistador, setId_entrevistador] = useState('');
   const [entrevistador, setEntrevistador] = useState([])
+  const [id_programa, setId_programa] = useState([])
+  const [programa, setPrograma] = useState([])
 
   useEffect(() => {
     getPeriodo();
@@ -20,6 +25,10 @@ function AgregarAspirante() {
 
   useEffect(() => {
     getEntevistador();
+  }, []);
+
+  useEffect(() => {
+    getPrograma();
   }, []);
 
   const getEntevistador = () => {
@@ -42,6 +51,16 @@ function AgregarAspirante() {
       });
   };
 
+  const getPrograma = () => {
+    Axios.get("http://localhost:3001/programa")
+      .then((response) => {
+        setPrograma(response.data);
+      })
+      .catch((error) => {
+        console.error('Error al obtener los programas:', error);
+      });
+  };
+
   const add = () => {
     Axios.post("http://localhost:3001/create", {
       nombre_aspirante: nombre_aspirante,
@@ -50,6 +69,7 @@ function AgregarAspirante() {
       telefono_aspirante: telefono_aspirante,
       id_periodo: id_periodo,
       id_entrevistador: id_entrevistador,
+      id_programa: id_programa,
     })
     .then(() => {
       limpiarCampos();
@@ -76,44 +96,55 @@ function AgregarAspirante() {
   return (
     <div className="container">
       <div className="card text-center">
-        <div className="card-header">
-          Añadir Aspirantes
+        <div className="card-header" style={{fontSize: "1.5em", fontFamily:"Roboto, Sans-serif", fontWeight : 600 , color:"#8bb8f1"}}>
+        <a
+            href="/inicio"
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              fontFamily: "Metropolis, Source Sans Pro, sans-serif",
+            }}
+          >
+            <MDBIcon fas icon="arrow-alt-circle-left" size="2x" />
+          </a>
+          FORMULARIO PARA AÑADIR UN ASPIRANTE
         </div>
-        <div className="card-body">
+        <div className="card-body" >
           <div className="input-group mb-3 col-12 ">
-            <span className="input-group-text " id="basic-addon1">Nombre:</span>
+            <span className="input-group-text " id="basic-addon1" style={{ backgroundColor: "#8bb8f1", borderColor: "#2b5784" }}>Nombre:</span>
             <input type="text"
               value={nombre_aspirante}
               onChange={(event) => setNombre(event.target.value)}
-              className="form-control h-150" placeholder="Escribe el nombre del aspirante" aria-label="Username" aria-describedby="basic-addon1" />
+              className="form-control h-150" placeholder="Escribe el nombre del aspirante" aria-label="Username" aria-describedby="basic-addon1" style={{ borderColor: "#2b5784" }} />
           </div>
           <div className="input-group mb-3 ">
-            <span className="input-group-text" id="basic-addon1">Codigo Aspirante: </span>
+            <span className="input-group-text" id="basic-addon1" style={{ backgroundColor: "#8bb8f1",borderColor: "#2b5784" }}>Codigo Aspirante: </span>
             <input type="text"
               value={codigo_carnet}
               onChange={(event) => setCodigoCarnet(event.target.value)}
-              className="form-control h-150" placeholder="Escribe el codigo del aspirante" aria-label="Username" aria-describedby="basic-addon1" />
+              className="form-control h-150" placeholder="Escribe el codigo del aspirante" aria-label="Username" aria-describedby="basic-addon1" style={{ borderColor: "#2b5784" }}/>
           </div>
           <div className="input-group mb-3 ">
-            <span className="input-group-text" id="basic-addon1">Email: </span>
+            <span className="input-group-text" id="basic-addon1" style={{ backgroundColor: "#8bb8f1",borderColor: "#2b5784" }}>Email: </span>
             <input type="text"
               value={email_aspirante}
               onChange={(event) => setEmail(event.target.value)}
-              className="form-control h-150" placeholder="Escribe el Email del aspirante" aria-label="Username" aria-describedby="basic-addon1" />
+              className="form-control h-150" placeholder="Escribe el Email del aspirante" aria-label="Username" aria-describedby="basic-addon1" style={{ borderColor: "#2b5784" }}/>
           </div>
           <div className="input-group mb-3 ">
-            <span className="input-group-text" id="basic-addon1">Numero Telefono: </span>
+            <span className="input-group-text" id="basic-addon1" style={{ backgroundColor: "#8bb8f1",borderColor: "#2b5784" }}>Numero Telefono: </span>
             <input type="text"
               value={telefono_aspirante}
               onChange={(event) => setTelefono(event.target.value)}
-              className="form-control h-150" placeholder="Escribe el numero telefónico del aspirante" aria-label="Username" aria-describedby="basic-addon1" />
+              className="form-control h-150" placeholder="Escribe el numero telefónico del aspirante" aria-label="Username" aria-describedby="basic-addon1" style={{ borderColor: "#2b5784" }}/>
           </div>
           <div className="input-group mb-3">
-            <label className="input-group-text" htmlFor="inputState">Periodo:</label>
+            <label className="input-group-text" htmlFor="inputState" style={{ backgroundColor: "#8bb8f1",borderColor: "#2b5784" }}>Periodo:</label>
             <select 
               id="inputState" 
               className="form-select"
               onChange={(event) => setIdPeriodo(event.target.value)} 
+              style={{ borderColor: "#2b5784" }}
             >
               <option value="">Selecciona el periodo</option>
               {periodo && periodo.map && periodo.map((val) => (
@@ -122,11 +153,12 @@ function AgregarAspirante() {
             </select>
           </div>
           <div className="input-group mb-3">
-            <label className="input-group-text" htmlFor="inputState">Entrevistador:</label>
+            <label className="input-group-text" htmlFor="inputState" style={{ backgroundColor: "#8bb8f1",borderColor: "#2b5784" }}>Entrevistador:</label>
             <select 
               id="inputState" 
               className="form-select"
               onChange={(event) => setId_entrevistador(event.target.value)} 
+              style={{ borderColor: "#2b5784" }}
             >
               <option value="">Selecciona el entrevistador</option>
               {entrevistador && entrevistador.map && entrevistador.map((val) => (
@@ -134,9 +166,23 @@ function AgregarAspirante() {
               ))}
             </select>
           </div>
+          <div className="input-group mb-3">
+            <label className="input-group-text" htmlFor="inputState" style={{ backgroundColor: "#8bb8f1",borderColor: "#2b5784" }}>Programa:</label>
+            <select 
+              id="inputState" 
+              className="form-select"
+              onChange={(event) => setId_programa(event.target.value)} 
+              style={{ borderColor: "#2b5784" }}
+            >
+              <option value="">Selecciona el programa</option>
+              {programa && programa.map && programa.map((val) => (
+                <option key={val.id_programa} value={val.id_programa}>{val.nombre_programa}</option>
+              ))}
+            </select>
+          </div>
         </div>
         <div className="card-footer text-muted">
-          <button className="btn btn-primary" onClick={add}>Guardar Aspirante</button>
+          <button className="btn-guardar-aspirante" onClick={add}>Guardar Aspirante</button>
         </div>
       </div>
     </div>

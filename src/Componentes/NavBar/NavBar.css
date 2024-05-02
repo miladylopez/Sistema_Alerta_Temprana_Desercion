@@ -16,19 +16,19 @@ nav {
 #logos-container {
     display: flex; /* Hace que los elementos se alineen en una sola línea */
     align-items: flex-end;
-    padding-left: 300px; /* Centra verticalmente los elementos en el contenedor */
+    padding-left: 50px; /* Centra verticalmente los elementos en el contenedor */
 }
   
   /* Estilos para los iconos */
-.icon {
+.icon1 {
     font-size: 40px; /* Ajusta el tamaño del icono */
     color: white; /* Color blanco para los iconos */
-    margin-left: 80px; 
+    margin-left: 74px; 
     
 }
 
 .rounded{
     height: 45px;
-    padding-right: 600px;
+    padding-right: 850px;
     padding-left: 1px;
 }

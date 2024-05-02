@@ -12,7 +12,7 @@ export function NavBar() {
   const location = useLocation();
 
   // Verificar si la ubicación es la página de inicio de sesión (Login)
-  const isLoginPage = location.pathname === '/Login';
+  const isLoginPage = location.pathname === '/';
 
   if (isLoginPage) {
     // No mostrar la barra de navegación en la página de inicio de sesión
@@ -22,19 +22,20 @@ export function NavBar() {
   return (
     <>
       <nav>
-        <a href="index.html"></a>
         <div id="logos-container">
-          <img src={unacImage} className="rounded float-start" alt="Logo UNAC"></img>
+        <a href="/Inicio">
+          <img src={unacImage} className="rounded float-start" alt="Logo UNAC" />
+        </a>
           <div>
             <ul id="navbar">
               <li>
-                <NavLink to="/Inicio"><IoHome className="icon" /></NavLink>
+                <NavLink to="/inicio"><IoHome className="icon1" /></NavLink>
               </li>
               <li>
-                <NavLink to="/Usuario"><BsPersonVcardFill className="icon" /></NavLink>
+                <NavLink to="/verAspirante"><BsPersonVcardFill className="icon1" /></NavLink>
               </li>
               <li>
-                <NavLink to="/Login"><IoLogOut className="icon" /></NavLink>
+                <NavLink to="/"><IoLogOut className="icon1" /></NavLink>
               </li>
             </ul>
           </div>

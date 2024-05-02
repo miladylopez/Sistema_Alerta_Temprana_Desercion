@@ -1,0 +1,48 @@
+.centrar-contenido {
+    display: flex;
+    justify-content: center;
+}
+
+.card-personalizado {
+    text-align: center;
+}
+
+.titulo-criterio {
+    font-size: 1.3rem;
+    text-align: left;
+
+}
+
+.boton-guardar-entrevista {
+    width: 230px;
+    height: 50px;
+    border-color: white;
+    color: white;
+    background-color: #2b5784;
+    font-size: 1.3rem;
+    border-radius: 5px;
+    margin-left: 560px;
+
+}
+
+.Botones-añadir {
+    display: flex;
+    align-self: center;
+}
+
+.botones-añadir {
+    width: 150px;
+    height: 50px;
+    border-color: white;
+    color: white;
+    background-color: #2b5784;
+    font-size: 1rem;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.icono {
+    margin-right: 5px;
+}

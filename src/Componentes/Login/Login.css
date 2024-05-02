@@ -1,83 +1,32 @@
+body {
+    background-color: #dedede;
+  }
+
+.fw-normal{
+    font-family: Roboto, Sans-serif
+}
+.inicio{
+    color: #2b5784;
+}
 .login-container {
+    width: 70%; /* Establece el ancho al 100% de la ventana */
+    height: 100vh; /* Establece la altura al 100% de la ventana */
+    overflow: hidden; /* Evita el desplazamiento horizontal y vertical */
+  
+    margin-left: 15%;
+  }
+  .titulo {
     display: flex;
-    justify-content: center; /* Centrar horizontalmente */
-    align-items: center; /* Centrar verticalmente */
-    height: 100vh; /* Altura igual al 100% de la ventana */
-    background-color: #ffffff; /* Color de fondo de la página */
-    margin-left: 200px;
-}
-
-/* Estilos para el formulario de inicio de sesión */
-.login-form {
-    width: 400px; /* Ancho del formulario */
-    padding: 20px; /* Espaciado interno */
-    background-color: #ffffff; /* Color de fondo */
-    border-radius: 8px; /* Bordes redondeados */
-    margin-left: 170px;
-}
-/* input[type="text"], */
-input[type="password"] {
-    width: 90%;
-    height: 30px; /* Ancho del 100% menos el ancho del borde y el relleno */
-    padding: 10px;
-    border: 1px solid #CACED0; /* Borde sólido con color especificado */
-    border-radius: 10px;
-    color: #CACED0; /* Color del texto */
-    font-size: 16px; /* Tamaño de la fuente */
-    margin-bottom: 20px; /* Agrega espacio entre los campos de entrada y el botón de inicio de sesión */
-    margin-left: 290px;
-}
-
-/* Estilos para el botón de iniciar sesión */
-.login-button {
-    width: 95%;
-    height: 50px;/* Ancho igual al 100% del contenedor */
-    padding: 10px; /* Espaciado interno */
-    background-color: #6D6D6D; /* Color de fondo del botón */
-    color: #ffffff; /* Color del texto */
-    font-size: 20px; /* Tamaño de la fuente */
-    border: none; /* Sin borde */
-    border-radius: 10px; /* Bordes redondeados */
-    cursor: pointer; /* Cambio de cursor al pasar el mouse */
-    margin-bottom: 15px; /* Margen inferior */
-    margin-left: 290px;
-}
-
-/* Estilos cuando el mouse pasa sobre el botón */
-.login-button:hover {
-    background-color: #CACED0; /* Cambio de color de fondo al pasar el ratón */
-    color: #000; /* Cambio de color del texto al pasar el ratón */
-}
-
-.forgot-password {
-    display: block; /* Convertir en un elemento de bloque */
- /* Centrar el texto */
-    cursor: pointer; /* Cambio de cursor al pasar el mouse */
-    color: #6D6D6D; /* Color del texto */
-    margin-left: 370px;
-    white-space: nowrap;
-}
-
-  /* Estilos para el texto "¿Olvidaste tu contraseña?" cuando se pasa el mouse sobre él */
-.forgot-password:hover {
-    text-decoration: underline; /* Subrayar el texto al pasar el mouse */
-}
-.ImagenLogin {
-    width: 650px;
-    height: auto;
-    border-radius: 10px;
-    margin-left: 85px;
-    margin-bottom: 15px;
-    margin-top: 100px;
-}
-.cuadro {
-    width: 55%; /* Ancho del cuadro (la mitad de la página) */
-    height: 100vh; /* Altura del cuadro (toda la altura de la ventana) */
-    background-color: #F6A800; /* Color de fondo del cuadro */
-    position: fixed; /* Establece la posición fija */
-    top: 0; /* Alinea el cuadro en la parte superior de la página */
-    left: 0; /* Alinea el cuadro en el borde izquierdo de la página */
-    display: flex;
-    background: linear-gradient(105deg, rgba(246,168,0,1) 70%, rgba(246,168,0,1) 72%, rgba(255,255,255,1) 72%); 
-}
-
+    justify-content: space-between; /* Alinear los elementos al extremo de la palabra */
+    color:#2b5784;
+    margin-left: 130%;
+  }
+  .cerrar {
+    margin-left: 100px; /* Ajustar los márgenes según sea necesario */
+  }
+  .registrarse{
+    background-color:#2b5784;
+    width:250px;
+    align-items: center;
+    margin-left: 20%;
+  }
