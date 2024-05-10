@@ -79,7 +79,7 @@ function AgregarAspirante() {
             "</strong> fue registrado con éxito</i>",
           icon: "success",
         }).then(() => {
-          window.location.href = "/Inicio";
+          window.location.href = "/alertas/inicio";
         });
       })
       .catch((error) => {

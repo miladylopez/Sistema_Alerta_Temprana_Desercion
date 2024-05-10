@@ -45,7 +45,7 @@ const Entrevista = () => {
           icon: "success",
           timer: 2500,
         }).then(() => {
-          window.location.href = "/VerAspirante";
+          window.location.href = "/alertas/verAspirante";
         });
       })
       .catch((error) => {
@@ -165,7 +165,7 @@ const Entrevista = () => {
               showConfirmButton: false,
               timer: 1,
             }).then(() => {
-              window.location.href = `/Entrevista/${id_aspirante}`;
+              window.location.href = `/alertas/Entrevista/${id_aspirante}`;
             });
           })
           .catch((error) => {
