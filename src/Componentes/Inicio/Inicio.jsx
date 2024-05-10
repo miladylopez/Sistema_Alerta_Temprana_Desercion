@@ -127,7 +127,7 @@ const Inicio = () => {
                     <div className="card1-inicio">
                       <div className="card text-center mb-4 boton-aspirante">
                         <a
-                          href="/alertas/aspirante"
+                          href="aspirante"
                           role="button"
                           data-bs-toggle="button"
                         >
@@ -136,7 +136,7 @@ const Inicio = () => {
                               <div className="col d-flex align-items-center">
                                 <div className="icon-añadir-asipirante">
                                   <a
-                                    href="/aspirante"
+                                    href="aspirante"
                                     className="btn1 btn-primary btn-separator"
                                     role="button"
                                     data-bs-toggle="button"
@@ -161,7 +161,7 @@ const Inicio = () => {
                     <div className="card1-inicio">
                       <div className="card text-center mb-4 boton-aspirante">
                         <a
-                          href="/alertas/verAspirante"
+                          href="verAspirante"
                           role="button"
                           data-bs-toggle="button"
                         >
@@ -170,7 +170,7 @@ const Inicio = () => {
                               <div className="col d-flex align-items-center">
                                 <div className="icon-añadir-asipirante2">
                                   <a
-                                    href="/alertas/verAspirante"
+                                    href="verAspirante"
                                     className="btn1 btn-primary2 btn-separator"
                                     role="button"
                                     data-bs-toggle="button"

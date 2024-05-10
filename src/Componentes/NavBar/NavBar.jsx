@@ -23,19 +23,19 @@ export function NavBar() {
     <>
       <nav>
         <div id="logos-container">
-        <a href="/alertas/inicio">
+        <a href="inicio">
           <img src={unacImage} className="rounded float-start" alt="Logo UNAC" />
         </a>
           <div>
             <ul id="navbar">
               <li>
-                <NavLink to="/alertas/inicio"><IoHome className="icon1" /></NavLink>
+                <NavLink to="inicio"><IoHome className="icon1" /></NavLink>
               </li>
               <li>
-                <NavLink to="/alertas/verAspirante"><BsPersonVcardFill className="icon1" /></NavLink>
+                <NavLink to="verAspirante"><BsPersonVcardFill className="icon1" /></NavLink>
               </li>
               <li>
-                <NavLink to="/alertas"><IoLogOut className="icon1" /></NavLink>
+                <NavLink to="alertas"><IoLogOut className="icon1" /></NavLink>
               </li>
             </ul>
           </div>
