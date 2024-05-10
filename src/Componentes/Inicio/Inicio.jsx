@@ -43,7 +43,7 @@ const Inicio = () => {
   };
 
   const añadirperiodo = () => {
-    Axios.post("http://localhost:3001/createperiodo", {
+    Axios.post("https://ingenieria.unac.edu.co/alertas-srv/createperiodo", {
       año: año,
       semestre: semestre,
     })
@@ -51,9 +51,12 @@ const Inicio = () => {
         limpiarCampos();
         Swal.fire({
           title: "<strong> Registro exitoso!!!</strong>",
-          html: "<i>El periodo <strong>" +
-          año + "-" +semestre +
-          "</strong> fue registrado con éxito</i>",
+          html:
+            "<i>El periodo <strong>" +
+            año +
+            "-" +
+            semestre +
+            "</strong> fue registrado con éxito</i>",
           icon: "success",
           showConfirmButton: false,
           timer: 2000,
@@ -66,16 +69,17 @@ const Inicio = () => {
       });
   };
   const añadirprograma = () => {
-    Axios.post("http://localhost:3001/createprograma", {
+    Axios.post("https://ingenieria.unac.edu.co/alertas-srv/createprograma", {
       nombre_programa: nombre_programa,
     })
       .then(() => {
         limpiarCampos();
         Swal.fire({
           title: "<strong> Registro exitoso!!!</strong>",
-          html:  "<i>El programa <strong>" +
-          nombre_programa +
-          "</strong> fue registrado con éxito</i>",
+          html:
+            "<i>El programa <strong>" +
+            nombre_programa +
+            "</strong> fue registrado con éxito</i>",
           icon: "success",
           showConfirmButton: false,
           timer: 2000,
@@ -123,7 +127,7 @@ const Inicio = () => {
                     <div className="card1-inicio">
                       <div className="card text-center mb-4 boton-aspirante">
                         <a
-                          href="/aspirante"
+                          href="/alertas/aspirante"
                           role="button"
                           data-bs-toggle="button"
                         >
@@ -157,7 +161,7 @@ const Inicio = () => {
                     <div className="card1-inicio">
                       <div className="card text-center mb-4 boton-aspirante">
                         <a
-                          href="/verAspirante"
+                          href="/alertas/verAspirante"
                           role="button"
                           data-bs-toggle="button"
                         >
@@ -166,7 +170,7 @@ const Inicio = () => {
                               <div className="col d-flex align-items-center">
                                 <div className="icon-añadir-asipirante2">
                                   <a
-                                    href="/verAspirante"
+                                    href="/alertas/verAspirante"
                                     className="btn1 btn-primary2 btn-separator"
                                     role="button"
                                     data-bs-toggle="button"

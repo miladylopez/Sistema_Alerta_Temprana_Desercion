@@ -16,8 +16,8 @@ const connection = mysql.createConnection({
 /*
 const connection = mysql.createConnection({
   host: 'localhost',
-  user: 'root',
-  password: 'SistemaAlerta',
+  user: 'root-SAT',
+  password: 'SistemaAlerta12345!',
   database: 'sistema_alerta_temprana'
 });
 */

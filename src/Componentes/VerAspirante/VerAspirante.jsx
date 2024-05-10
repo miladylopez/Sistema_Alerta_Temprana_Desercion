@@ -1,5 +1,3 @@
-import React, { useState, useEffect } from "react";
-import "../VerAspirante/VerAspirante.css";
 import Axios from "axios";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import Swal from "sweetalert2";
@@ -36,11 +34,14 @@ const Inicio = () => {
   };
 
   const getNotas_SubCriterios = (id_aspirante) => {
-    Axios.get("http://localhost:3001/sub_criterios-notas", {
-      params: {
-        id_aspirante: id_aspirante,
-      },
-    })
+    Axios.get(
+      "https://ingenieria.unac.edu.co/alertas-srv/sub_criterios-notas",
+      {
+        params: {
+          id_aspirante: id_aspirante,
+        },
+      }
+    )
       .then((response) => {
         console.log("Notas y subcriterios obtenidos:", response.data);
         if (response.data.length === 0) {
@@ -74,7 +75,7 @@ const Inicio = () => {
           const porcentajesCriterios = {};
 
           // Obtener los porcentajes de cada criterio
-          Axios.get("http://localhost:3001/criterios")
+          Axios.get("https://ingenieria.unac.edu.co/alertas-srv/criterios")
             .then((response) => {
               response.data.forEach((criterio) => {
                 porcentajesCriterios[criterio.id_criterio] =
@@ -142,7 +143,7 @@ const Inicio = () => {
   };
 
   const guardar_porcentaje = (resultado, id_aspirante) => {
-    Axios.post("http://localhost:3001/guarda_porcentaje", {
+    Axios.post("https://ingenieria.unac.edu.co/alertas-srv/guarda_porcentaje", {
       porcentaje_probabilidad: resultado,
       id_aspirante: id_aspirante,
     })
@@ -155,15 +156,18 @@ const Inicio = () => {
   };
 
   const getPorcentaje_Probabilidad = (id_aspirante) => {
-    return Axios.get("http://localhost:3001/obtener_porcentaje", {
-      params: {
-        id_aspirante: id_aspirante,
-      },
-    });
+    return Axios.get(
+      "https://ingenieria.unac.edu.co/alertas-srv/obtener_porcentaje",
+      {
+        params: {
+          id_aspirante: id_aspirante,
+        },
+      }
+    );
   };
 
   const Editar_porcentaje = (resultado, id_aspirante) => {
-    Axios.put("http://localhost:3001/update_Porcentaje", {
+    Axios.put("https://ingenieria.unac.edu.co/alertas-srv/update_Porcentaje", {
       porcentaje_probabilidad: resultado,
       id_aspirante: id_aspirante,
     })
@@ -195,7 +199,7 @@ const Inicio = () => {
   };
 
   const update = () => {
-    Axios.put("http://localhost:3001/update", {
+    Axios.put("https://ingenieria.unac.edu.co/alertas-srv/update", {
       id_aspirante: id_aspirante,
       nombre_aspirante: nombre_aspirante,
       codigo_carnet: codigo_carnet,
@@ -236,16 +240,18 @@ const Inicio = () => {
       if (result.isConfirmed) {
         // Eliminar los porcentajes asociados al aspirante
         Axios.delete(
-          `http://localhost:3001/eliminar_porcentaje_desercion/${val.id_aspirante}`
+          `https://ingenieria.unac.edu.co/alertas-srv/eliminar_porcentaje_desercion/${val.id_aspirante}`
         )
           .then(() => {
             // Eliminar los subcriterios asociados al aspirante
             Axios.delete(
-              `http://localhost:3001/eliminar_subcriterios_aspirante/${val.id_aspirante}`
+              `https://ingenieria.unac.edu.co/alertas-srv/eliminar_subcriterios_aspirante/${val.id_aspirante}`
             )
               .then(() => {
                 // Finalmente, eliminar al aspirante
-                Axios.delete(`http://localhost:3001/delete/${val.id_aspirante}`)
+                Axios.delete(
+                  `https://ingenieria.unac.edu.co/alertas-srv/delete/${val.id_aspirante}`
+                )
                   .then(() => {
                     // Actualizar la lista de aspirantes después de eliminar
                     getAspirantes();
@@ -273,10 +279,12 @@ const Inicio = () => {
   };
 
   const getAspirantes = () => {
-    Axios.get("http://localhost:3001/aspirantes").then((response) => {
-      setAspirantes(response.data);
-      setTablaaspirantes(response.data); // Mantén una copia de los aspirantes originales
-    });
+    Axios.get("https://ingenieria.unac.edu.co/alertas-srv/aspirantes").then(
+      (response) => {
+        setAspirantes(response.data);
+        setTablaaspirantes(response.data); // Mantén una copia de los aspirantes originales
+      }
+    );
   };
 
   const handleChange = (e, tipo) => {
@@ -320,7 +328,7 @@ const Inicio = () => {
     setId_aspirante("");
   };
   const getPeriodo = () => {
-    Axios.get("http://localhost:3001/periodo")
+    Axios.get("https://ingenieria.unac.edu.co/alertas-srv/periodo")
       .then((response) => {
         setperiodos(response.data);
       })
@@ -331,7 +339,7 @@ const Inicio = () => {
   getPeriodo();
 
   const getEntevistador = () => {
-    Axios.get("http://localhost:3001/entrevistador")
+    Axios.get("https://ingenieria.unac.edu.co/alertas-srv/entrevistador")
       .then((response) => {
         setEntrevistador(response.data);
       })
@@ -342,7 +350,7 @@ const Inicio = () => {
   getEntevistador();
 
   const getProgramas = () => {
-    Axios.get("http://localhost:3001/programa")
+    Axios.get("https://ingenieria.unac.edu.co/alertas-srv/programa")
       .then((response) => {
         setProgramas(response.data);
       })
@@ -365,7 +373,7 @@ const Inicio = () => {
           }}
         >
           <a
-            href="/inicio"
+            href="/alertas/inicio"
             style={{
               display: "flex",
               justifyContent: "space-between",
@@ -382,7 +390,7 @@ const Inicio = () => {
               placeholder="Búsqueda por programa"
               onChange={(e) => handleChange(e, "programa")}
             />
-             <button className="btn btn-success">
+            <button className="btn btn-success">
               <MDBIcon fas icon="search" />
             </button>
             <input
@@ -443,7 +451,7 @@ const Inicio = () => {
                       <button
                         type="button"
                         onClick={() =>
-                          (window.location.href = `/Entrevista/${val.id_aspirante}`)
+                          (window.location.href = `/alertas/Entrevista/${val.id_aspirante}`)
                         }
                         className="btn btn-outline-primary"
                         title="Entrevista"

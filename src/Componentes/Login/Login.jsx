@@ -36,7 +36,7 @@ const Login = () => {
 
   const add = () => {
     if (contraseña === confirmarContraseña) {
-      Axios.post("http://localhost:3001/createUser", {
+      Axios.post("https://ingenieria.unac.edu.co/alertas-srv/createUser", {
         nombre_entrevistador: nombre_entrevistador,
         email_entrevistador: email_entrevistador,
         contraseña: contraseña,
@@ -72,10 +72,13 @@ const Login = () => {
   const iniciar_sesion = async (event) => {
     event.preventDefault();
     try {
-      const response = await Axios.post("http://localhost:3001/login", {
-        email_entrevistador,
-        contraseña,
-      });
+      const response = await Axios.post(
+        "https://ingenieria.unac.edu.co/alertas-srv/login",
+        {
+          email_entrevistador,
+          contraseña,
+        }
+      );
       console.log(response.data); // Mensaje del servidor
       // Redirigir al usuario a otra página después del inicio de sesión exitoso
       window.location.href = "/inicio";
@@ -174,7 +177,7 @@ const Login = () => {
 
               <Modal isOpen={modalActualizar} className="custom-modal">
                 <ModalHeader>
-                  <div className="titulo" style={{color:"2b5784"}}>
+                  <div className="titulo" style={{ color: "2b5784" }}>
                     <h3>Registrate</h3>
                   </div>
                 </ModalHeader>
@@ -228,7 +231,7 @@ const Login = () => {
                     }
                   />
 
-                  <Button className ="registrarse"  onClick={add}>
+                  <Button className="registrarse" onClick={add}>
                     Registrarme
                   </Button>
                 </ModalBody>

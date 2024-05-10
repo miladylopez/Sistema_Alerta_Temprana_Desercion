@@ -19,7 +19,6 @@ const Entrevista = () => {
   const [modalAñadir, setModalAñadir] = useState(false);
   const [modalAñadirsub, setModalAñadirsub] = useState(false);
   const [modalInfo, setModalInfo] = useState({ title: "", content: "" });
-  const [aspirantes, setAspirantes] = useState({});
   const { id_aspirante } = useParams();
   const [criterios, setCriterios] = useState([]);
   const [sub_criterios, setSub_criterios] = useState([]);
@@ -34,7 +33,7 @@ const Entrevista = () => {
   const [id_criterio, setId_Criterio] = useState("");
 
   const guardarRegistros = () => {
-    Axios.post("http://localhost:3001/Entrevista", {
+    Axios.post("https://ingenieria.unac.edu.co/alertas-srv/Entrevista", {
       nota_sub_criterio_aspirante: nota_sub_criterio_aspirante,
       id_aspirante: id_aspirante,
     })
@@ -80,12 +79,13 @@ const Entrevista = () => {
   useEffect(() => {
     getCriterios();
     getSub_criterios();
-    getAspirantes(id_aspirante);
     checkEntrevistaRegistrada(id_aspirante);
   }, [id_aspirante]);
 
   const checkEntrevistaRegistrada = (id_aspirante) => {
-    Axios.get(`http://localhost:3001/entrevista/${id_aspirante}`)
+    Axios.get(
+      `https://ingenieria.unac.edu.co/alertas-srv/entrevista/${id_aspirante}`
+    )
       .then((response) => {
         // Si existe un registro de entrevista para el estudiante, cargamos las notas
         if (response.data.length > 0) {
@@ -102,15 +102,6 @@ const Entrevista = () => {
       });
   };
 
-  const getAspirantes = (id_aspirante) => {
-    Axios.get(`http://localhost:3001/aspirantes/${id_aspirante}`)
-      .then((response) => {
-        setAspirantes(response.data);
-      })
-      .catch((error) => {
-        console.error("Error al obtener los datos del aspirante:", error);
-      });
-  };
 
   const openModal = (nombre_sub_criterio, descripcion_sub_criterio) => {
     setModalInfo({
@@ -131,7 +122,7 @@ const Entrevista = () => {
     setModalAñadirsub(false);
   };
   const getCriterios = () => {
-    Axios.get("http://localhost:3001/criterios")
+    Axios.get("https://ingenieria.unac.edu.co/alertas-srv/criterios")
       .then((response) => {
         setCriterios(response.data);
       })
@@ -141,7 +132,7 @@ const Entrevista = () => {
   };
 
   const getSub_criterios = () => {
-    Axios.get("http://localhost:3001/sub_criterios")
+    Axios.get("https://ingenieria.unac.edu.co/alertas-srv/sub_criterios")
       .then((response) => {
         setSub_criterios(response.data);
       })
@@ -154,7 +145,7 @@ const Entrevista = () => {
     Swal.fire({
       title: "Confirmar eliminado",
       html:
-        "<i>¿Realmente desea eliminar este criterio? <strong>" + 
+        "<i>¿Realmente desea eliminar este criterio? <strong>" +
         "</strong></i>",
       icon: "warning",
       showCancelButton: true,
@@ -163,9 +154,10 @@ const Entrevista = () => {
       confirmButtonText: "Sí, eliminarlo!",
     }).then((result) => {
       if (result.isConfirmed) {
-        Axios.delete(`http://localhost:3001/deletecritero/${id_criterio}`)
+        Axios.delete(
+          `https://ingenieria.unac.edu.co/alertas-srv/deletecritero/${id_criterio}`
+        )
           .then(() => {
-            getAspirantes();
             limpiarCampos();
             Swal.fire({
               icon: "success",
@@ -183,7 +175,7 @@ const Entrevista = () => {
     });
   };
   const añadircriterio = () => {
-    Axios.post("http://localhost:3001/createcriterio", {
+    Axios.post("https://ingenieria.unac.edu.co/alertas-srv/createcriterio", {
       nombre_criterio: nombre_criterio,
       porcentaje_criterio: porcentaje_criterio,
     })
@@ -199,7 +191,7 @@ const Entrevista = () => {
           showConfirmButton: false,
           timer: 2000,
         }).then(() => {
-          window.location.href = `/Entrevista/${id_aspirante}`;
+          window.location.href = `/alertas/Entrevista/${id_aspirante}`;
         });
       })
       .catch((error) => {
@@ -207,7 +199,7 @@ const Entrevista = () => {
       });
   };
   const añadirsubcriterio = () => {
-    Axios.post("http://localhost:3001/createsubcriterio", {
+    Axios.post("https://ingenieria.unac.edu.co/alertas-srv/createsubcriterio", {
       nombre_sub_criterio: nombre_sub_criterio,
       descripcion_sub_criterio: descripcion_sub_criterio,
       id_criterio: id_criterio,
@@ -226,7 +218,7 @@ const Entrevista = () => {
           showConfirmButton: false,
           timer: 2000,
         }).then(() => {
-          window.location.href = `/Entrevista/${id_aspirante}`;
+          window.location.href = `/alertas/Entrevista/${id_aspirante}`;
         });
       })
       .catch((error) => {
@@ -246,7 +238,7 @@ const Entrevista = () => {
           }}
         >
           <a
-            href="/verAspirante"
+            href="/alertas/verAspirante"
             style={{
               display: "flex",
               justifyContent: "space-between",
@@ -257,13 +249,15 @@ const Entrevista = () => {
           </a>
           Entrevista de Admisión - {id_aspirante}
           <p
-              className="px-3"
-              style={{ color: "hsl(217, 10%, 50.8%)", fontSize: "18px" }}
-            >
-              Entrevista para realizar al aspirante en su proceso de admisión. La entrevista consta de algunos criterios y sub-criterios para asignar nota. 
-              El entrevistador, seleccionará la nota, dependiendo de las respuestas del aspirante. Puede que al seleccionar la nota 0 quede la palabra nota.  
-
-            </p>
+            className="px-3"
+            style={{ color: "hsl(217, 10%, 50.8%)", fontSize: "18px" }}
+          >
+            Entrevista para realizar al aspirante en su proceso de admisión. La
+            entrevista consta de algunos criterios y sub-criterios para asignar
+            nota. El entrevistador, seleccionará la nota, dependiendo de las
+            respuestas del aspirante. Puede que al seleccionar la nota 0 quede
+            la palabra nota.
+          </p>
         </Card.Header>
         <Card.Body>
           {criterios.map((criterio) => (
@@ -276,7 +270,7 @@ const Entrevista = () => {
                   justifyContent: "space-between",
                   backgroundColor: "#9289ca",
                   fontFamily: "Metropolis, Source Sans Pro, sans-serif",
-                  borderColor:"#9289ca"
+                  borderColor: "#9289ca",
                 }}
               >
                 <span>{criterio.nombre_criterio}</span>
@@ -300,7 +294,11 @@ const Entrevista = () => {
                         key={sub_criterio.id_sub_criterio}
                       >
                         <Button
-                          style={{ backgroundColor: "#ffcf6e", width: "200px", borderColor:"#ffcf6e" }}
+                          style={{
+                            backgroundColor: "#ffcf6e",
+                            width: "200px",
+                            borderColor: "#ffcf6e",
+                          }}
                           onClick={() =>
                             openModal(
                               sub_criterio.nombre_sub_criterio,
@@ -309,10 +307,10 @@ const Entrevista = () => {
                           }
                         >
                           {sub_criterio.nombre_sub_criterio}
-                        </Button >
-                          
+                        </Button>
+
                         <select
-                          style={{borderColor:"#ffcf6e" }}
+                          style={{ borderColor: "#ffcf6e" }}
                           className="form-select"
                           value={
                             nota_sub_criterio_aspirante[
