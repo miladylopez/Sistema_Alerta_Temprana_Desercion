@@ -7,10 +7,10 @@ app.use(cors());
 app.use(express.json());
 
 const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'SistemaAlerta',
-  database: 'sistema_alerta_temprana'
+  host: "localhost",
+  user: "root-SAT",
+  password: "SistemaAlerta12345!",
+  database: "sistema_alerta_temprana"
 });
 
 /*
