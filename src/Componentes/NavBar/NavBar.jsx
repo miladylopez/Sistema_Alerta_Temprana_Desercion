@@ -35,7 +35,7 @@ export function NavBar() {
                 <NavLink to="verAspirante"><BsPersonVcardFill className="icon1" /></NavLink>
               </li>
               <li>
-                <NavLink to="alertas"><IoLogOut className="icon1" /></NavLink>
+                <NavLink to="/"><IoLogOut className="icon1" /></NavLink>
               </li>
             </ul>
           </div>

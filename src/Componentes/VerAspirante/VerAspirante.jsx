@@ -452,7 +452,7 @@ const Inicio = () => {
                       <button
                         type="button"
                         onClick={() =>
-                          (window.location.href = `/alertas/Entrevista/${val.id_aspirante}`)
+                          (window.location.href = `entrevista/${val.id_aspirante}`)
                         }
                         className="btn btn-outline-primary"
                         title="Entrevista"

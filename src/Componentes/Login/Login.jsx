@@ -53,7 +53,7 @@ const Login = () => {
             icon: "success",
             timer: 2000,
           }).then(() => {
-            window.location.href = "/alertas";
+            window.location.href = "/";
           });
         })
         .catch((error) => {
@@ -81,7 +81,7 @@ const Login = () => {
       );
       console.log(response.data); // Mensaje del servidor
       // Redirigir al usuario a otra página después del inicio de sesión exitoso
-      window.location.href = "/alertas/inicio";
+      window.location.href = "inicio";
     } catch (error) {
       console.error("Error al iniciar sesión:", error.response.data.message);
       // Mostrar un mensaje de error utilizando SweetAlert
@@ -159,9 +159,8 @@ const Login = () => {
               </Button>
               <p className="mb-5 pb-lg-2" style={{ color: "#393f81" }}>
                 No tienes cuenta?{" "}
-                <a
-                  href="/alertas/inicio"
-                  style={{ color: "#393f81" }}
+                <span
+                  style={{ color: "#393f81", cursor: "pointer" }} // Cambiado a span y añadido cursor:pointer para que parezca un enlace
                   onClick={() =>
                     mostrarModalActualizar({
                       nombre_entrevistador,
@@ -172,7 +171,7 @@ const Login = () => {
                   }
                 >
                   Registrate
-                </a>
+                </span>
               </p>
 
               <Modal isOpen={modalActualizar} className="custom-modal">

@@ -6,6 +6,7 @@ const cors = require("cors");
 app.use(cors());
 app.use(express.json());
 
+/*
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root-SAT",
@@ -13,14 +14,14 @@ const connection = mysql.createConnection({
   database: "sistema_alerta_temprana"
 });
 
-/*
+*/
 const connection = mysql.createConnection({
   host: 'localhost',
-  user: 'root-SAT',
-  password: 'SistemaAlerta12345!',
+  user: 'root',
+  password: 'SistemaAlerta',
   database: 'sistema_alerta_temprana'
 });
-*/
+
 app.post("/createUser", (req, res) => {
   const nombre_entrevistador = req.body.nombre_entrevistador;
   const email_entrevistador = req.body.email_entrevistador;
