@@ -36,7 +36,7 @@ const Login = () => {
 
   const add = () => {
     if (contraseña === confirmarContraseña) {
-      Axios.post("https://ingenieria.unac.edu.co/alertas-srv/createUser", {
+      Axios.post(`${process.env.REACT_APP_API_URL}/createUser`, {
         nombre_entrevistador: nombre_entrevistador,
         email_entrevistador: email_entrevistador,
         contraseña: contraseña,
@@ -53,7 +53,7 @@ const Login = () => {
             icon: "success",
             timer: 2000,
           }).then(() => {
-            window.location.href = "/";
+            window.location.href = "/alertas";
           });
         })
         .catch((error) => {
@@ -73,7 +73,7 @@ const Login = () => {
     event.preventDefault();
     try {
       const response = await Axios.post(
-        "https://ingenieria.unac.edu.co/alertas-srv/login",
+        `${process.env.REACT_APP_API_URL}/login`,
         {
           email_entrevistador,
           contraseña,
@@ -81,7 +81,7 @@ const Login = () => {
       );
       console.log(response.data); // Mensaje del servidor
       // Redirigir al usuario a otra página después del inicio de sesión exitoso
-      window.location.href = "inicio";
+      window.location.href = "/alertas/inicio";
     } catch (error) {
       console.error("Error al iniciar sesión:", error.response.data.message);
       // Mostrar un mensaje de error utilizando SweetAlert
@@ -159,8 +159,9 @@ const Login = () => {
               </Button>
               <p className="mb-5 pb-lg-2" style={{ color: "#393f81" }}>
                 No tienes cuenta?{" "}
-                <span
-                  style={{ color: "#393f81", cursor: "pointer" }} // Cambiado a span y añadido cursor:pointer para que parezca un enlace
+                <a
+                  href="#!"
+                  style={{ color: "#393f81" }}
                   onClick={() =>
                     mostrarModalActualizar({
                       nombre_entrevistador,
@@ -171,7 +172,7 @@ const Login = () => {
                   }
                 >
                   Registrate
-                </span>
+                </a>
               </p>
 
               <Modal isOpen={modalActualizar} className="custom-modal">
@@ -181,59 +182,79 @@ const Login = () => {
                   </div>
                 </ModalHeader>
                 <ModalBody>
-                  <MDBInput
-                    wrapperClass="mb-2"
-                    label="Nombre"
-                    id="form1"
-                    type="text"
-                    value={nombre_entrevistador}
-                    onChange={(event) =>
-                      setNombre_entrevistador(event.target.value)
-                    }
-                  />
-                  <MDBInput
-                    wrapperClass="mb-2"
-                    label="Email"
-                    id="form1"
-                    type="email"
-                    value={email_entrevistador}
-                    onChange={(event) =>
-                      setEmail_entrevistador(event.target.value)
-                    }
-                  />
-                  <MDBInput
-                    wrapperClass="mb-2"
-                    label="Contraseña"
-                    id="form1"
-                    type="password"
-                    value={contraseña}
-                    onChange={(event) => setContraseña(event.target.value)}
-                  />
-                  <MDBInput
-                    wrapperClass="mb-2"
-                    label="Vuelve a escribir la contraseña"
-                    id="form1"
-                    type="password"
-                    value={confirmarContraseña}
-                    onChange={(event) =>
-                      setConfirmarContraseña(event.target.value)
-                    }
-                  />
-                  <MDBInput
-                    wrapperClass="mb-2"
-                    label="Numero de contacto"
-                    id="form1"
-                    type="text"
-                    value={telefono_entrevistador}
-                    onChange={(event) =>
-                      setTelefono_entrevistador(event.target.value)
-                    }
-                  />
+                  <div className="mb-3">
+                    <label htmlFor="form" className="form-label">
+                      Nombre
+                    </label>
+                    <MDBInput
+                      id="form"
+                      type="text"
+                      value={nombre_entrevistador}
+                      onChange={(event) =>
+                        setNombre_entrevistador(event.target.value)
+                      }
+                    />
+                  </div>
+
+                  <div className="mb-3">
+                    <label htmlFor="form1" className="form-label">
+                      Email
+                    </label>
+                    <MDBInput
+                      id="form1"
+                      type="email"
+                      value={email_entrevistador}
+                      onChange={(event) =>
+                        setEmail_entrevistador(event.target.value)
+                      }
+                    />
+                  </div>
+
+                  <div className="mb-3">
+                    <label htmlFor="form2" className="form-label">
+                      Contraseña
+                    </label>
+                    <MDBInput
+                      id="form2"
+                      type="password"
+                      value={contraseña}
+                      onChange={(event) => setContraseña(event.target.value)}
+                    />
+                  </div>
+
+                  <div className="mb-3">
+                    <label htmlFor="form3" className="form-label">
+                      Vuelve a escribir la contraseña
+                    </label>
+                    <MDBInput
+                      id="form3"
+                      type="password"
+                      value={confirmarContraseña}
+                      onChange={(event) =>
+                        setConfirmarContraseña(event.target.value)
+                      }
+                    />
+                  </div>
+
+                  <div className="mb-3">
+                    <label htmlFor="form4" className="form-label">
+                      Numero de contacto
+                    </label>
+                    <MDBInput
+                      id="form4"
+                      type="text"
+                      value={telefono_entrevistador}
+                      onChange={(event) =>
+                        setTelefono_entrevistador(event.target.value)
+                      }
+                    />
+                  </div>
 
                   <Button className="registrarse" onClick={add}>
                     Registrarme
                   </Button>
                 </ModalBody>
+
                 <ModalFooter>
                   <Button
                     className="btn btn-danger"

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import "../Inicio/Inicio.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -7,6 +7,7 @@ import calendario from "../../Imagenes/calendario.avif";
 import programa from "../../Imagenes/programa.jpg";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import Swal from "sweetalert2";
+import { MdDeleteForever } from "react-icons/md";
 
 import {
   MDBContainer,
@@ -22,20 +23,63 @@ import {
 const Inicio = () => {
   const [mostrarModal, setMostrarModal] = useState(false);
   const [mostrarprograma, setMostrarprograma] = useState(false);
+  const [mostrarPeriodo, setMostrarPeriodo] = useState(false);
   const [año, setAño] = useState("");
   const [semestre, setSemestre] = useState("");
   const [nombre_programa, setNombre_programa] = useState("");
+  const [programas, setProgramas] = useState([]); // Estado para almacenar los programas
+  const [periodos, setPeriodos] = useState([]); // Estado para almacenar los periodos
+
+  // Función para obtener los programas desde el backend
+  const fetchProgramas = async () => {
+    try {
+      const response = await Axios.get(
+        `${process.env.REACT_APP_API_URL}/programa`
+      );
+      setProgramas(response.data);
+    } catch (error) {
+      console.error("Error al obtener los programas:", error);
+    }
+  };
+
+  const fetchPeriodos = async () => {
+    try {
+      const response = await Axios.get(
+        `${process.env.REACT_APP_API_URL}/periodo`
+      );
+      setPeriodos(response.data);
+    } catch (error) {
+      console.error("Error al obtener los periodos:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (mostrarprograma) {
+      fetchProgramas();
+    }
+  }, [mostrarprograma]);
+
+  useEffect(() => {
+    if (mostrarPeriodo) {
+      fetchPeriodos();
+    }
+  }, [mostrarPeriodo]);
 
   const openModalañadi = () => {
     setMostrarModal(true);
+    setMostrarPeriodo(true);
   };
+
   const openModalprograma = () => {
     setMostrarprograma(true);
   };
+
   const cerrarModal = () => {
     setMostrarModal(false);
     setMostrarprograma(false);
+    setMostrarPeriodo(false);
   };
+
   const limpiarCampos = () => {
     setAño("");
     setSemestre("");
@@ -43,7 +87,7 @@ const Inicio = () => {
   };
 
   const añadirperiodo = () => {
-    Axios.post("https://ingenieria.unac.edu.co/alertas-srv/createperiodo", {
+    Axios.post(`${process.env.REACT_APP_API_URL}/createperiodo`, {
       año: año,
       semestre: semestre,
     })
@@ -65,11 +109,12 @@ const Inicio = () => {
         });
       })
       .catch((error) => {
-        console.error("Error al agregar el aspirante:", error);
+        console.error("Error al agregar el periodo:", error);
       });
   };
+
   const añadirprograma = () => {
-    Axios.post("https://ingenieria.unac.edu.co/alertas-srv/createprograma", {
+    Axios.post(`${process.env.REACT_APP_API_URL}/createprograma`, {
       nombre_programa: nombre_programa,
     })
       .then(() => {
@@ -88,9 +133,87 @@ const Inicio = () => {
         });
       })
       .catch((error) => {
-        console.error("Error al agregar el aspirante:", error);
+        console.error("Error al agregar el programa:", error);
       });
   };
+
+  const eliminarPrograma = (id_programa) => {
+    console.log("ID del programa a eliminar:", id_programa);
+    Axios.delete(
+      `${process.env.REACT_APP_API_URL}/deleteprograma/${id_programa}`
+    )
+      .then((response) => {
+        Swal.fire({
+          title: "¡Eliminado!",
+          text: "El programa ha sido eliminado correctamente.",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 2000,
+        });
+        fetchProgramas();
+      })
+      .catch((error) => {
+        console.error("Error al eliminar el programa:", error);
+        if (error.response && error.response.status === 500) {
+          // Error específico cuando hay una restricción de clave externa
+          Swal.fire({
+            title: "Error al eliminar el programa",
+            text:
+              "Intentas eliminar un programa asignado a un aspirante. Por favor, edita el registro del aspirante primero y después puedes eliminar el programa.",
+            icon: "error",
+            confirmButtonText: "OK",
+          });
+        } else {
+          // Otro tipo de errores
+          Swal.fire({
+            title: "Error",
+            text: "Se ha producido un error al eliminar el programa.",
+            icon: "error",
+            confirmButtonText: "OK",
+          });
+        }
+      });
+  };
+  
+
+  const eliminarPeriodo = (id_periodo) => {
+    console.log("ID del periodo a eliminar:", id_periodo);
+    Axios.delete(
+      `${process.env.REACT_APP_API_URL}/deleteperiodo/${id_periodo}`
+    )
+      .then((response) => {
+        Swal.fire({
+          title: "¡Eliminado!",
+          text: "El periodo ha sido eliminado correctamente.",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 2000,
+        });
+        fetchPeriodos();
+      })
+      .catch((error) => {
+        console.error("Error al eliminar el periodo:", error);
+        if (error.response && error.response.status === 500) {
+          // Error específico cuando hay una restricción de clave externa
+          Swal.fire({
+            title: "Error al eliminar el periodo",
+            text:
+              "Intentas eliminar un periodo asignado a un estudiante. Por favor, edita el registro del aspirante primero y después puedes eliminar el periodo.",
+            icon: "error",
+            confirmButtonText: "OK",
+          });
+        } else {
+          // Otro tipo de errores
+          Swal.fire({
+            title: "Error",
+            text: "Se ha producido un error al eliminar el periodo.",
+            icon: "error",
+            confirmButtonText: "OK",
+          });
+        }
+      });
+  };  
+
   return (
     <MDBContainer fluid className="p-4">
       <MDBRow>
@@ -127,7 +250,7 @@ const Inicio = () => {
                     <div className="card1-inicio">
                       <div className="card text-center mb-4 boton-aspirante">
                         <a
-                          href="aspirante"
+                          href="/alertas/aspirante"
                           role="button"
                           data-bs-toggle="button"
                         >
@@ -136,7 +259,7 @@ const Inicio = () => {
                               <div className="col d-flex align-items-center">
                                 <div className="icon-añadir-asipirante">
                                   <a
-                                    href="aspirante"
+                                    href="/alertas/aspirante"
                                     className="btn1 btn-primary btn-separator"
                                     role="button"
                                     data-bs-toggle="button"
@@ -161,7 +284,7 @@ const Inicio = () => {
                     <div className="card1-inicio">
                       <div className="card text-center mb-4 boton-aspirante">
                         <a
-                          href="verAspirante"
+                          href="/alertas/verAspirante"
                           role="button"
                           data-bs-toggle="button"
                         >
@@ -170,7 +293,7 @@ const Inicio = () => {
                               <div className="col d-flex align-items-center">
                                 <div className="icon-añadir-asipirante2">
                                   <a
-                                    href="verAspirante"
+                                    href="/alertas/verAspirante"
                                     className="btn1 btn-primary2 btn-separator"
                                     role="button"
                                     data-bs-toggle="button"
@@ -304,6 +427,28 @@ const Inicio = () => {
                   style={{ borderColor: "#00aba9" }}
                 />
               </div>
+              <div className="mt-3">
+                <h5>Periodos existentes:</h5>
+                <ul className="list-group">
+                  {periodos.map((periodos) => (
+                    <li
+                      key={periodos.id_periodo}
+                      className="list-group-item d-flex justify-content-between align-items-center"
+                    >
+                      {periodos.año}-{periodos.semestre}
+                      <button
+                        type="button"
+                        onClick={() => eliminarPeriodo(periodos.id_periodo)}
+                        className="btn btn-outline-danger"
+                        title="Eliminar"
+                      >
+                        <MdDeleteForever size="1.5rem" />
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
             </div>
           </div>
         </ModalBody>
@@ -340,10 +485,31 @@ const Inicio = () => {
                   value={nombre_programa}
                   onChange={(event) => setNombre_programa(event.target.value)}
                   className="form-control h-150 w-100px"
-                  placeholder="Escribe el sistema. Ej: sistemas"
+                  placeholder="Escribe el programa. Ej: sistemas"
                   aria-describedby="basic-addon1"
                   style={{ borderColor: "#f47f7f" }}
                 />
+              </div>
+              <div className="mt-3">
+                <h5>Programas existentes:</h5>
+                <ul className="list-group">
+                  {programas.map((programa) => (
+                    <li
+                      key={programa.id_programa}
+                      className="list-group-item d-flex justify-content-between align-items-center"
+                    >
+                      {programa.nombre_programa}
+                      <button
+                        type="button"
+                        onClick={() => eliminarPrograma(programa.id_programa)}
+                        className="btn btn-outline-danger"
+                        title="Eliminar"
+                      >
+                        <MdDeleteForever size="1.5rem" />
+                      </button>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           </div>

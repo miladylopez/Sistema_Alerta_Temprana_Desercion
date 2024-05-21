@@ -33,23 +33,50 @@ const Entrevista = () => {
   const [id_criterio, setId_Criterio] = useState("");
 
   const guardarRegistros = () => {
-    Axios.post("https://ingenieria.unac.edu.co/alertas-srv/Entrevista", {
-      nota_sub_criterio_aspirante: nota_sub_criterio_aspirante,
-      id_aspirante: id_aspirante,
-    })
+    const requests = Object.entries(nota_sub_criterio_aspirante).map(
+      ([id_sub_criterio, nota_sub_criterio]) => {
+        return Axios.get(
+          `${process.env.REACT_APP_API_URL}/entrevista/${id_aspirante}`
+        ).then((response) => {
+          const registroExistente = response.data.find(
+            (registro) => registro.id_sub_criterio === parseInt(id_sub_criterio)
+          );
+  
+          if (registroExistente) {
+            // Actualizar registro existente
+            return Axios.put(
+              `${process.env.REACT_APP_API_URL}/update_nota`,
+              {
+                nota_sub_criterio_aspirante: nota_sub_criterio,
+                id_sub_criterio: id_sub_criterio,
+                id_aspirante: id_aspirante,
+              }
+            );
+          } else {
+            // Crear nuevo registro
+            return Axios.post(`${process.env.REACT_APP_API_URL}/Entrevista`, {
+              nota_sub_criterio_aspirante: { [id_sub_criterio]: nota_sub_criterio },
+              id_aspirante: id_aspirante,
+            });
+          }
+        });
+      }
+    );
+  
+    Promise.all(requests)
       .then(() => {
         limpiarCampos();
         Swal.fire({
-          title: "<strong> Registro exitoso!!!</strong>",
+          title: "<strong>Registro exitoso!!!</strong>",
           html: "<i>La entrevista está almacenada en la base de datos</i>",
           icon: "success",
           timer: 2500,
         }).then(() => {
-          window.location.href = "/alertas/verAspirante";
+          (window.location.href = `/alertas/entrevista/${id_aspirante}`);
         });
       })
       .catch((error) => {
-        console.error("Error al agregar el aspirante:", error);
+        console.error("Error al guardar los registros:", error);
       });
   };
 
@@ -79,13 +106,12 @@ const Entrevista = () => {
   useEffect(() => {
     getCriterios();
     getSub_criterios();
+    getAspirantes(id_aspirante);
     checkEntrevistaRegistrada(id_aspirante);
   }, [id_aspirante]);
 
   const checkEntrevistaRegistrada = (id_aspirante) => {
-    Axios.get(
-      `https://ingenieria.unac.edu.co/alertas-srv/entrevista/${id_aspirante}`
-    )
+    Axios.get(`${process.env.REACT_APP_API_URL}/entrevista/${id_aspirante}`)
       .then((response) => {
         // Si existe un registro de entrevista para el estudiante, cargamos las notas
         if (response.data.length > 0) {
@@ -102,6 +128,14 @@ const Entrevista = () => {
       });
   };
 
+  const getAspirantes = (id_aspirante) => {
+    Axios.get(`${process.env.REACT_APP_API_URL}/aspirantes/${id_aspirante}`)
+      .then((response) => {
+      })
+      .catch((error) => {
+        console.error("Error al obtener los datos del aspirante:", error);
+      });
+  };
 
   const openModal = (nombre_sub_criterio, descripcion_sub_criterio) => {
     setModalInfo({
@@ -122,7 +156,7 @@ const Entrevista = () => {
     setModalAñadirsub(false);
   };
   const getCriterios = () => {
-    Axios.get("https://ingenieria.unac.edu.co/alertas-srv/criterios")
+    Axios.get(`${process.env.REACT_APP_API_URL}/criterios`)
       .then((response) => {
         setCriterios(response.data);
       })
@@ -132,7 +166,7 @@ const Entrevista = () => {
   };
 
   const getSub_criterios = () => {
-    Axios.get("https://ingenieria.unac.edu.co/alertas-srv/sub_criterios")
+    Axios.get(`${process.env.REACT_APP_API_URL}/sub_criterios`)
       .then((response) => {
         setSub_criterios(response.data);
       })
@@ -155,9 +189,10 @@ const Entrevista = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         Axios.delete(
-          `https://ingenieria.unac.edu.co/alertas-srv/deletecritero/${id_criterio}`
+          `${process.env.REACT_APP_API_URL}/deletecritero/${id_criterio}`
         )
           .then(() => {
+            getAspirantes();
             limpiarCampos();
             Swal.fire({
               icon: "success",
@@ -175,7 +210,7 @@ const Entrevista = () => {
     });
   };
   const añadircriterio = () => {
-    Axios.post("https://ingenieria.unac.edu.co/alertas-srv/createcriterio", {
+    Axios.post(`${process.env.REACT_APP_API_URL}/createcriterio`, {
       nombre_criterio: nombre_criterio,
       porcentaje_criterio: porcentaje_criterio,
     })
@@ -199,7 +234,7 @@ const Entrevista = () => {
       });
   };
   const añadirsubcriterio = () => {
-    Axios.post("https://ingenieria.unac.edu.co/alertas-srv/createsubcriterio", {
+    Axios.post(`${process.env.REACT_APP_API_URL}/createsubcriterio`, {
       nombre_sub_criterio: nombre_sub_criterio,
       descripcion_sub_criterio: descripcion_sub_criterio,
       id_criterio: id_criterio,
@@ -298,6 +333,7 @@ const Entrevista = () => {
                             backgroundColor: "#ffcf6e",
                             width: "200px",
                             borderColor: "#ffcf6e",
+                            color: "black"
                           }}
                           onClick={() =>
                             openModal(
@@ -465,7 +501,7 @@ const Entrevista = () => {
         </ModalFooter>
       </Modal>
       <Modal isOpen={modalAñadirsub} className="custom-modal">
-        <ModalHeader>AÑADE UN CRITERIO NUEVO</ModalHeader>
+        <ModalHeader>AÑADE UN SUB CRITERIO NUEVO</ModalHeader>
         <ModalBody>
           <div className="input-group mb-3 col-12 ">
             <span
@@ -480,7 +516,7 @@ const Entrevista = () => {
               value={nombre_sub_criterio}
               onChange={(event) => setNombre_sub_criterio(event.target.value)}
               className="form-control h-150"
-              placeholder="Escribe el nombre del criterio"
+              placeholder="Escribe el nombre del sub-criterio"
               aria-label="Username"
               aria-describedby="basic-addon1"
               style={{ borderColor: "#00ca99" }}
@@ -501,7 +537,7 @@ const Entrevista = () => {
                 setDescripcion_sub_criterio(event.target.value)
               }
               className="form-control h-150"
-              placeholder="Escribe el porcentaje, solo el número"
+              placeholder="Escribe la decripción del subcriterio"
               aria-label="Username"
               aria-describedby="basic-addon1"
               style={{ borderColor: "#00ca99" }}
@@ -544,7 +580,7 @@ const Entrevista = () => {
               value={nota_minima}
               onChange={(event) => setNota_minima(event.target.value)}
               className="form-control h-150"
-              placeholder="Escribe el porcentaje, solo el número"
+              placeholder="Escribe la nota minima"
               aria-label="Username"
               aria-describedby="basic-addon1"
               style={{ borderColor: "#00ca99" }}
@@ -556,14 +592,14 @@ const Entrevista = () => {
               id="basic-addon1"
               style={{ backgroundColor: "#00ca99", width: "200px" }}
             >
-              Porcentaje Criterio:
+              Nota Maxima:
             </span>
             <input
               type="text"
               value={nota_maxima}
               onChange={(event) => setNota_maxima(event.target.value)}
               className="form-control h-150"
-              placeholder="Escribe el porcentaje, solo el número"
+              placeholder="Escribe la nota maxima"
               aria-label="Username"
               aria-describedby="basic-addon1"
               style={{ borderColor: "#00ca99" }}

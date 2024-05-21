@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "../VerAspirante/VerAspirante.css";
 import Axios from "axios";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import Swal from "sweetalert2";
@@ -35,14 +36,11 @@ const Inicio = () => {
   };
 
   const getNotas_SubCriterios = (id_aspirante) => {
-    Axios.get(
-      "https://ingenieria.unac.edu.co/alertas-srv/sub_criterios-notas",
-      {
-        params: {
-          id_aspirante: id_aspirante,
-        },
-      }
-    )
+    Axios.get(`${process.env.REACT_APP_API_URL}/sub_criterios-notas`, {
+      params: {
+        id_aspirante: id_aspirante,
+      },
+    })
       .then((response) => {
         console.log("Notas y subcriterios obtenidos:", response.data);
         if (response.data.length === 0) {
@@ -58,25 +56,25 @@ const Inicio = () => {
           // Filtrar subcriterios por grupo
           const subcriterios = response.data;
           const grupo1 = subcriterios.filter(
-            (item) => item.id_sub_criterio >= 12 && item.id_sub_criterio <= 21
+            (item) => item.id_sub_criterio >= 10 && item.id_sub_criterio <= 19
           );
           const grupo2 = subcriterios.filter(
-            (item) => item.id_sub_criterio === 1 || item.id_sub_criterio === 2
+            (item) => item.id_sub_criterio === 5 || item.id_sub_criterio === 6
           );
           const grupo3 = subcriterios.filter(
-            (item) => item.id_sub_criterio >= 3 && item.id_sub_criterio <= 5
+            (item) => item.id_sub_criterio >= 7 && item.id_sub_criterio <= 9
           );
           const grupo4 = subcriterios.filter(
-            (item) => item.id_sub_criterio >= 6 && item.id_sub_criterio <= 8
+            (item) => item.id_sub_criterio >= 20 && item.id_sub_criterio <= 22
           );
           const grupo5 = subcriterios.filter(
-            (item) => item.id_sub_criterio >= 9 && item.id_sub_criterio <= 11
+            (item) => item.id_sub_criterio >= 23 && item.id_sub_criterio <= 25
           );
 
           const porcentajesCriterios = {};
 
           // Obtener los porcentajes de cada criterio
-          Axios.get("https://ingenieria.unac.edu.co/alertas-srv/criterios")
+          Axios.get(`${process.env.REACT_APP_API_URL}/criterios`)
             .then((response) => {
               response.data.forEach((criterio) => {
                 porcentajesCriterios[criterio.id_criterio] =
@@ -85,16 +83,16 @@ const Inicio = () => {
 
               // Calcular la fórmula
               const resultado =
-                (sumarNotas(grupo1) / porcentajesCriterios[1]) *
-                  porcentajesCriterios[1] +
-                (sumarNotas(grupo2) / porcentajesCriterios[2]) *
-                  porcentajesCriterios[2] +
-                (sumarNotas(grupo3) / porcentajesCriterios[3]) *
+                (sumarNotas(grupo1) / porcentajesCriterios[3]) *
                   porcentajesCriterios[3] +
-                (sumarNotas(grupo4) / porcentajesCriterios[4]) *
-                  porcentajesCriterios[4] +
-                (sumarNotas(grupo5) / porcentajesCriterios[5]) *
-                  porcentajesCriterios[5];
+                (sumarNotas(grupo2) / porcentajesCriterios[9]) *
+                  porcentajesCriterios[9] +
+                (sumarNotas(grupo3) / porcentajesCriterios[5]) *
+                  porcentajesCriterios[5] +
+                (sumarNotas(grupo4) / porcentajesCriterios[6]) *
+                  porcentajesCriterios[6] +
+                (sumarNotas(grupo5) / porcentajesCriterios[7]) *
+                  porcentajesCriterios[7];
 
               // Mostrar resultado en un Swal
               let icono;
@@ -144,7 +142,7 @@ const Inicio = () => {
   };
 
   const guardar_porcentaje = (resultado, id_aspirante) => {
-    Axios.post("https://ingenieria.unac.edu.co/alertas-srv/guarda_porcentaje", {
+    Axios.post(`${process.env.REACT_APP_API_URL}/guarda_porcentaje`, {
       porcentaje_probabilidad: resultado,
       id_aspirante: id_aspirante,
     })
@@ -157,18 +155,15 @@ const Inicio = () => {
   };
 
   const getPorcentaje_Probabilidad = (id_aspirante) => {
-    return Axios.get(
-      "https://ingenieria.unac.edu.co/alertas-srv/obtener_porcentaje",
-      {
-        params: {
-          id_aspirante: id_aspirante,
-        },
-      }
-    );
+    return Axios.get(`${process.env.REACT_APP_API_URL}/obtener_porcentaje`, {
+      params: {
+        id_aspirante: id_aspirante,
+      },
+    });
   };
 
   const Editar_porcentaje = (resultado, id_aspirante) => {
-    Axios.put("https://ingenieria.unac.edu.co/alertas-srv/update_Porcentaje", {
+    Axios.put(`${process.env.REACT_APP_API_URL}/update_Porcentaje`, {
       porcentaje_probabilidad: resultado,
       id_aspirante: id_aspirante,
     })
@@ -200,7 +195,7 @@ const Inicio = () => {
   };
 
   const update = () => {
-    Axios.put("https://ingenieria.unac.edu.co/alertas-srv/update", {
+    Axios.put(`${process.env.REACT_APP_API_URL}/update`, {
       id_aspirante: id_aspirante,
       nombre_aspirante: nombre_aspirante,
       codigo_carnet: codigo_carnet,
@@ -241,17 +236,17 @@ const Inicio = () => {
       if (result.isConfirmed) {
         // Eliminar los porcentajes asociados al aspirante
         Axios.delete(
-          `https://ingenieria.unac.edu.co/alertas-srv/eliminar_porcentaje_desercion/${val.id_aspirante}`
+          `${process.env.REACT_APP_API_URL}/eliminar_porcentaje_desercion/${val.id_aspirante}`
         )
           .then(() => {
             // Eliminar los subcriterios asociados al aspirante
             Axios.delete(
-              `https://ingenieria.unac.edu.co/alertas-srv/eliminar_subcriterios_aspirante/${val.id_aspirante}`
+              `${process.env.REACT_APP_API_URL}/eliminar_subcriterios_aspirante/${val.id_aspirante}`
             )
               .then(() => {
                 // Finalmente, eliminar al aspirante
                 Axios.delete(
-                  `https://ingenieria.unac.edu.co/alertas-srv/delete/${val.id_aspirante}`
+                  `${process.env.REACT_APP_API_URL}/delete/${val.id_aspirante}`
                 )
                   .then(() => {
                     // Actualizar la lista de aspirantes después de eliminar
@@ -280,7 +275,7 @@ const Inicio = () => {
   };
 
   const getAspirantes = () => {
-    Axios.get("https://ingenieria.unac.edu.co/alertas-srv/aspirantes").then(
+    Axios.get(`${process.env.REACT_APP_API_URL}/aspirantes`).then(
       (response) => {
         setAspirantes(response.data);
         setTablaaspirantes(response.data); // Mantén una copia de los aspirantes originales
@@ -329,7 +324,7 @@ const Inicio = () => {
     setId_aspirante("");
   };
   const getPeriodo = () => {
-    Axios.get("https://ingenieria.unac.edu.co/alertas-srv/periodo")
+    Axios.get(`${process.env.REACT_APP_API_URL}/periodo`)
       .then((response) => {
         setperiodos(response.data);
       })
@@ -340,7 +335,7 @@ const Inicio = () => {
   getPeriodo();
 
   const getEntevistador = () => {
-    Axios.get("https://ingenieria.unac.edu.co/alertas-srv/entrevistador")
+    Axios.get(`${process.env.REACT_APP_API_URL}/entrevistador`)
       .then((response) => {
         setEntrevistador(response.data);
       })
@@ -351,7 +346,7 @@ const Inicio = () => {
   getEntevistador();
 
   const getProgramas = () => {
-    Axios.get("https://ingenieria.unac.edu.co/alertas-srv/programa")
+    Axios.get(`${process.env.REACT_APP_API_URL}/programa`)
       .then((response) => {
         setProgramas(response.data);
       })
@@ -450,9 +445,13 @@ const Inicio = () => {
                         <MdDeleteForever size="2rem" />
                       </button>
                       <button
+                        style={{
+                          color: "#9289ca",
+                          borderColor: "#9289ca",
+                        }}
                         type="button"
                         onClick={() =>
-                          (window.location.href = `entrevista/${val.id_aspirante}`)
+                          (window.location.href = `/alertas/entrevista/${val.id_aspirante}`)
                         }
                         className="btn btn-outline-primary"
                         title="Entrevista"

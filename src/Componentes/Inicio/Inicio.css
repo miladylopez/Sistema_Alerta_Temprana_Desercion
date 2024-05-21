@@ -173,3 +173,7 @@ body{
   align-items: center;
   align-self: center;
 }
+.custom-modal .modal-body {
+  max-height: 500px; /* Ajusta esta altura según tus necesidades */
+  overflow-y: auto;
+}

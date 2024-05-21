@@ -27,36 +27,30 @@
 .encabezado-tabla {
     background-color: #c28088;
 }
+  
+table{
+  min-width: 500px;
+}
 
 .inputBuscar {
-    width: 50% !important;
+  width: 50%; /* Porcentaje del ancho del contenedor */
 }
 
 .containerInput {
-    padding-bottom: 15px;
-    padding-top: 15px;
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 15px;
+  padding-top: 15px;
 }
-  .inputBuscar{
-    width: 50% !important;
-  }
-  
-  table{
-    min-width: 500px;
-  }
-  
-  .containerInput{
+
+@media (max-width: 988px) {
+  .containerInput {
+    flex-direction: column; /* Apilar elementos en dispositivos más pequeños */
     align-items: flex-end;
-    right: 0;
-    display: flex;
-    justify-content: flex-end;
-    padding-bottom: 25px;
   }
-  
-  @media (max-width: 988px){
-    
-    .inputBuscar{
-      width: 100% !important;
-    }
-  
+
+  .inputBuscar {
+    width: 100%; /* Ocupar todo el ancho en dispositivos más pequeños */
+    margin-bottom: 10px; /* Espacio entre barras de búsqueda en dispositivos más pequeños */
   }
-  
+}

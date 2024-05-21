@@ -30,7 +30,7 @@ function AgregarAspirante() {
   }, []);
 
   const getEntevistador = () => {
-    Axios.get("https://ingenieria.unac.edu.co/alertas-srv/entrevistador")
+    Axios.get(`${process.env.REACT_APP_API_URL}/entrevistador`)
       .then((response) => {
         setEntrevistador(response.data);
       })
@@ -40,7 +40,7 @@ function AgregarAspirante() {
   };
 
   const getPeriodo = () => {
-    Axios.get("https://ingenieria.unac.edu.co/alertas-srv/periodo")
+    Axios.get(`${process.env.REACT_APP_API_URL}/periodo`)
       .then((response) => {
         setPeriodo(response.data);
       })
@@ -50,7 +50,7 @@ function AgregarAspirante() {
   };
 
   const getPrograma = () => {
-    Axios.get("https://ingenieria.unac.edu.co/alertas-srv/programa")
+    Axios.get(`${process.env.REACT_APP_API_URL}/programa`)
       .then((response) => {
         setPrograma(response.data);
       })
@@ -60,7 +60,7 @@ function AgregarAspirante() {
   };
 
   const add = () => {
-    Axios.post("https://ingenieria.unac.edu.co/alertas-srv/create", {
+    Axios.post(`${process.env.REACT_APP_API_URL}/create`, {
       nombre_aspirante: nombre_aspirante,
       codigo_carnet: codigo_carnet,
       email_aspirante: email_aspirante,
