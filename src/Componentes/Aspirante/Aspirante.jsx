@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import "../Aspirante/Aspirante.css";
 import Axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Swal from "sweetalert2";
 import { MDBIcon } from "mdb-react-ui-kit";
+import React, { useEffect, useState } from "react";
+import Swal from "sweetalert2";
+import "../Aspirante/Aspirante.css";
 
 function AgregarAspirante() {
   const [nombre_aspirante, setNombre] = useState("");
@@ -144,14 +144,14 @@ function AgregarAspirante() {
               id="basic-addon1"
               style={{ backgroundColor: "#8bb8f1", borderColor: "#2b5784" }}
             >
-              Codigo Aspirante:{" "}
+              Código Aspirante:{" "}
             </span>
             <input
               type="text"
               value={codigo_carnet}
               onChange={(event) => setCodigoCarnet(event.target.value)}
               className="form-control h-150"
-              placeholder="Escribe el codigo del aspirante"
+              placeholder="Escribe el código del aspirante"
               aria-label="Username"
               aria-describedby="basic-addon1"
               style={{ borderColor: "#2b5784" }}
@@ -182,14 +182,14 @@ function AgregarAspirante() {
               id="basic-addon1"
               style={{ backgroundColor: "#8bb8f1", borderColor: "#2b5784" }}
             >
-              Numero Telefono:{" "}
+              Número Teléfono:{" "}
             </span>
             <input
               type="text"
               value={telefono_aspirante}
               onChange={(event) => setTelefono(event.target.value)}
               className="form-control h-150"
-              placeholder="Escribe el numero telefónico del aspirante"
+              placeholder="Escribe el número telefónico del aspirante"
               aria-label="Username"
               aria-describedby="basic-addon1"
               style={{ borderColor: "#2b5784" }}
@@ -201,7 +201,7 @@ function AgregarAspirante() {
               htmlFor="inputState"
               style={{ backgroundColor: "#8bb8f1", borderColor: "#2b5784" }}
             >
-              Periodo:
+              Período:
             </label>
             <select
               id="inputState"
@@ -209,7 +209,7 @@ function AgregarAspirante() {
               onChange={(event) => setIdPeriodo(event.target.value)}
               style={{ borderColor: "#2b5784" }}
             >
-              <option value="">Selecciona el periodo</option>
+              <option value="">Selecciona el período</option>
               {periodo &&
                 periodo.map &&
                 periodo.map((val) => (

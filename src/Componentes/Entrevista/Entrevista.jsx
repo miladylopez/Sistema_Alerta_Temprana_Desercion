@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import "../Entrevista/Entrevista.css";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import Card from "react-bootstrap/Card";
 import Axios from "axios";
 import {
+  MDBBtn,
   MDBCard,
-  MDBCardHeader,
   MDBCardBody,
+  MDBCardHeader,
   MDBIcon,
   MDBInputGroup,
-  MDBBtn,
 } from "mdb-react-ui-kit";
+import React, { useEffect, useState } from "react";
+import Card from "react-bootstrap/Card";
+import { useParams } from "react-router-dom";
+import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 import Swal from "sweetalert2";
+import "../Entrevista/Entrevista.css";
 
 const Entrevista = () => {
   const [mostrarModal, setMostrarModal] = useState(false);
@@ -41,28 +41,27 @@ const Entrevista = () => {
           const registroExistente = response.data.find(
             (registro) => registro.id_sub_criterio === parseInt(id_sub_criterio)
           );
-  
+
           if (registroExistente) {
             // Actualizar registro existente
-            return Axios.put(
-              `${process.env.REACT_APP_API_URL}/update_nota`,
-              {
-                nota_sub_criterio_aspirante: nota_sub_criterio,
-                id_sub_criterio: id_sub_criterio,
-                id_aspirante: id_aspirante,
-              }
-            );
+            return Axios.put(`${process.env.REACT_APP_API_URL}/update_nota`, {
+              nota_sub_criterio_aspirante: nota_sub_criterio,
+              id_sub_criterio: id_sub_criterio,
+              id_aspirante: id_aspirante,
+            });
           } else {
             // Crear nuevo registro
             return Axios.post(`${process.env.REACT_APP_API_URL}/Entrevista`, {
-              nota_sub_criterio_aspirante: { [id_sub_criterio]: nota_sub_criterio },
+              nota_sub_criterio_aspirante: {
+                [id_sub_criterio]: nota_sub_criterio,
+              },
               id_aspirante: id_aspirante,
             });
           }
         });
       }
     );
-  
+
     Promise.all(requests)
       .then(() => {
         limpiarCampos();
@@ -72,7 +71,7 @@ const Entrevista = () => {
           icon: "success",
           timer: 2500,
         }).then(() => {
-          (window.location.href = `/alertas/entrevista/${id_aspirante}`);
+          window.location.href = `/alertas/entrevista/${id_aspirante}`;
         });
       })
       .catch((error) => {
@@ -82,11 +81,16 @@ const Entrevista = () => {
 
   const actualizarNota = (id_sub_criterio, nota_sub_criterio_aspirante) => {
     const notaNumerica =
-      nota_sub_criterio_aspirante === "Nota"
-        ? null
-        : parseInt(nota_sub_criterio_aspirante, 10);
+      nota_sub_criterio_aspirante !== ""
+        ? parseInt(nota_sub_criterio_aspirante, 10)
+        : null;
 
-    if (!isNaN(notaNumerica)) {
+    if (notaNumerica !== null && !isNaN(notaNumerica)) {
+      setNota_sub_criterio_aspirante((prevNotas) => ({
+        ...prevNotas,
+        [id_sub_criterio]: notaNumerica,
+      }));
+    } else if (notaNumerica === null) {
       setNota_sub_criterio_aspirante((prevNotas) => ({
         ...prevNotas,
         [id_sub_criterio]: notaNumerica,
@@ -130,8 +134,7 @@ const Entrevista = () => {
 
   const getAspirantes = (id_aspirante) => {
     Axios.get(`${process.env.REACT_APP_API_URL}/aspirantes/${id_aspirante}`)
-      .then((response) => {
-      })
+      .then((response) => {})
       .catch((error) => {
         console.error("Error al obtener los datos del aspirante:", error);
       });
@@ -288,10 +291,9 @@ const Entrevista = () => {
             style={{ color: "hsl(217, 10%, 50.8%)", fontSize: "18px" }}
           >
             Entrevista para realizar al aspirante en su proceso de admisión. La
-            entrevista consta de algunos criterios y sub-criterios para asignar
-            nota. El entrevistador, seleccionará la nota, dependiendo de las
-            respuestas del aspirante. Puede que al seleccionar la nota 0 quede
-            la palabra nota.
+            entrevista consta de algunos criterios y subcriterios para asignar
+            una nota. El entrevistador seleccionará la nota, dependiendo de las
+            respuestas del aspirante.
           </p>
         </Card.Header>
         <Card.Body>
@@ -333,7 +335,7 @@ const Entrevista = () => {
                             backgroundColor: "#ffcf6e",
                             width: "200px",
                             borderColor: "#ffcf6e",
-                            color: "black"
+                            color: "black",
                           }}
                           onClick={() =>
                             openModal(
@@ -351,7 +353,11 @@ const Entrevista = () => {
                           value={
                             nota_sub_criterio_aspirante[
                               sub_criterio.id_sub_criterio
-                            ] || ""
+                            ] !== undefined
+                              ? nota_sub_criterio_aspirante[
+                                  sub_criterio.id_sub_criterio
+                                ]
+                              : ""
                           }
                           onChange={(event) =>
                             actualizarNota(

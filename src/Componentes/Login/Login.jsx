@@ -1,18 +1,18 @@
-import React, { useState } from "react";
-import "../Login/Login.css";
-import logoUnac from "../../Imagenes/UNAC_Blue.png";
-import login from "../../Imagenes/Login2.jpg";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import Axios from "axios";
 import {
   MDBCard,
   MDBCardBody,
   MDBCardImage,
-  MDBRow,
   MDBCol,
   MDBInput,
+  MDBRow,
 } from "mdb-react-ui-kit";
+import React, { useState } from "react";
+import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 import Swal from "sweetalert2";
-import Axios from "axios";
+import login from "../../Imagenes/Login2.jpg";
+import logoUnac from "../../Imagenes/UNAC_Blue.png";
+import "../Login/Login.css";
 
 const Login = () => {
   const [nombre_entrevistador, setNombre_entrevistador] = useState("");
@@ -126,27 +126,30 @@ const Login = () => {
                 className="fw-normal my-4 pb-3"
                 style={{ letterSpacing: "1px" }}
               >
-                Inicia sesion con tu cuenta
+                Inicia sesión con tu cuenta
               </h5>
 
-              <MDBInput
-                wrapperClass="mb-4"
-                label="Correo"
-                id="formControlLgEmail"
-                type="email"
-                size="lg"
-                value={email_entrevistador}
-                onChange={(e) => setEmail_entrevistador(e.target.value)}
-              />
-              <MDBInput
-                wrapperClass="mb-4"
-                label="Contraseña"
-                id="formControlLgPassword"
-                type="password"
-                size="lg"
-                value={contraseña}
-                onChange={(e) => setContraseña(e.target.value)}
-              />
+              <div className="mb-4">
+                <label htmlFor="formControlLgEmail" className="custom-label">Correo</label>
+                <MDBInput
+                  id="formControlLgEmail"
+                  type="email"
+                  size="lg"
+                  value={email_entrevistador}
+                  onChange={(e) => setEmail_entrevistador(e.target.value)}
+                />
+              </div>
+
+              <div className="mb-4">
+                <label htmlFor="formControlLgPassword" className="custom-label">Contraseña</label>
+                <MDBInput
+                  id="formControlLgPassword"
+                  type="password"
+                  size="lg"
+                  value={contraseña}
+                  onChange={(e) => setContraseña(e.target.value)}
+                />
+              </div>
 
               <Button
                 className="mb-4 px-5"
@@ -155,7 +158,7 @@ const Login = () => {
                 onClick={iniciar_sesion}
                 style={{ backgroundColor: "#2b5784", color: "white" }}
               >
-                Iniciar sesion
+                Iniciar sesión
               </Button>
               <p className="mb-5 pb-lg-2" style={{ color: "#393f81" }}>
                 No tienes cuenta?{" "}
@@ -171,7 +174,7 @@ const Login = () => {
                     })
                   }
                 >
-                  Registrate
+                  Regístrate
                 </a>
               </p>
 
@@ -183,7 +186,7 @@ const Login = () => {
                 </ModalHeader>
                 <ModalBody>
                   <div className="mb-3">
-                    <label htmlFor="form" className="form-label">
+                    <label htmlFor="form" className="custom-label">
                       Nombre
                     </label>
                     <MDBInput
@@ -197,7 +200,7 @@ const Login = () => {
                   </div>
 
                   <div className="mb-3">
-                    <label htmlFor="form1" className="form-label">
+                    <label htmlFor="form1" className="custom-label">
                       Email
                     </label>
                     <MDBInput
@@ -211,7 +214,7 @@ const Login = () => {
                   </div>
 
                   <div className="mb-3">
-                    <label htmlFor="form2" className="form-label">
+                    <label htmlFor="form2" className="custom-label">
                       Contraseña
                     </label>
                     <MDBInput
@@ -223,7 +226,7 @@ const Login = () => {
                   </div>
 
                   <div className="mb-3">
-                    <label htmlFor="form3" className="form-label">
+                    <label htmlFor="form3" className="custom-label">
                       Vuelve a escribir la contraseña
                     </label>
                     <MDBInput
@@ -237,7 +240,7 @@ const Login = () => {
                   </div>
 
                   <div className="mb-3">
-                    <label htmlFor="form4" className="form-label">
+                    <label htmlFor="form4" className="custom-label">
                       Numero de contacto
                     </label>
                     <MDBInput

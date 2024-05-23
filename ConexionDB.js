@@ -7,21 +7,21 @@ app.use(cors());
 app.use(express.json());
 
 
-const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root-SAT",
-  password: "SistemaAlerta12345!",
-  database: "sistema_alerta_temprana"
-});
+// const connection = mysql.createConnection({
+//   host: "localhost",
+//   user: "root-SAT",
+//   password: "SistemaAlerta12345!",
+//   database: "sistema_alerta_temprana"
+// });
 
-/*
+
 const connection = mysql.createConnection({
-  host: 'localhost',
+  host: '127.0.0.1',
   user: 'root',
-  password: 'SistemaAlerta',
+  password: '34#Q$[30X^lT',
   database: 'sistema_alerta_temprana'
 });
-*/
+
 app.post("/createUser", (req, res) => {
   const { nombre_entrevistador, email_entrevistador, contraseña, telefono_entrevistador } = req.body;
   
