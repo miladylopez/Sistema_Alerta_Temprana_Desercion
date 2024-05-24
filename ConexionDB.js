@@ -13,8 +13,8 @@ const connection = mysql.createConnection({
   password: "SistemaAlerta12345!",
   database: "sistema_alerta_temprana"
 });
-
 /*
+
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
@@ -218,8 +218,6 @@ app.delete("/deleteprograma/:id_programa", (req, res) => {
   });
 });
 
-
-
 app.get("/criterios", (req, res) => {
   connection.query('SELECT * FROM criterios',
   (err, result) => {
@@ -371,6 +369,38 @@ app.post("/createsubcriterio", (req, res) => {
     }
   });
 });
+
+app.delete("/deletesub-criterio/:id_sub_criterio", (req, res) => {
+  const id_sub_criterio = req.params.id_sub_criterio;
+  
+  // Agregar registro de depuración para el inicio de la operación
+  console.log(`Intentando eliminar programa con ID: ${id_sub_criterio}`);
+
+  connection.query('DELETE FROM sub_criterios where id_sub_criterio = ?', id_sub_criterio, 
+  (err, result) => {
+    if (err) {
+      // Registrar el error para depuración
+      console.error('Error al eliminar el sub-criterio:', err);
+
+      // Enviar respuesta con estado 500 y el error
+      res.status(500).json({
+        message: 'Error interno del servidor',
+        details: err
+      });
+    } else {
+      // Registrar éxito para depuración
+      console.log(`Sub-criterio con ID: ${id_sub_criterio} eliminado exitosamente`);
+
+      // Enviar respuesta con resultado de la operación
+      res.json({
+        success: true,
+        message: 'Sub-criterio eliminado correctamente',
+        affectedRows: result.affectedRows
+      });
+    }
+  });
+});
+
 
 app.delete("/deletecritero/:id_criterio", (req, res) => {
   const id_criterio = req.params.id_criterio;

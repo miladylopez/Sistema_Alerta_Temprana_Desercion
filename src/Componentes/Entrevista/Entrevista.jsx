@@ -10,27 +10,17 @@ import {
   MDBCardBody,
   MDBIcon,
   MDBInputGroup,
-  MDBBtn,
 } from "mdb-react-ui-kit";
 import Swal from "sweetalert2";
 
 const Entrevista = () => {
   const [mostrarModal, setMostrarModal] = useState(false);
-  const [modalAñadir, setModalAñadir] = useState(false);
-  const [modalAñadirsub, setModalAñadirsub] = useState(false);
   const [modalInfo, setModalInfo] = useState({ title: "", content: "" });
   const { id_aspirante } = useParams();
   const [criterios, setCriterios] = useState([]);
   const [sub_criterios, setSub_criterios] = useState([]);
   const [nota_sub_criterio_aspirante, setNota_sub_criterio_aspirante] =
     useState({});
-  const [nombre_criterio, setNombre_criterio] = useState("");
-  const [porcentaje_criterio, setPorcentaje_criterio] = useState("");
-  const [nombre_sub_criterio, setNombre_sub_criterio] = useState("");
-  const [descripcion_sub_criterio, setDescripcion_sub_criterio] = useState("");
-  const [nota_minima, setNota_minima] = useState("");
-  const [nota_maxima, setNota_maxima] = useState("");
-  const [id_criterio, setId_Criterio] = useState("");
 
   const guardarRegistros = () => {
     const requests = Object.entries(nota_sub_criterio_aspirante).map(
@@ -144,16 +134,9 @@ const Entrevista = () => {
     });
     setMostrarModal(true);
   };
-  const openModalañadir = () => {
-    setModalAñadir(true);
-  };
-  const openModalañadirsub = () => {
-    setModalAñadirsub(true);
-  };
+
   const cerrarModal1 = () => {
     setMostrarModal(false);
-    setModalAñadir(false);
-    setModalAñadirsub(false);
   };
   const getCriterios = () => {
     Axios.get(`${process.env.REACT_APP_API_URL}/criterios`)
@@ -175,91 +158,6 @@ const Entrevista = () => {
       });
   };
 
-  const deleteCriterio = (id_criterio) => {
-    Swal.fire({
-      title: "Confirmar eliminado",
-      html:
-        "<i>¿Realmente desea eliminar este criterio? <strong>" +
-        "</strong></i>",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Sí, eliminarlo!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Axios.delete(
-          `${process.env.REACT_APP_API_URL}/deletecritero/${id_criterio}`
-        )
-          .then(() => {
-            getAspirantes();
-            limpiarCampos();
-            Swal.fire({
-              icon: "success",
-              title: "Criterio eliminado",
-              showConfirmButton: false,
-              timer: 1,
-            }).then(() => {
-              window.location.href = `/alertas/Entrevista/${id_aspirante}`;
-            });
-          })
-          .catch((error) => {
-            console.error("Error al eliminar el criterio:", error);
-          });
-      }
-    });
-  };
-  const añadircriterio = () => {
-    Axios.post(`${process.env.REACT_APP_API_URL}/createcriterio`, {
-      nombre_criterio: nombre_criterio,
-      porcentaje_criterio: porcentaje_criterio,
-    })
-      .then(() => {
-        limpiarCampos();
-        Swal.fire({
-          title: "<strong> Registro exitoso!!!</strong>",
-          html:
-            "<i>El criterio <strong>" +
-            nombre_criterio +
-            "</strong> fue registrado con éxito</i>",
-          icon: "success",
-          showConfirmButton: false,
-          timer: 2000,
-        }).then(() => {
-          window.location.href = `/alertas/Entrevista/${id_aspirante}`;
-        });
-      })
-      .catch((error) => {
-        console.error("Error al agregar el aspirante:", error);
-      });
-  };
-  const añadirsubcriterio = () => {
-    Axios.post(`${process.env.REACT_APP_API_URL}/createsubcriterio`, {
-      nombre_sub_criterio: nombre_sub_criterio,
-      descripcion_sub_criterio: descripcion_sub_criterio,
-      id_criterio: id_criterio,
-      nota_minima: nota_minima,
-      nota_maxima: nota_maxima,
-    })
-      .then(() => {
-        limpiarCampos();
-        Swal.fire({
-          title: "<strong> Registro exitoso!!!</strong>",
-          html:
-            "<i>El Sub-criterio <strong>" +
-            nombre_sub_criterio +
-            "</strong> fue registrado con éxito</i>",
-          icon: "success",
-          showConfirmButton: false,
-          timer: 2000,
-        }).then(() => {
-          window.location.href = `/alertas/Entrevista/${id_aspirante}`;
-        });
-      })
-      .catch((error) => {
-        console.error("Error al agregar el aspirante:", error);
-      });
-  };
 
   return (
     <div className="centrar-contenido">
@@ -288,10 +186,9 @@ const Entrevista = () => {
             style={{ color: "hsl(217, 10%, 50.8%)", fontSize: "18px" }}
           >
             Entrevista para realizar al aspirante en su proceso de admisión. La
-            entrevista consta de algunos criterios y sub-criterios para asignar
-            nota. El entrevistador, seleccionará la nota, dependiendo de las
-            respuestas del aspirante. Puede que al seleccionar la nota 0 quede
-            la palabra nota.
+            entrevista consta de algunos criterios y subcriterios para asignar
+            una nota. Como se trata de probabilidad relacione en el rango estipulado para cada sub-criterio la probabilidad
+            de que el aspirante deserte en cada sub-criterio .
           </p>
         </Card.Header>
         <Card.Body>
@@ -309,12 +206,6 @@ const Entrevista = () => {
                 }}
               >
                 <span>{criterio.nombre_criterio}</span>
-                <MDBBtn
-                  color="danger"
-                  onClick={() => deleteCriterio(criterio.id_criterio)}
-                >
-                  <MDBIcon fas icon="trash" />
-                </MDBBtn>
               </MDBCardHeader>
               <MDBCardBody>
                 <div>
@@ -351,7 +242,11 @@ const Entrevista = () => {
                           value={
                             nota_sub_criterio_aspirante[
                               sub_criterio.id_sub_criterio
-                            ] || ""
+                            ] !== undefined
+                              ? nota_sub_criterio_aspirante[
+                                  sub_criterio.id_sub_criterio
+                                ]
+                              : ""
                           }
                           onChange={(event) =>
                             actualizarNota(
@@ -361,7 +256,7 @@ const Entrevista = () => {
                           }
                         >
                           <option value="" disabled>
-                            Nota
+                            Probabilidad
                           </option>
                           {Array.from(
                             {
@@ -386,36 +281,7 @@ const Entrevista = () => {
               </MDBCardBody>
             </MDBCard>
           ))}
-          <div className="Botones-añadir">
-            <button
-              className="botones-añadir"
-              type="button"
-              onClick={() => openModalañadir()}
-            >
-              <MDBIcon
-                fas
-                icon="plus-circle"
-                size="2x"
-                className="icono"
-                style={{ marginRight: "5px" }}
-              />
-              <span>Criterio</span>
-            </button>
-            <button
-              className="botones-añadir"
-              type="button"
-              onClick={() => openModalañadirsub()}
-            >
-              <MDBIcon
-                fas
-                icon="plus-circle"
-                size="2x"
-                className="icono"
-                style={{ marginRight: "5px" }}
-              />
-              <span>Sub-Criterio</span>
-            </button>
-          </div>
+          
         </Card.Body>
         <Card.Footer>
           <button
@@ -433,196 +299,6 @@ const Entrevista = () => {
         </ModalBody>
         <ModalFooter>
           <Button className="btn btn-danger" onClick={cerrarModal1}>
-            Cancelar
-          </Button>
-        </ModalFooter>
-      </Modal>
-      <Modal isOpen={modalAñadir} className="custom-modal">
-        <ModalHeader>AÑADE UN CRITERIO NUEVO</ModalHeader>
-        <ModalBody>
-          <div className="input-group mb-3 col-12 ">
-            <span
-              className="input-group-text "
-              id="basic-addon1"
-              style={{ backgroundColor: "#c28088", width: "150px" }}
-            >
-              Nombre Criterio:
-            </span>
-            <input
-              type="text"
-              value={nombre_criterio}
-              onChange={(event) => setNombre_criterio(event.target.value)}
-              className="form-control h-150"
-              placeholder="Escribe el nombre del criterio"
-              aria-label="Username"
-              aria-describedby="basic-addon1"
-              style={{ borderColor: "#c28088" }}
-            />
-          </div>
-          <div className="input-group mb-3 ">
-            <span
-              className="input-group-text"
-              id="basic-addon1"
-              style={{ backgroundColor: "#c28088" }}
-            >
-              Porcentaje Criterio:
-            </span>
-            <input
-              type="text"
-              value={porcentaje_criterio}
-              onChange={(event) => setPorcentaje_criterio(event.target.value)}
-              className="form-control h-150"
-              placeholder="Escribe el porcentaje, solo el número"
-              aria-label="Username"
-              aria-describedby="basic-addon1"
-              style={{ borderColor: "#c28088" }}
-            />
-          </div>
-        </ModalBody>
-        <ModalFooter>
-          <MDBBtn
-            style={{
-              borderColor: "#51c6ea",
-              width: "10rem",
-              height: "2.5rem",
-              fontSize: "18px",
-            }}
-            onClick={añadircriterio}
-          >
-            Guardar Criterio
-          </MDBBtn>
-          <Button
-            className="btn btn-danger"
-            style={{ height: "2.5rem" }}
-            onClick={cerrarModal1}
-          >
-            Cancelar
-          </Button>
-        </ModalFooter>
-      </Modal>
-      <Modal isOpen={modalAñadirsub} className="custom-modal">
-        <ModalHeader>AÑADE UN SUB CRITERIO NUEVO</ModalHeader>
-        <ModalBody>
-          <div className="input-group mb-3 col-12 ">
-            <span
-              className="input-group-text "
-              id="basic-addon1"
-              style={{ backgroundColor: "#00ca99", width: "200px" }}
-            >
-              Nombre Sub-Criterio:
-            </span>
-            <input
-              type="text"
-              value={nombre_sub_criterio}
-              onChange={(event) => setNombre_sub_criterio(event.target.value)}
-              className="form-control h-150"
-              placeholder="Escribe el nombre del sub-criterio"
-              aria-label="Username"
-              aria-describedby="basic-addon1"
-              style={{ borderColor: "#00ca99" }}
-            />
-          </div>
-          <div className="input-group mb-3 ">
-            <span
-              className="input-group-text"
-              id="basic-addon1"
-              style={{ backgroundColor: "#00ca99", width: "200px" }}
-            >
-              Descripción Sub-Criterio:
-            </span>
-            <input
-              type="text"
-              value={descripcion_sub_criterio}
-              onChange={(event) =>
-                setDescripcion_sub_criterio(event.target.value)
-              }
-              className="form-control h-150"
-              placeholder="Escribe la decripción del subcriterio"
-              aria-label="Username"
-              aria-describedby="basic-addon1"
-              style={{ borderColor: "#00ca99" }}
-            />
-          </div>
-          <div className="input-group mb-3">
-            <label
-              className="input-group-text"
-              htmlFor="inputState"
-              style={{ backgroundColor: "#00ca99", width: "200px" }}
-            >
-              Criterio:
-            </label>
-            <select
-              id="inputState"
-              className="form-select"
-              onChange={(event) => setId_Criterio(event.target.value)}
-              style={{ borderColor: "#00ca99" }}
-            >
-              <option value="">Selecciona el criterio</option>
-              {criterios &&
-                criterios.map &&
-                criterios.map((val) => (
-                  <option key={val.id_criterio} value={val.id_criterio}>
-                    {val.nombre_criterio}
-                  </option>
-                ))}
-            </select>
-          </div>
-          <div className="input-group mb-3 ">
-            <span
-              className="input-group-text"
-              id="basic-addon1"
-              style={{ backgroundColor: "#00ca99", width: "200px" }}
-            >
-              Nota minima:
-            </span>
-            <input
-              type="text"
-              value={nota_minima}
-              onChange={(event) => setNota_minima(event.target.value)}
-              className="form-control h-150"
-              placeholder="Escribe la nota minima"
-              aria-label="Username"
-              aria-describedby="basic-addon1"
-              style={{ borderColor: "#00ca99" }}
-            />
-          </div>
-          <div className="input-group mb-3 ">
-            <span
-              className="input-group-text"
-              id="basic-addon1"
-              style={{ backgroundColor: "#00ca99", width: "200px" }}
-            >
-              Nota Maxima:
-            </span>
-            <input
-              type="text"
-              value={nota_maxima}
-              onChange={(event) => setNota_maxima(event.target.value)}
-              className="form-control h-150"
-              placeholder="Escribe la nota maxima"
-              aria-label="Username"
-              aria-describedby="basic-addon1"
-              style={{ borderColor: "#00ca99" }}
-            />
-          </div>
-        </ModalBody>
-        <ModalFooter>
-          <MDBBtn
-            style={{
-              borderColor: "#51c6ea",
-              width: "15rem",
-              height: "2.5rem",
-              fontSize: "18px",
-            }}
-            onClick={añadirsubcriterio}
-          >
-            Guardar Sub-criterio
-          </MDBBtn>
-          <Button
-            className="btn btn-danger"
-            style={{ height: "2.5rem" }}
-            onClick={cerrarModal1}
-          >
             Cancelar
           </Button>
         </ModalFooter>

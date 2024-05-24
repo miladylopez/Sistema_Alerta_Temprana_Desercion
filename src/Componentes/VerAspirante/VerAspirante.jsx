@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from "react";
-import "../VerAspirante/VerAspirante.css";
 import Axios from "axios";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import Swal from "sweetalert2";
-import { MdDeleteForever } from "react-icons/md";
-import { FaEdit } from "react-icons/fa";
-import { GrNotes } from "react-icons/gr";
-import { FaPercentage } from "react-icons/fa";
 import { MDBIcon } from "mdb-react-ui-kit";
+import React, { useEffect, useState } from "react";
+import { FaEdit, FaPercentage } from "react-icons/fa";
+import { GrNotes } from "react-icons/gr";
+import { MdDeleteForever } from "react-icons/md";
+import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+import Swal from "sweetalert2";
+import "../VerAspirante/VerAspirante.css";
 
 const Inicio = () => {
   const [aspirantesList, setAspirantes] = useState([]);
   const [tablaaspirantes, setTablaaspirantes] = useState([]);
   const [filtroPrograma, setFiltroPrograma] = useState("");
   const [filtroPeriodo, setFiltroPeriodo] = useState("");
+  const [filtroCodigo, setFiltroCodigo] = useState("");
+  const [filtroGeneral, setFiltroGeneral] = useState("");
   const [nombre_aspirante, setNombre] = useState("");
   const [codigo_carnet, setCodigoCarnet] = useState("");
   const [email_aspirante, setEmail] = useState("");
@@ -29,6 +30,9 @@ const Inicio = () => {
   const [programa, setPrograma] = useState([]);
   const [programas, setProgramas] = useState([]);
   const [modalActualizar, setModalActualizar] = useState(false);
+  const [campoFiltroGeneral, setCampoFiltroGeneral] =
+    useState("nombre_programa");
+
   const sumarNotas = (subcriterios) => {
     return subcriterios.reduce((total, subcriterio) => {
       return total + subcriterio.nota_sub_criterio_aspirante;
@@ -283,33 +287,81 @@ const Inicio = () => {
     );
   };
 
-  const handleChange = (e, tipo) => {
-    const terminoBusqueda = e.target.value.toLowerCase();
-    if (tipo === "programa") {
-      setFiltroPrograma(terminoBusqueda);
-    } else if (tipo === "periodo") {
-      setFiltroPeriodo(terminoBusqueda);
-    }
+  useEffect(() => {
     filtrar();
-  };
+  }, [
+    filtroPrograma,
+    filtroPeriodo,
+    filtroCodigo,
+    filtroGeneral,
+    campoFiltroGeneral,
+  ]);
 
   const filtrar = () => {
-    const resultadosPrograma = tablaaspirantes.filter((elemento) => {
-      const nombre_programa =
-        (elemento.nombre_programa &&
-          elemento.nombre_programa.toString().toLowerCase()) ||
-        "";
-      return filtroPrograma === "" || nombre_programa.includes(filtroPrograma);
-    });
+    let resultados = tablaaspirantes;
 
-    const resultadosPeriodo = resultadosPrograma.filter((elemento) => {
-      const periodo =
-        (elemento.periodo && elemento.periodo.toString().toLowerCase()) || "";
-      return filtroPeriodo === "" || periodo.includes(filtroPeriodo);
-    });
+    if (filtroPrograma) {
+      resultados = resultados.filter(
+        (elemento) =>
+          elemento.nombre_programa &&
+          elemento.nombre_programa
+            .toString()
+            .toLowerCase()
+            .includes(filtroPrograma.toLowerCase())
+      );
+    }
 
-    console.log("Resultados de la búsqueda:", resultadosPeriodo);
-    setAspirantes(resultadosPeriodo);
+    if (filtroPeriodo) {
+      resultados = resultados.filter(
+        (elemento) =>
+          elemento.periodo &&
+          elemento.periodo
+            .toString()
+            .toLowerCase()
+            .includes(filtroPeriodo.toLowerCase())
+      );
+    }
+
+    if (filtroCodigo) {
+      resultados = resultados.filter(
+        (elemento) =>
+          elemento.codigo_carnet &&
+          elemento.codigo_carnet
+            .toString()
+            .toLowerCase()
+            .includes(filtroCodigo.toLowerCase())
+      );
+    }
+
+    if (filtroGeneral) {
+      resultados = resultados.filter(
+        (elemento) =>
+          elemento[campoFiltroGeneral] &&
+          elemento[campoFiltroGeneral]
+            .toString()
+            .toLowerCase()
+            .includes(filtroGeneral.toLowerCase())
+      );
+    }
+
+    setAspirantes(resultados);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (name === "filtroPrograma") {
+      setFiltroPrograma(value);
+    } else if (name === "filtroPeriodo") {
+      setFiltroPeriodo(value);
+    } else if (name === "filtroCodigo") {
+      setFiltroCodigo(value);
+    } else if (name === "filtroGeneral") {
+      setFiltroGeneral(value);
+    }
+  };
+
+  const handleSelectChange = (e) => {
+    setCampoFiltroGeneral(e.target.value);
   };
 
   useEffect(() => {
@@ -356,18 +408,16 @@ const Inicio = () => {
   };
   getProgramas();
 
+  const nombreCampos = {
+    nombre_programa: "Nombre Programa",
+    periodo: "Período",
+    codigo_carnet: "Código Carnet",
+  };
+
   return (
     <div className="container1">
-      <div className="card">
-        <div
-          className="card-header"
-          style={{
-            fontSize: "1.5em",
-            fontFamily: "Roboto, Sans-serif",
-            fontWeight: 600,
-            color: "#c28088",
-          }}
-        >
+      <div className="verAspirante-container">
+        <div className="card-header">
           <a
             href="/alertas/inicio"
             style={{
@@ -378,26 +428,22 @@ const Inicio = () => {
           >
             <MDBIcon fas icon="arrow-alt-circle-left" size="2x" />
           </a>
-          ASPIRANTES INGRESADOS PARA LA DE ENTEVISTA
-          <div className="containerInput">
+        </div>
+        <h1> ASPIRANTES INGRESADOS PARA LA DE ENTREVISTA </h1>
+        <div className="filtros, verAspirante-container">
+          <div className="filtro-general">
+            <select value={campoFiltroGeneral} onChange={handleSelectChange}>
+              <option value="nombre_programa">Nombre Programa</option>
+              <option value="periodo">Período</option>
+              <option value="codigo_carnet">Código</option>
+            </select>
             <input
-              className="form-control inputBuscar"
-              value={filtroPrograma}
-              placeholder="Búsqueda por programa"
-              onChange={(e) => handleChange(e, "programa")}
+              type="text"
+              name="filtroGeneral"
+              placeholder={`Filtrar por ${nombreCampos[campoFiltroGeneral]}`}
+              value={filtroGeneral}
+              onChange={handleChange}
             />
-            <button className="btn btn-success">
-              <MDBIcon fas icon="search" />
-            </button>
-            <input
-              className="form-control inputBuscar"
-              value={filtroPeriodo}
-              placeholder="Búsqueda por periodo"
-              onChange={(e) => handleChange(e, "periodo")}
-            />
-            <button className="btn btn-success">
-              <MDBIcon fas icon="search" />
-            </button>
           </div>
         </div>
         <table className="table table-striped table-hover">
@@ -408,7 +454,7 @@ const Inicio = () => {
               <th scope="col">Email</th>
               <th scope="col">Entrevistador</th>
               <th scope="col">Programa</th>
-              <th scope="col">Periodo</th>
+              <th scope="col">Período</th>
               <th scope="col">Acciones</th>
             </tr>
           </thead>
