@@ -1,7 +1,6 @@
 import Axios from "axios";
-import "bootstrap/dist/css/bootstrap.min.css";
+import "../Inicio/Inicio.css";
 import React, { useEffect, useState } from "react";
-import { MdDeleteForever } from "react-icons/md";
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 import Swal from "sweetalert2";
 import foto1 from "../../Imagenes/Foto1.jpg";
@@ -9,10 +8,7 @@ import calendario from "../../Imagenes/calendario.avif";
 import programa from "../../Imagenes/programa.jpg";
 import criterio from "../../Imagenes/criterio.avif";
 import sub_criterio from "../../Imagenes/subcriterio.jpg";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import Swal from "sweetalert2";
 import { MdDeleteForever } from "react-icons/md";
-
 import {
   MDBCard,
   MDBCardBody,
@@ -409,10 +405,7 @@ const Inicio = () => {
               creado con el propósito de poder tener una alerta de los estudiantes que podrían estar
               en riesgo de deserción desde que son aspirantes a la Facultad de Ingeniería y que se les
               pueda llevar un acompañamiento más cercano, ofreciendo los diferentes tipos de ayuda que brinda la UNAC.
-              Prototipo de sistema de alerta temprana de deserción desde el proceso de admisión,
-              creado con el propósito de poder tener una alerta de los estudiantes que podrían estar
-              en riesgo de deserción desde que son aspirantes a la Facultad de Ingeniería y que se les
-              pueda llevar un acompañamiento más cercano, ofreciendo los diferentes tipos de ayuda que brinda la UNAC.
+              
             </p>
           </div>
         </MDBCol>

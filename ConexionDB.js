@@ -13,8 +13,8 @@ const connection = mysql.createConnection({
   password: "SistemaAlerta12345!",
   database: "sistema_alerta_temprana"
 });
-/*
 
+/*
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',

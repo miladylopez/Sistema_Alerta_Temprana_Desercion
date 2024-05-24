@@ -187,8 +187,8 @@ const Entrevista = () => {
           >
             Entrevista para realizar al aspirante en su proceso de admisión. La
             entrevista consta de algunos criterios y subcriterios para asignar
-            una nota. Como se trata de probabilidad relacione en el rango estipulado para cada sub-criterio la probabilidad
-            de que el aspirante deserte en cada sub-criterio .
+            una nota. El entrevistador seleccionará la nota, dependiendo de las
+            respuestas del aspirante.
           </p>
         </Card.Header>
         <Card.Body>
@@ -256,7 +256,7 @@ const Entrevista = () => {
                           }
                         >
                           <option value="" disabled>
-                            Probabilidad
+                            Nota
                           </option>
                           {Array.from(
                             {
