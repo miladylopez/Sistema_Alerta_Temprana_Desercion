@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
 import Axios from "axios";
-import "../Inicio/Inicio.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import React, { useEffect, useState } from "react";
+import { MdDeleteForever } from "react-icons/md";
+import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+import Swal from "sweetalert2";
 import foto1 from "../../Imagenes/Foto1.jpg";
 import calendario from "../../Imagenes/calendario.avif";
 import programa from "../../Imagenes/programa.jpg";
@@ -12,14 +14,14 @@ import Swal from "sweetalert2";
 import { MdDeleteForever } from "react-icons/md";
 
 import {
-  MDBContainer,
-  MDBRow,
-  MDBCol,
   MDBCard,
   MDBCardBody,
   MDBCardImage,
-  MDBIcon,
   MDBCardText,
+  MDBCol,
+  MDBContainer,
+  MDBIcon,
+  MDBRow,
 } from "mdb-react-ui-kit";
 
 const Inicio = () => {
@@ -407,6 +409,10 @@ const Inicio = () => {
               creado con el propósito de poder tener una alerta de los estudiantes que podrían estar
               en riesgo de deserción desde que son aspirantes a la Facultad de Ingeniería y que se les
               pueda llevar un acompañamiento más cercano, ofreciendo los diferentes tipos de ayuda que brinda la UNAC.
+              Prototipo de sistema de alerta temprana de deserción desde el proceso de admisión,
+              creado con el propósito de poder tener una alerta de los estudiantes que podrían estar
+              en riesgo de deserción desde que son aspirantes a la Facultad de Ingeniería y que se les
+              pueda llevar un acompañamiento más cercano, ofreciendo los diferentes tipos de ayuda que brinda la UNAC.
             </p>
           </div>
         </MDBCol>
@@ -474,7 +480,7 @@ const Inicio = () => {
                                 </div>
                                 <div className="flex-grow-1 texto-añadir-aspirante2">
                                   <h5 className="card-añadir-aspirante">
-                                    Ver aspirante
+                                    Ver Aspirante
                                   </h5>
                                 </div>
                               </div>
@@ -507,7 +513,7 @@ const Inicio = () => {
                               </div>
                               <div className="flex-grow-1 texto-añadir-aspirante2">
                                 <h5 className="card-añadir-aspirante">
-                                  Añadir periodo
+                                  Añadir Periodo
                                 </h5>
                               </div>
                             </div>
@@ -620,7 +626,7 @@ const Inicio = () => {
       </MDBRow>
       <Modal isOpen={mostrarModal} className="custom-modal">
         <ModalHeader style={{ color: "#00aba9" }}>
-          Añadir un periodo
+          Añadir un Período
         </ModalHeader>
         <ModalBody>
           <div className="card text-center mb-3">
@@ -663,7 +669,7 @@ const Inicio = () => {
                 />
               </div>
               <div className="mt-3">
-                <h5>Periodos existentes:</h5>
+                <h5>Períodos Existentes:</h5>
                 <ul className="list-group">
                   {periodos.map((periodos) => (
                     <li
@@ -700,7 +706,7 @@ const Inicio = () => {
       </Modal>
       <Modal isOpen={mostrarprograma} className="custom-modal">
         <ModalHeader style={{ color: "#f47f7f" }}>
-          Añadir un programa
+          Añadir un Programa
         </ModalHeader>
         <ModalBody>
           <div className="card text-center mb-3">
@@ -725,7 +731,7 @@ const Inicio = () => {
                 />
               </div>
               <div className="mt-3">
-                <h5>Programas existentes:</h5>
+                <h5>Programas Existentes:</h5>
                 <ul className="list-group">
                   {programas.map((programa) => (
                     <li
