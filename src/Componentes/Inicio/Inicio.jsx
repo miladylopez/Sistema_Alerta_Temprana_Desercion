@@ -1,14 +1,4 @@
 import Axios from "axios";
-import "../Inicio/Inicio.css";
-import React, { useEffect, useState } from "react";
-import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
-import Swal from "sweetalert2";
-import foto1 from "../../Imagenes/Foto1.jpg";
-import calendario from "../../Imagenes/calendario.avif";
-import programa from "../../Imagenes/programa.jpg";
-import criterio from "../../Imagenes/criterio.avif";
-import sub_criterio from "../../Imagenes/subcriterio.jpg";
-import { MdDeleteForever } from "react-icons/md";
 import {
   MDBCard,
   MDBCardBody,
@@ -19,6 +9,16 @@ import {
   MDBIcon,
   MDBRow,
 } from "mdb-react-ui-kit";
+import React, { useEffect, useState } from "react";
+import { MdDeleteForever } from "react-icons/md";
+import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+import Swal from "sweetalert2";
+import foto1 from "../../Imagenes/Foto1.jpg";
+import calendario from "../../Imagenes/calendario.avif";
+import criterio from "../../Imagenes/criterio.avif";
+import programa from "../../Imagenes/programa.jpg";
+import sub_criterio from "../../Imagenes/subcriterio.jpg";
+import "../Inicio/Inicio.css";
 
 const Inicio = () => {
   const [mostrarModal, setMostrarModal] = useState(false);
@@ -538,7 +538,7 @@ const Inicio = () => {
                               </div>
                               <div className="flex-grow-1 texto-añadir-aspirante4">
                                 <h5 className="card-añadir-aspirante4">
-                                  Añadir programa
+                                  Añadir Programa
                                 </h5>
                               </div>
                             </div>
@@ -608,6 +608,39 @@ const Inicio = () => {
                             </div>
                           </div>
                         </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-sm-4">
+                    <div className="card1-inicio">
+                      <div className="card text-center mb-4 boton-aspirante">
+                        <a
+                          href="/alertas/Entrevista1/73"
+                          role="button"
+                          data-bs-toggle="button"
+                        >
+                          <div className="boton-añadir-aspirante2">
+                            <div className="row justify-content-center align-items-center">
+                              <div className="col d-flex align-items-center">
+                                <div className="icon-añadir-asipirante2">
+                                  <a
+                                    href="/alertas/Entrevista1/73"
+                                    className="btn1 btn-primary2 btn-separator"
+                                    role="button"
+                                    data-bs-toggle="button"
+                                  >
+                                    <MDBIcon far icon="address-book" />
+                                  </a>
+                                </div>
+                                <div className="flex-grow-1 texto-añadir-aspirante2">
+                                  <h5 className="card-añadir-aspirante">
+                                    Propuesta Entrevista
+                                  </h5>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </a>
                       </div>
                     </div>
                   </div>

@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import "../Entrevista/Entrevista.css";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import Card from "react-bootstrap/Card";
 import Axios from "axios";
 import {
   MDBCard,
-  MDBCardHeader,
   MDBCardBody,
+  MDBCardHeader,
   MDBIcon,
   MDBInputGroup,
 } from "mdb-react-ui-kit";
+import React, { useEffect, useState } from "react";
+import Card from "react-bootstrap/Card";
+import { useParams } from "react-router-dom";
+import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 import Swal from "sweetalert2";
+import "../Entrevista/Entrevista.css";
 
 const Entrevista = () => {
   const [mostrarModal, setMostrarModal] = useState(false);
@@ -185,10 +185,10 @@ const Entrevista = () => {
             className="px-3"
             style={{ color: "hsl(217, 10%, 50.8%)", fontSize: "18px" }}
           >
-            Entrevista para realizar al aspirante en su proceso de admisión. La
-            entrevista consta de algunos criterios y subcriterios para asignar
-            una nota. El entrevistador seleccionará la nota, dependiendo de las
-            respuestas del aspirante.
+            Entrevista para realizar al aspirante en su proceso de admisión.
+            La entrevista consta de algunos criterios y subcriterios para asignar un porcentaje.
+            Tenga en cuenta que esto es probabilidad: relacione, para cada subcriterio en el rango designado,
+            la probabilidad de deserción por cada sub-criterio.
           </p>
         </Card.Header>
         <Card.Body>
@@ -256,7 +256,7 @@ const Entrevista = () => {
                           }
                         >
                           <option value="" disabled>
-                            Nota
+                            Probabilidad
                           </option>
                           {Array.from(
                             {
