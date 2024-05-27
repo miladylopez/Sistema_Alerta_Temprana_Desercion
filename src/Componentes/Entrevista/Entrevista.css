@@ -10,7 +10,6 @@
 .titulo-criterio {
     font-size: 1.3rem;
     text-align: left;
-
 }
 
 .boton-guardar-entrevista {
@@ -21,8 +20,8 @@
     background-color: #2b5784;
     font-size: 1.3rem;
     border-radius: 5px;
-    margin-left: 560px;
-
+    /* margin-left: 560px; */ /* Comentado para alinear al centro */
+    margin-bottom: 10px; /* Agregado espacio inferior */
 }
 
 .Botones-añadir {
@@ -36,7 +35,7 @@
     border-color: white;
     color: white;
     background-color: #2b5784;
-    font-size: 1rem;
+    font-size: 1.3rem; /* Ajustado el tamaño del texto */
     border-radius: 5px;
     display: flex;
     align-items: center;

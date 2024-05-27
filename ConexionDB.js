@@ -7,21 +7,22 @@ app.use(cors());
 app.use(express.json());
 
 
-const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root-SAT",
-  password: "SistemaAlerta12345!",
-  database: "sistema_alerta_temprana"
-});
+// const connection = mysql.createConnection({
+//   host: "localhost",
+//   user: "root-SAT",
+//   password: "SistemaAlerta12345!",
+//   database: "sistema_alerta_temprana"
+// });
 
-/*
+
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: 'SistemaAlerta',
+  password: '34#Q$[30X^lT',
   database: 'sistema_alerta_temprana'
 });
-*/
+
+
 app.post("/createUser", (req, res) => {
   const { nombre_entrevistador, email_entrevistador, contraseña, telefono_entrevistador } = req.body;
   
@@ -263,6 +264,40 @@ app.post("/Entrevista", (req, res) => {
 
   res.send("Registros insertados correctamente");
 });
+
+app.get("/informacion_basica/:id_aspirante", (req, res) => {
+  const id_aspirante = req.params.id_aspirante;
+
+  connection.query('SELECT * FROM informacion_basica WHERE id_aspirante = ?', [id_aspirante], (err, result) => {
+    if (err) {
+      console.error("Error al obtener la información básica del aspirante:", err);
+      res.status(500).json({ error: "Error al obtener la información básica del aspirante" });
+    } else {
+      res.json(result); // Devuelve el resultado de la consulta como JSON
+    }
+  });
+});
+
+// Modifica la ruta para guardar datos en la tabla informacion_basica
+app.post("/informacion_basica", (req, res) => {
+  const { id_aspirante, nota_general } = req.body; // Ajusta esto según la estructura de los datos que recibas del frontend
+
+  // Realiza la inserción o actualización en la tabla informacion_basica
+  connection.query(
+    'INSERT INTO informacion_basica (id_aspirante, nota_general) VALUES (?, ?) ON DUPLICATE KEY UPDATE nota_general = VALUES(nota_general)',
+    [id_aspirante, nota_general], // Ajusta los campos según la estructura de tu tabla
+    (err, result) => {
+      if (err) {
+        console.error("Error al insertar en la tabla informacion_basica:", err);
+        res.status(500).send("Error al guardar los datos en la tabla informacion_basica.");
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
+
 
 
 app.post("/login", (req, res) => {
