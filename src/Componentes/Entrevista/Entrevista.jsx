@@ -392,13 +392,14 @@ const Entrevista = () => {
     let informacionBasica = 0;
     let totalCriterios = 0;
     const valoresPorCriterio = {};
-  
+
     // Calcula la probabilidad de deserción para la sección "Información básica"
     for (const subcriterio in notas["Información básica"]) {
       const valorSeleccionado = notas["Información básica"][subcriterio];
-      informacionBasica += 0.25 * probabilidades[subcriterio][valorSeleccionado];
+      informacionBasica +=
+        0.25 * probabilidades[subcriterio][valorSeleccionado];
     }
-  
+
     // Acumula los valores de los subcriterios por criterio con las condiciones especiales
     for (const subcriterio of sub_criterios) {
       const criterioCorrespondiente = criterios.find(
@@ -406,7 +407,7 @@ const Entrevista = () => {
       );
       const idSubCriterio = subcriterio.id_sub_criterio;
       const valorSeleccionado = nota_sub_criterio_aspirante[idSubCriterio];
-  
+
       let valorAUsar;
       if (valorSeleccionado === 5) {
         // Usa nota_minima si la nota seleccionada es 5
@@ -418,39 +419,39 @@ const Entrevista = () => {
         // Calcula el promedio entre nota_minima y nota_maxima para otros valores
         valorAUsar = (subcriterio.nota_minima + subcriterio.nota_maxima) / 2;
       }
-  
+
       const valorTotalCriterio =
         valoresPorCriterio[criterioCorrespondiente.nombre_criterio] || 0;
       valoresPorCriterio[criterioCorrespondiente.nombre_criterio] =
         valorTotalCriterio + valorAUsar;
     }
-  
+
     // Calcula la probabilidad de deserción para cada criterio
     for (const criterio in valoresPorCriterio) {
       const valorTotalCriterio = valoresPorCriterio[criterio];
       const porcentajeCriterio = criterios.find(
         (c) => c.nombre_criterio === criterio
       ).porcentaje_criterio;
-  
+
       const porcentajeAjustado = porcentajeCriterio / 100;
-  
-      const valorPorcentaje = (valorTotalCriterio * porcentajeAjustado * 0.75) / 100;
+
+      const valorPorcentaje =
+        (valorTotalCriterio * porcentajeAjustado * 0.75) / 100;
       totalCriterios += valorPorcentaje;
     }
-  
+
     // Calcula la probabilidad total de deserción
     const probabilidadTotal = totalCriterios + informacionBasica;
-  
+
     // Ajusta la probabilidad total para que no exceda el 100%
     const probabilidadTotalAjustada = Math.min(probabilidadTotal, 1);
-  
+
     // Establece la probabilidad de deserción en el estado
     setProbabilidadDesercion(probabilidadTotalAjustada * 100);
-  
+
     // Guarda la probabilidad de deserción del aspirante
     saveDesertionByApplicant();
   };
-  
 
   const saveDesertionByApplicant = () => {
     const data = {
