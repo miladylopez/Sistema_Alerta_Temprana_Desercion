@@ -25,7 +25,6 @@ const Entrevista = () => {
   const [mostrarModalProbabilidad, setMostrarModalProbabilidad] =
     useState(false);
   const [probabilidadDesercion, setProbabilidadDesercion] = useState(0);
-  const [subCriterios, setSubCriterios] = useState([]);
 
   const estratoOptions = [1, 2, 3, 4, 5, 6];
   const estadoCivilOptions = [
@@ -335,21 +334,21 @@ const Entrevista = () => {
 
   const probabilidades = {
     Estrato: {
-      1: 0.4,
-      2: 0.3,
-      3: 0.2,
+      1: 0.3,
+      2: 0.2,
+      3: 0.1,
       4: 0.0,
       5: 0.0,
       6: 0.0,
     },
     "Estado civil": {
       0: 0.0,
-      1: 0.2,
-      2: 0.5,
+      1: 0.1,
+      2: 0.2,
     },
     Departamento: {
-      0: 0.5,
-      1: 0.0,
+      0: 0.0,
+      1: 0.2,
     },
     "Grupo especial de protección constitucional": {
       0: 0.0,
@@ -360,27 +359,27 @@ const Entrevista = () => {
     "Necesidad educativa": {
       0: 0.0,
       1: 0.1,
-      2: 0.4,
+      2: 0.2,
     },
     "Validó bachillerato": {
       0: 0.0,
-      2: 0.4,
+      2: 0.2,
     },
     Discapacidad: {
       0: 0.0,
-      1: 0.2,
-      2: 0.3,
-      3: 0.5,
+      1: 0.1,
+      2: 0.2,
+      3: 0.3,
     },
     "N personas a cargo": {
       0: 0.0,
       1: 0.1,
-      2: 0.3,
-      3: 0.5,
+      2: 0.2,
+      3: 0.3,
     },
     EPS: {
       0: 0.0,
-      2: 0.5,
+      2: 0.2,
     },
     "Trabaja en ese periodo - Tipo trabajo": {
       1: 0.3,
