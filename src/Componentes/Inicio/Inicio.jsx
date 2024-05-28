@@ -611,39 +611,7 @@ const Inicio = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="col-sm-4">
-                    <div className="card1-inicio">
-                      <div className="card text-center mb-4 boton-aspirante">
-                        <a
-                          href="/alertas/Entrevista1/73"
-                          role="button"
-                          data-bs-toggle="button"
-                        >
-                          <div className="boton-añadir-aspirante2">
-                            <div className="row justify-content-center align-items-center">
-                              <div className="col d-flex align-items-center">
-                                <div className="icon-añadir-asipirante2">
-                                  <a
-                                    href="/alertas/Entrevista1/73"
-                                    className="btn1 btn-primary2 btn-separator"
-                                    role="button"
-                                    data-bs-toggle="button"
-                                  >
-                                    <MDBIcon far icon="address-book" />
-                                  </a>
-                                </div>
-                                <div className="flex-grow-1 texto-añadir-aspirante2">
-                                  <h5 className="card-añadir-aspirante">
-                                    Propuesta Entrevista
-                                  </h5>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
+                  
                 </div>
               </MDBCardText>
             </MDBCardBody>

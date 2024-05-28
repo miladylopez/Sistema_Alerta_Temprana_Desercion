@@ -27,7 +27,6 @@ const Entrevista = () => {
   const [probabilidadDesercion, setProbabilidadDesercion] = useState(0);
   const [subCriterios, setSubCriterios] = useState([]);
 
-  
   const estratoOptions = [1, 2, 3, 4, 5, 6];
   const estadoCivilOptions = [
     { label: "Soltero", value: 0 },
@@ -124,7 +123,6 @@ const Entrevista = () => {
       },
     }));
 
-    
     if (criterio === "Información básica") {
       const nuevaNotaGeneral = calcularNotaGeneral({
         ...notas["Información básica"],
@@ -134,40 +132,30 @@ const Entrevista = () => {
     }
   };
 
-  
-
   const obtenerIdAspiranteDinamicamente = () => {
-    
-    return parseInt(id_aspirante); 
+    return parseInt(id_aspirante);
   };
 
-  
   const calcularNotaGeneral = (subCriterios, idAspirante) => {
-    const totalMax = 25; 
+    const totalMax = 25;
     let sum = 0;
 
-    
     for (const key in subCriterios) {
       if (subCriterios.hasOwnProperty(key)) {
-        const value = subCriterios[key]; 
+        const value = subCriterios[key];
 
-        
         sum += parseInt(value, 10);
       }
     }
 
-    
     const porcentaje = (sum / totalMax) * 100;
-    const notaGeneral = Math.min(porcentaje, 25); 
-
+    const notaGeneral = Math.min(porcentaje, 25);
 
     return notaGeneral;
   };
 
-  
   const idAspirante = obtenerIdAspiranteDinamicamente();
 
-  
   const notaGeneral = calcularNotaGeneral(
     notas["Información básica"],
     idAspirante
@@ -189,14 +177,12 @@ const Entrevista = () => {
             );
 
             if (registroExistente) {
-              
               return Axios.put(`${process.env.REACT_APP_API_URL}/update_nota`, {
                 nota_sub_criterio_aspirante: nota_sub_criterio,
                 id_sub_criterio: id_sub_criterio,
                 id_aspirante: id_aspirante,
               });
             } else {
-              
               return Axios.post(`${process.env.REACT_APP_API_URL}/Entrevista`, {
                 nota_sub_criterio_aspirante: {
                   [id_sub_criterio]: nota_sub_criterio,
@@ -210,7 +196,6 @@ const Entrevista = () => {
     }, 4000);
   };
 
-  
   const actualizarNota = (id_sub_criterio, nota_sub_criterio_aspirante) => {
     const notaSeleccionada = parseInt(nota_sub_criterio_aspirante, 10);
 
@@ -221,15 +206,14 @@ const Entrevista = () => {
 
       let peso;
       if (notaSeleccionada === 0) {
-        peso = subcriterio.nota_maxima; 
+        peso = subcriterio.nota_maxima;
       } else if (notaSeleccionada === 5) {
-        peso = subcriterio.nota_minima; 
+        peso = subcriterio.nota_minima;
       } else {
-        
         const pesoMaximo = subcriterio.nota_maxima;
         const pesoMinimo = subcriterio.nota_minima;
-        const rango = 5; 
-        
+        const rango = 5;
+
         peso =
           pesoMinimo +
           ((pesoMaximo - pesoMinimo) / (rango - 1)) * notaSeleccionada;
@@ -237,7 +221,7 @@ const Entrevista = () => {
 
       setNota_sub_criterio_aspirante((prevNotas) => ({
         ...prevNotas,
-        [id_sub_criterio]: notaSeleccionada, 
+        [id_sub_criterio]: notaSeleccionada,
       }));
     } else {
     }
@@ -257,18 +241,16 @@ const Entrevista = () => {
   }, [id_aspirante]);
 
   const checkEntrevistaRegistrada = (id_aspirante) => {
-    
     const alertaMostrada = localStorage.getItem(
       `alertaEntrevista-${id_aspirante}`
     );
     if (alertaMostrada) {
-      return; 
+      return;
     }
 
     Axios.get(`${process.env.REACT_APP_API_URL}/entrevista/${id_aspirante}`)
       .then((response) => {
         if (response.data.length > 0) {
-          
           Swal.fire({
             title: "<strong>Entrevista ya registrada</strong>",
             html: "<i>Ya existe una entrevista registrada para este aspirante.</i>",
@@ -278,18 +260,14 @@ const Entrevista = () => {
             cancelButtonText: "Salir",
           }).then((result) => {
             if (result.isConfirmed) {
-              
               window.location.href = `/alertas/entrevista/${id_aspirante}`;
             } else {
-              
               window.location.href = `/alertas/verAspirante`;
             }
           });
 
-          
           localStorage.setItem(`alertaEntrevista-${id_aspirante}`, true);
         } else {
-          
         }
       })
       .catch((error) => {});
@@ -365,49 +343,48 @@ const Entrevista = () => {
       6: 0.0,
     },
     "Estado civil": {
-      0: 0.0, 
-      1: 0.2, 
-      2: 0.5, 
+      0: 0.0,
+      1: 0.2,
+      2: 0.5,
     },
     Departamento: {
-      0: 0.5, 
-      1: 0.0, 
-      
+      0: 0.5,
+      1: 0.0,
     },
     "Grupo especial de protección constitucional": {
-      0: 0.0, 
-      1: 0.1, 
-      2: 0.1, 
-      3: 0.2, 
+      0: 0.0,
+      1: 0.1,
+      2: 0.1,
+      3: 0.2,
     },
     "Necesidad educativa": {
-      0: 0.0, 
-      1: 0.1, 
-      2: 0.4, 
+      0: 0.0,
+      1: 0.1,
+      2: 0.4,
     },
     "Validó bachillerato": {
-      0: 0.0, 
-      2: 0.4, 
+      0: 0.0,
+      2: 0.4,
     },
     Discapacidad: {
-      0: 0.0, 
-      1: 0.2, 
-      2: 0.3, 
-      3: 0.5, 
+      0: 0.0,
+      1: 0.2,
+      2: 0.3,
+      3: 0.5,
     },
     "N personas a cargo": {
-      0: 0.0, 
-      1: 0.1, 
-      2: 0.3, 
-      3: 0.5, 
+      0: 0.0,
+      1: 0.1,
+      2: 0.3,
+      3: 0.5,
     },
     EPS: {
-      0: 0.0, 
-      2: 0.5, 
+      0: 0.0,
+      2: 0.5,
     },
     "Trabaja en ese periodo - Tipo trabajo": {
-      1: 0.3, 
-      2: 0.0, 
+      1: 0.3,
+      2: 0.0,
     },
   };
 
@@ -415,13 +392,14 @@ const Entrevista = () => {
     let informacionBasica = 0;
     let totalCriterios = 0;
     const valoresPorCriterio = {};
-  
+
     // Calcula la probabilidad de deserción para la sección "Información básica"
     for (const subcriterio in notas["Información básica"]) {
       const valorSeleccionado = notas["Información básica"][subcriterio];
-      informacionBasica += 0.25 * probabilidades[subcriterio][valorSeleccionado];
+      informacionBasica +=
+        0.25 * probabilidades[subcriterio][valorSeleccionado];
     }
-  
+
     // Acumula los valores de los subcriterios por criterio con las condiciones especiales
     for (const subcriterio of sub_criterios) {
       const criterioCorrespondiente = criterios.find(
@@ -429,7 +407,7 @@ const Entrevista = () => {
       );
       const idSubCriterio = subcriterio.id_sub_criterio;
       const valorSeleccionado = nota_sub_criterio_aspirante[idSubCriterio];
-  
+
       let valorAUsar;
       if (valorSeleccionado === 5) {
         // Usa nota_minima si la nota seleccionada es 5
@@ -441,39 +419,39 @@ const Entrevista = () => {
         // Calcula el promedio entre nota_minima y nota_maxima para otros valores
         valorAUsar = (subcriterio.nota_minima + subcriterio.nota_maxima) / 2;
       }
-  
+
       const valorTotalCriterio =
         valoresPorCriterio[criterioCorrespondiente.nombre_criterio] || 0;
       valoresPorCriterio[criterioCorrespondiente.nombre_criterio] =
         valorTotalCriterio + valorAUsar;
     }
-  
+
     // Calcula la probabilidad de deserción para cada criterio
     for (const criterio in valoresPorCriterio) {
       const valorTotalCriterio = valoresPorCriterio[criterio];
       const porcentajeCriterio = criterios.find(
         (c) => c.nombre_criterio === criterio
       ).porcentaje_criterio;
-  
+
       const porcentajeAjustado = porcentajeCriterio / 100;
-  
-      const valorPorcentaje = (valorTotalCriterio * porcentajeAjustado * 0.75) / 100;
+
+      const valorPorcentaje =
+        (valorTotalCriterio * porcentajeAjustado * 0.75) / 100;
       totalCriterios += valorPorcentaje;
     }
-  
+
     // Calcula la probabilidad total de deserción
     const probabilidadTotal = totalCriterios + informacionBasica;
-  
+
     // Ajusta la probabilidad total para que no exceda el 100%
     const probabilidadTotalAjustada = Math.min(probabilidadTotal, 1);
-  
+
     // Establece la probabilidad de deserción en el estado
     setProbabilidadDesercion(probabilidadTotalAjustada * 100);
-  
+
     // Guarda la probabilidad de deserción del aspirante
     saveDesertionByApplicant();
   };
-  
 
   const saveDesertionByApplicant = () => {
     const data = {
@@ -482,13 +460,12 @@ const Entrevista = () => {
     };
 
     axios
-     .post(`${process.env.REACT_APP_API_URL}/guarda_porcentaje`, data)
-     .then((response) => {
-      })
-     .catch((error) => {
+      .post(`${process.env.REACT_APP_API_URL}/guarda_porcentaje`, data)
+      .then((response) => {})
+      .catch((error) => {
         console.log(error);
       });
-  }
+  };
 
   return (
     <div className="centrar-contenido">
@@ -531,7 +508,7 @@ const Entrevista = () => {
               backgroundColor: "#9289ca",
               fontFamily: "Metropolis, Source Sans Pro, sans-serif",
               borderColor: "#9289ca",
-              marginBottom: "10px", 
+              marginBottom: "10px",
             }}
           >
             <span style={{ fontSize: "1.5rem" }}>Información Básica</span>{" "}
@@ -539,97 +516,70 @@ const Entrevista = () => {
           </MDBCardHeader>
           <MDBCardBody>
             <div>
-              <MDBInputGroup className="mb-3">
-                {[
-                  "Estrato",
-                  "Estado civil",
-                  "Departamento",
-                  "Grupo especial de protección constitucional",
-                  "Necesidad educativa",
-                  "Validó bachillerato",
-                  "Discapacidad",
-                  "N personas a cargo",
-                  "EPS",
-                  "Trabaja en ese periodo - Tipo trabajo",
-                ].map((subcriterio, index) => (
-                  <div key={index} className="form-group">
-                    <Button
-                      style={{
-                        backgroundColor: "#ffcf6e",
-                        width: "200px",
-                        borderColor: "#ffcf6e",
-                        color: "black",
-                        marginBottom: "10px", 
-                      }}
-                    >
-                      {subcriterio}
-                    </Button>
-                    {subcriterio === "Departamento" || subcriterio === "EPS" ? (
-                      <select
-                        style={{ borderColor: "#ffcf6e" }}
-                        className="form-select mb-3"
-                        value={notas["Información básica"][subcriterio] || ""}
-                        onChange={(e) =>
-                          handleNotaChange(
-                            "Información básica",
-                            subcriterio,
-                            e.target.value
-                          )
-                        }
-                      >
-                        <option value="">Probabilidad</option>
-                        {(subcriterio === "Departamento"
-                          ? departamentoOptions
-                          : epsOptions
-                        ).map((option, i) => (
-                          <option key={i} value={option.value}>
-                            {option.label}
-                          </option>
-                        ))}
-                      </select>
-                    ) : (
-                      <select
-                        style={{ borderColor: "#ffcf6e" }}
-                        className="form-select mb-3"
-                        value={
-                          notas["Información básica"][subcriterio] ||
-                          "Probabilidad"
-                        }
-                        onChange={(e) =>
-                          handleNotaChange(
-                            "Información básica",
-                            subcriterio,
-                            e.target.value
-                          )
-                        }
-                      >
-                        <option value="">Probabilidad</option>
-                        {(subcriterio === "Estrato"
-                          ? estratoOptions
-                          : subcriterio === "Estado civil"
-                          ? estadoCivilOptions
-                          : subcriterio ===
-                            "Grupo especial de protección constitucional"
-                          ? grupoProteccionOptions
-                          : subcriterio === "Necesidad educativa"
-                          ? necesidadEducativaOptions
-                          : subcriterio === "Validó bachillerato"
-                          ? validoBachilleratoOptions
-                          : subcriterio === "Discapacidad"
-                          ? discapacidadOptions
-                          : subcriterio === "N personas a cargo"
-                          ? personasCargoOptions
-                          : trabajaOptions
-                        ).map((option, i) => (
-                          <option key={i} value={option.value}>
-                            {option.label || option}
-                          </option>
-                        ))}
-                      </select>
-                    )}
-                  </div>
-                ))}
-              </MDBInputGroup>
+              {[
+                "Estrato",
+                "Estado civil",
+                "Departamento",
+                "Grupo especial de protección constitucional",
+                "Necesidad educativa",
+                "Validó bachillerato",
+                "Discapacidad",
+                "N personas a cargo",
+                "EPS",
+                "Trabaja en ese periodo - Tipo trabajo",
+              ].map((subcriterio, index) => (
+                <MDBInputGroup className="mb-3" key={index}>
+                  <Button
+                    style={{
+                      backgroundColor: "#ffcf6e",
+                      width: "200px",
+                      borderColor: "#ffcf6e",
+                      color: "black",
+                    }}
+                  >
+                    {subcriterio}
+                  </Button>
+                  <select
+                    style={{ borderColor: "#ffcf6e" }}
+                    className="form-select"
+                    value={notas["Información básica"][subcriterio] || ""}
+                    onChange={(e) =>
+                      handleNotaChange(
+                        "Información básica",
+                        subcriterio,
+                        e.target.value
+                      )
+                    }
+                  >
+                    <option value="">Probabilidad</option>
+                    {(subcriterio === "Departamento"
+                      ? departamentoOptions
+                      : subcriterio === "EPS"
+                      ? epsOptions
+                      : subcriterio === "Estrato"
+                      ? estratoOptions
+                      : subcriterio === "Estado civil"
+                      ? estadoCivilOptions
+                      : subcriterio ===
+                        "Grupo especial de protección constitucional"
+                      ? grupoProteccionOptions
+                      : subcriterio === "Necesidad educativa"
+                      ? necesidadEducativaOptions
+                      : subcriterio === "Validó bachillerato"
+                      ? validoBachilleratoOptions
+                      : subcriterio === "Discapacidad"
+                      ? discapacidadOptions
+                      : subcriterio === "N personas a cargo"
+                      ? personasCargoOptions
+                      : trabajaOptions
+                    ).map((option, i) => (
+                      <option key={i} value={option.value}>
+                        {option.label || option}
+                      </option>
+                    ))}
+                  </select>
+                </MDBInputGroup>
+              ))}
             </div>
           </MDBCardBody>
         </Card.Body>
@@ -684,7 +634,14 @@ const Entrevista = () => {
                           value={
                             nota_sub_criterio_aspirante[
                               sub_criterio.id_sub_criterio
-                            ] || "" 
+                            ] !== undefined &&
+                            nota_sub_criterio_aspirante[
+                              sub_criterio.id_sub_criterio
+                            ] !== null
+                              ? nota_sub_criterio_aspirante[
+                                  sub_criterio.id_sub_criterio
+                                ]
+                              : ""
                           }
                           onChange={(event) =>
                             actualizarNota(
@@ -714,34 +671,16 @@ const Entrevista = () => {
           >
             Guardar Entrevista <MDBIcon fas icon="check-circle" size="1x" />
           </button>
-          {/* <button
-            className="boton-calcular-probabilidad"
-            onClick={() => {
-              calcularProbabilidadDesercion();
-              toggleModalProbabilidad();
-            }}
-          >
-            Calcular Probabilidad <MDBIcon fas icon="calculator" size="1x" />
-          </button> */}
         </Card.Footer>
       </Card>
-      <Modal
-        isOpen={mostrarModal}
-        toggle={() => setMostrarModal(!mostrarModal)}
-        className="custom-modal"
-      >
-        <ModalHeader toggle={() => setMostrarModal(!mostrarModal)}>
-          {modalInfo.title}
-        </ModalHeader>
+      <Modal isOpen={mostrarModal} className="custom-modal">
+        <ModalHeader>{modalInfo.nombre_sub_criterio}</ModalHeader>
         <ModalBody>
-          <div dangerouslySetInnerHTML={{ __html: modalInfo.content }} />
+          <div>{modalInfo.descripcion_sub_criterio}</div>
         </ModalBody>
         <ModalFooter>
-          <Button
-            color="secondary"
-            onClick={() => setMostrarModal(!mostrarModal)}
-          >
-            Cerrar
+          <Button className="btn btn-danger" onClick={cerrarModal1}>
+            Cancelar
           </Button>
         </ModalFooter>
       </Modal>

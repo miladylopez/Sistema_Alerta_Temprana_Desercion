@@ -13,13 +13,19 @@ app.use(express.json());
 //   database: "sistema_alerta_temprana"
 // });
 
+//const connection = mysql.createConnection({
+ // host: "localhost",
+ // user: "root",
+//  password: "34#Q$[30X^lT",
+ // database: "sistema_alerta_temprana",
+//});
+
 const connection = mysql.createConnection({
   host: "localhost",
-  user: "root",
-  password: "34#Q$[30X^lT",
+ user: "root",
+ password: "SistemaAlerta",
   database: "sistema_alerta_temprana",
 });
-
 app.post("/createUser", (req, res) => {
   const {
     nombre_entrevistador,
