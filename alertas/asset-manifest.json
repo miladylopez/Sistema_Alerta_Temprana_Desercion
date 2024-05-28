@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/alertas/static/css/main.06e4f3ae.css",
-    "main.js": "/alertas/static/js/main.47dd195a.js",
+    "main.css": "/alertas/static/css/main.e481da29.css",
+    "main.js": "/alertas/static/js/main.9ef73fb5.js",
     "static/media/Login2.jpg": "/alertas/static/media/Login2.0eb67c161383eb390258.jpg",
     "static/media/Foto1.jpg": "/alertas/static/media/Foto1.9808bed449919436150c.jpg",
     "static/media/programa.jpg": "/alertas/static/media/programa.19c88290f7726e9cfd64.jpg",
@@ -9,13 +9,13 @@
     "static/media/subcriterio.jpg": "/alertas/static/media/subcriterio.9b511c56dc6348785959.jpg",
     "static/media/UNAC_Blanco.png": "/alertas/static/media/UNAC_Blanco.ae63c08da180a17de128.png",
     "static/media/criterio.avif": "/alertas/static/media/criterio.a4989ab90229727fcd42.avif",
-    "static/media/calendario.avif": "/alertas/static/media/calendario.0ac1f331adacfa25cb1b.avif",
+    "static/media/calendario.avif": "/static/media/calendario.0ac1f331adacfa25cb1b.avif",
     "index.html": "/alertas/index.html",
-    "main.06e4f3ae.css.map": "/alertas/static/css/main.06e4f3ae.css.map",
-    "main.47dd195a.js.map": "/alertas/static/js/main.47dd195a.js.map"
+    "main.e481da29.css.map": "/alertas/static/css/main.e481da29.css.map",
+    "main.9ef73fb5.js.map": "/alertas/static/js/main.9ef73fb5.js.map"
   },
   "entrypoints": [
-    "static/css/main.06e4f3ae.css",
-    "static/js/main.47dd195a.js"
+    "static/css/main.e481da29.css",
+    "static/js/main.9ef73fb5.js"
   ]
 }

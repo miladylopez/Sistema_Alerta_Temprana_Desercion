@@ -6,19 +6,19 @@ const cors = require("cors");
 app.use(cors());
 app.use(express.json());
 
-// const connection = mysql.createConnection({
-//   host: "localhost",
-//   user: "root-SAT",
-//   password: "SistemaAlerta12345!",
-//   database: "sistema_alerta_temprana"
-// });
-
 const connection = mysql.createConnection({
- host: "localhost",
- user: "root",
- password: "34#Q$[30X^lT",
- database: "sistema_alerta_temprana",
+  host: "localhost",
+  user: "root-SAT",
+  password: "SistemaAlerta12345!",
+  database: "sistema_alerta_temprana"
 });
+
+// const connection = mysql.createConnection({
+//  host: "localhost",
+//  user: "root",
+//  password: "34#Q$[30X^lT",
+//  database: "sistema_alerta_temprana",
+// });
 
 
 app.post("/createUser", (req, res) => {
