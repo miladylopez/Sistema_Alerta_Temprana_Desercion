@@ -27,7 +27,6 @@ const Entrevista = () => {
   const [probabilidadDesercion, setProbabilidadDesercion] = useState(0);
   const [subCriterios, setSubCriterios] = useState([]);
 
-  
   const estratoOptions = [1, 2, 3, 4, 5, 6];
   const estadoCivilOptions = [
     { label: "Soltero", value: 0 },
@@ -124,7 +123,6 @@ const Entrevista = () => {
       },
     }));
 
-    
     if (criterio === "Información básica") {
       const nuevaNotaGeneral = calcularNotaGeneral({
         ...notas["Información básica"],
@@ -134,40 +132,30 @@ const Entrevista = () => {
     }
   };
 
-  
-
   const obtenerIdAspiranteDinamicamente = () => {
-    
-    return parseInt(id_aspirante); 
+    return parseInt(id_aspirante);
   };
 
-  
   const calcularNotaGeneral = (subCriterios, idAspirante) => {
-    const totalMax = 25; 
+    const totalMax = 25;
     let sum = 0;
 
-    
     for (const key in subCriterios) {
       if (subCriterios.hasOwnProperty(key)) {
-        const value = subCriterios[key]; 
+        const value = subCriterios[key];
 
-        
         sum += parseInt(value, 10);
       }
     }
 
-    
     const porcentaje = (sum / totalMax) * 100;
-    const notaGeneral = Math.min(porcentaje, 25); 
-
+    const notaGeneral = Math.min(porcentaje, 25);
 
     return notaGeneral;
   };
 
-  
   const idAspirante = obtenerIdAspiranteDinamicamente();
 
-  
   const notaGeneral = calcularNotaGeneral(
     notas["Información básica"],
     idAspirante
@@ -189,14 +177,12 @@ const Entrevista = () => {
             );
 
             if (registroExistente) {
-              
               return Axios.put(`${process.env.REACT_APP_API_URL}/update_nota`, {
                 nota_sub_criterio_aspirante: nota_sub_criterio,
                 id_sub_criterio: id_sub_criterio,
                 id_aspirante: id_aspirante,
               });
             } else {
-              
               return Axios.post(`${process.env.REACT_APP_API_URL}/Entrevista`, {
                 nota_sub_criterio_aspirante: {
                   [id_sub_criterio]: nota_sub_criterio,
@@ -210,7 +196,6 @@ const Entrevista = () => {
     }, 4000);
   };
 
-  
   const actualizarNota = (id_sub_criterio, nota_sub_criterio_aspirante) => {
     const notaSeleccionada = parseInt(nota_sub_criterio_aspirante, 10);
 
@@ -221,15 +206,14 @@ const Entrevista = () => {
 
       let peso;
       if (notaSeleccionada === 0) {
-        peso = subcriterio.nota_maxima; 
+        peso = subcriterio.nota_maxima;
       } else if (notaSeleccionada === 5) {
-        peso = subcriterio.nota_minima; 
+        peso = subcriterio.nota_minima;
       } else {
-        
         const pesoMaximo = subcriterio.nota_maxima;
         const pesoMinimo = subcriterio.nota_minima;
-        const rango = 5; 
-        
+        const rango = 5;
+
         peso =
           pesoMinimo +
           ((pesoMaximo - pesoMinimo) / (rango - 1)) * notaSeleccionada;
@@ -237,7 +221,7 @@ const Entrevista = () => {
 
       setNota_sub_criterio_aspirante((prevNotas) => ({
         ...prevNotas,
-        [id_sub_criterio]: notaSeleccionada, 
+        [id_sub_criterio]: notaSeleccionada,
       }));
     } else {
     }
@@ -257,18 +241,16 @@ const Entrevista = () => {
   }, [id_aspirante]);
 
   const checkEntrevistaRegistrada = (id_aspirante) => {
-    
     const alertaMostrada = localStorage.getItem(
       `alertaEntrevista-${id_aspirante}`
     );
     if (alertaMostrada) {
-      return; 
+      return;
     }
 
     Axios.get(`${process.env.REACT_APP_API_URL}/entrevista/${id_aspirante}`)
       .then((response) => {
         if (response.data.length > 0) {
-          
           Swal.fire({
             title: "<strong>Entrevista ya registrada</strong>",
             html: "<i>Ya existe una entrevista registrada para este aspirante.</i>",
@@ -278,18 +260,14 @@ const Entrevista = () => {
             cancelButtonText: "Salir",
           }).then((result) => {
             if (result.isConfirmed) {
-              
               window.location.href = `/alertas/entrevista/${id_aspirante}`;
             } else {
-              
               window.location.href = `/alertas/verAspirante`;
             }
           });
 
-          
           localStorage.setItem(`alertaEntrevista-${id_aspirante}`, true);
         } else {
-          
         }
       })
       .catch((error) => {});
@@ -357,57 +335,56 @@ const Entrevista = () => {
 
   const probabilidades = {
     Estrato: {
-      1: 0.4,
-      2: 0.3,
-      3: 0.2,
+      1: 0.3,
+      2: 0.2,
+      3: 0.1,
       4: 0.0,
       5: 0.0,
       6: 0.0,
     },
     "Estado civil": {
-      0: 0.0, 
-      1: 0.2, 
-      2: 0.5, 
+      0: 0.0,
+      1: 0.1,
+      2: 0.2,
     },
     Departamento: {
-      0: 0.5, 
-      1: 0.0, 
-      
+      0: 0.0,
+      1: 0.2,
     },
     "Grupo especial de protección constitucional": {
-      0: 0.0, 
-      1: 0.1, 
-      2: 0.1, 
-      3: 0.2, 
+      0: 0.0,
+      1: 0.1,
+      2: 0.1,
+      3: 0.2,
     },
     "Necesidad educativa": {
-      0: 0.0, 
-      1: 0.1, 
-      2: 0.4, 
+      0: 0.0,
+      1: 0.1,
+      2: 0.2,
     },
     "Validó bachillerato": {
-      0: 0.0, 
-      2: 0.4, 
+      0: 0.0,
+      2: 0.2,
     },
     Discapacidad: {
-      0: 0.0, 
-      1: 0.2, 
-      2: 0.3, 
-      3: 0.5, 
+      0: 0.0,
+      1: 0.1,
+      2: 0.2,
+      3: 0.3,
     },
     "N personas a cargo": {
-      0: 0.0, 
-      1: 0.1, 
-      2: 0.3, 
-      3: 0.5, 
+      0: 0.0,
+      1: 0.1,
+      2: 0.2,
+      3: 0.3,
     },
     EPS: {
-      0: 0.0, 
-      2: 0.5, 
+      0: 0.0,
+      2: 0.2,
     },
     "Trabaja en ese periodo - Tipo trabajo": {
-      1: 0.3, 
-      2: 0.0, 
+      1: 0.3,
+      2: 0.0,
     },
   };
 
@@ -482,13 +459,12 @@ const Entrevista = () => {
     };
 
     axios
-     .post(`${process.env.REACT_APP_API_URL}/guarda_porcentaje`, data)
-     .then((response) => {
-      })
-     .catch((error) => {
+      .post(`${process.env.REACT_APP_API_URL}/guarda_porcentaje`, data)
+      .then((response) => {})
+      .catch((error) => {
         console.log(error);
       });
-  }
+  };
 
   return (
     <div className="centrar-contenido">
@@ -531,7 +507,7 @@ const Entrevista = () => {
               backgroundColor: "#9289ca",
               fontFamily: "Metropolis, Source Sans Pro, sans-serif",
               borderColor: "#9289ca",
-              marginBottom: "10px", 
+              marginBottom: "10px",
             }}
           >
             <span style={{ fontSize: "1.5rem" }}>Información Básica</span>{" "}
@@ -559,7 +535,7 @@ const Entrevista = () => {
                         width: "200px",
                         borderColor: "#ffcf6e",
                         color: "black",
-                        marginBottom: "10px", 
+                        marginBottom: "10px",
                       }}
                     >
                       {subcriterio}
@@ -684,7 +660,7 @@ const Entrevista = () => {
                           value={
                             nota_sub_criterio_aspirante[
                               sub_criterio.id_sub_criterio
-                            ] || "" 
+                            ] || ""
                           }
                           onChange={(event) =>
                             actualizarNota(
