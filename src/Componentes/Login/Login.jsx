@@ -47,7 +47,7 @@ const Login = () => {
           Swal.fire({
             title: "<strong> Registro exitoso!!!</strong>",
             html:
-              "<i>El aspirante <strong>" +
+              "<i>El usuario <strong>" +
               nombre_entrevistador +
               "</strong> fue registrado con éxito</i>",
             icon: "success",
