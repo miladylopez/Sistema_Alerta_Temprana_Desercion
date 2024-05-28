@@ -415,26 +415,48 @@ const Inicio = () => {
   };
 
   const getDesertionValue = async (id) => {
-
-    await Axios.get(`${process.env.REACT_APP_API_URL}/obtener-probabilidad-por-aspirante/${id}`).then(  (response) => {
-      console.log(response)
-      if(response.data.probabilidad) {
+    await Axios.get(`${process.env.REACT_APP_API_URL}/obtener-probabilidad-por-aspirante/${id}`)
+      .then((response) => {
+        console.log(response);
+  
+        if (response.data.probabilidad) {
+          const probabilidad = response.data.probabilidad;
+          let icon, title;
+  
+          if (probabilidad < 30) {
+            icon = 'success';
+            title = "No hay riesgo";
+          } else if (probabilidad < 50) {
+            icon = 'warning';
+            title = "Riesgo moderado";
+          } else if (probabilidad >= 50 && probabilidad < 60) {
+            icon = 'warning';
+            title = "Riesgo moderado";
+          } else {
+            icon = 'error';
+            title = "Alta probabilidad de deserción";
+          }
+  
+          Swal.fire({
+            title: title,
+            text: `El porcentaje de probabilidad de deserción es: ${probabilidad}%`,
+            icon: icon,
+            confirmButtonText: "Cerrar",
+            allowOutsideClick: false,
+          });
+        }
+      })
+      .catch(error => {
         Swal.fire({
-          title: "El porcentaje de probabilidad de deserción es:",
-          text: `${response.data.probabilidad}%`,
+          title: `${error.response.data}`,
+          text: "Debe guardar la entrevista para calcular la probabilidad de deserción",
+          icon: 'error',
           confirmButtonText: "Cerrar",
           allowOutsideClick: false,
-        })
-      }
-    }).catch(error => {
-      Swal.fire({
-        title: `${error.response.data}`,
-        text: "debe guardar la entrevista para calcular la probabilidad de deserción",
-        confirmButtonText: "Cerrar",
-        allowOutsideClick: false,
-      })
-    })
-  }
+        });
+      });
+  };
+  
 
   return (
     <div className="container1">
