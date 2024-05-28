@@ -21,8 +21,13 @@ const Entrevista = () => {
   const [sub_criterios, setSub_criterios] = useState([]);
   const [nota_sub_criterio_aspirante, setNota_sub_criterio_aspirante] =
     useState({});
+  const [nota_general, setNota_general] = useState(0);
+  const [mostrarModalProbabilidad, setMostrarModalProbabilidad] =
+    useState(false);
+  const [probabilidadDesercion, setProbabilidadDesercion] = useState(0);
+  const [subCriterios, setSubCriterios] = useState([]);
 
-  // SubCriterios Información básica
+  
   const estratoOptions = [1, 2, 3, 4, 5, 6];
   const estadoCivilOptions = [
     { label: "Soltero", value: 0 },
@@ -118,130 +123,94 @@ const Entrevista = () => {
         [subcriterio]: value,
       },
     }));
+
+    
+    if (criterio === "Información básica") {
+      const nuevaNotaGeneral = calcularNotaGeneral({
+        ...notas["Información básica"],
+        [subcriterio]: value,
+      });
+      setNota_general(nuevaNotaGeneral);
+    }
   };
 
-  const notaGeneral = notas["Información básica"]["nota_general"];
+  
 
-  // Realiza una única solicitud POST al servidor enviando solo la nota general
-  axios
-    .post(`${process.env.REACT_APP_API_URL}/informacion_basica`, {
-      id_aspirante: id_aspirante,
-      nota_general: notaGeneral,
-    })
-    .then((response) => {
-      console.log("Respuesta del servidor:", response.data);
-    })
-    .catch((error) => {
-      console.error("Error al enviar los datos al servidor:", error);
-    });
+  const obtenerIdAspiranteDinamicamente = () => {
+    
+    return parseInt(id_aspirante); 
+  };
 
-  // Verifica si el id_aspirante existe en el servidor
-  axios
-    .get(`${process.env.REACT_APP_API_URL}/informacion_basica/${id_aspirante}`)
-    .then((response) => {
-      const existingRecord = response.data[0];
+  
+  const calcularNotaGeneral = (subCriterios, idAspirante) => {
+    const totalMax = 25; 
+    let sum = 0;
 
-      // Si el registro existe, actualiza la nota_general
-      if (existingRecord) {
-        const notaGeneral = notas["Información básica"]["nota_general"];
+    
+    for (const key in subCriterios) {
+      if (subCriterios.hasOwnProperty(key)) {
+        const value = subCriterios[key]; 
 
-        axios
-          .post(`${process.env.REACT_APP_API_URL}/informacion_basica`, {
-            id_aspirante: id_aspirante,
-            nota_general: notaGeneral,
-          })
-          .then((response) => {
-            console.log("Respuesta del servidor:", response.data);
-          })
-          .catch((error) => {
-            console.error("Error al enviar los datos al servidor:", error);
-          });
-      } else {
-        // Si el registro no existe, puedes mostrar un mensaje o realizar otra acción
-        console.log("El id_aspirante no existe en el servidor.");
+        
+        sum += parseInt(value, 10);
       }
-    })
-    .catch((error) => {
-      console.error(
-        "Error al verificar el id_aspirante en el servidor:",
-        error
-      );
-    });
+    }
+
+    
+    const porcentaje = (sum / totalMax) * 100;
+    const notaGeneral = Math.min(porcentaje, 25); 
+
+
+    return notaGeneral;
+  };
+
+  
+  const idAspirante = obtenerIdAspiranteDinamicamente();
+
+  
+  const notaGeneral = calcularNotaGeneral(
+    notas["Información básica"],
+    idAspirante
+  );
 
   const guardarRegistros = () => {
-    const requests = Object.entries(nota_sub_criterio_aspirante).map(
-      ([id_sub_criterio, nota_sub_criterio]) => {
-        return Axios.get(
-          `${process.env.REACT_APP_API_URL}/entrevista/${id_aspirante}`
-        ).then((response) => {
-          const registroExistente = response.data.find(
-            (registro) => registro.id_sub_criterio === parseInt(id_sub_criterio)
-          );
+    calcularProbabilidadDesercion();
+    toggleModalProbabilidad();
 
-          if (registroExistente) {
-            // Actualizar registro existente
-            return Axios.put(`${process.env.REACT_APP_API_URL}/update_nota`, {
-              nota_sub_criterio_aspirante: nota_sub_criterio,
-              id_sub_criterio: id_sub_criterio,
-              id_aspirante: id_aspirante,
-            });
-          } else {
-            // Crear nuevo registro
-            return Axios.post(`${process.env.REACT_APP_API_URL}/Entrevista`, {
-              nota_sub_criterio_aspirante: {
-                [id_sub_criterio]: nota_sub_criterio,
-              },
-              id_aspirante: id_aspirante,
-            });
-          }
-        });
-      }
-    );
+    setTimeout(() => {
+      const requests = Object.entries(nota_sub_criterio_aspirante).map(
+        ([id_sub_criterio, nota_sub_criterio]) => {
+          return Axios.get(
+            `${process.env.REACT_APP_API_URL}/entrevista/${id_aspirante}`
+          ).then((response) => {
+            const registroExistente = response.data.find(
+              (registro) =>
+                registro.id_sub_criterio === parseInt(id_sub_criterio)
+            );
 
-    Promise.all(requests)
-      .then(() => {
-        limpiarCampos();
-        Swal.fire({
-          title: "<strong>Registro exitoso!!!</strong>",
-          html: "<i>La entrevista está almacenada en la base de datos</i>",
-          icon: "success",
-          timer: 2500,
-        }).then(() => {
-          window.location.href = `/alertas/entrevista/${id_aspirante}`;
-        });
-      })
-      .catch((error) => {
-        console.error("Error al guardar los registros:", error);
-      });
-  };
-
-  // Actualizar el valor seleccionado del select
-  const handleSelectChange = (criterio, subcriterio, value) => {
-    // Actualizar el estado con el valor seleccionado
-    setNotas((prevNotas) => ({
-      ...prevNotas,
-      [criterio]: {
-        ...prevNotas[criterio],
-        [subcriterio]: value,
-      },
-    }));
-  };
-
-  // Declaración de la función convertirValorSeleccionado
-  const convertirValorSeleccionado = (
-    valorSeleccionado,
-    notaMinima,
-    notaMaxima
-  ) => {
-    let rango = notaMaxima - notaMinima;
-    let nota = notaMaxima - valorSeleccionado * (rango / 5);
-    return nota;
+            if (registroExistente) {
+              
+              return Axios.put(`${process.env.REACT_APP_API_URL}/update_nota`, {
+                nota_sub_criterio_aspirante: nota_sub_criterio,
+                id_sub_criterio: id_sub_criterio,
+                id_aspirante: id_aspirante,
+              });
+            } else {
+              
+              return Axios.post(`${process.env.REACT_APP_API_URL}/Entrevista`, {
+                nota_sub_criterio_aspirante: {
+                  [id_sub_criterio]: nota_sub_criterio,
+                },
+                id_aspirante: id_aspirante,
+              });
+            }
+          });
+        }
+      );
+    }, 4000);
   };
 
   
-  
-
-  // Función para actualizar las notas del subcriterio
   const actualizarNota = (id_sub_criterio, nota_sub_criterio_aspirante) => {
     const notaSeleccionada = parseInt(nota_sub_criterio_aspirante, 10);
 
@@ -252,15 +221,15 @@ const Entrevista = () => {
 
       let peso;
       if (notaSeleccionada === 0) {
-        peso = subcriterio.nota_maxima; // Tomar nota_maxima cuando se selecciona 0
+        peso = subcriterio.nota_maxima; 
       } else if (notaSeleccionada === 5) {
-        peso = subcriterio.nota_minima; // Tomar nota_minima cuando se selecciona 5
+        peso = subcriterio.nota_minima; 
       } else {
-        // Calcular el peso en base a la selección del select
+        
         const pesoMaximo = subcriterio.nota_maxima;
         const pesoMinimo = subcriterio.nota_minima;
-        const rango = 5; // Rango del select
-        // Calcular el peso en base a la selección dentro del rango
+        const rango = 5; 
+        
         peso =
           pesoMinimo +
           ((pesoMaximo - pesoMinimo) / (rango - 1)) * notaSeleccionada;
@@ -268,17 +237,15 @@ const Entrevista = () => {
 
       setNota_sub_criterio_aspirante((prevNotas) => ({
         ...prevNotas,
-        [id_sub_criterio]: notaSeleccionada, // Almacenar la nota seleccionada en el estado
+        [id_sub_criterio]: notaSeleccionada, 
       }));
     } else {
-      console.error(
-        "La nota no es un número válido:",
-        nota_sub_criterio_aspirante
-      );
     }
   };
 
   const limpiarCampos = () => {
+    setCriterios([]);
+    setSub_criterios([]);
     setNota_sub_criterio_aspirante({});
   };
 
@@ -290,18 +257,18 @@ const Entrevista = () => {
   }, [id_aspirante]);
 
   const checkEntrevistaRegistrada = (id_aspirante) => {
-    // Verificar si la alerta ya ha sido mostrada para este aspirante
+    
     const alertaMostrada = localStorage.getItem(
       `alertaEntrevista-${id_aspirante}`
     );
     if (alertaMostrada) {
-      return; // Si la alerta ya ha sido mostrada, no hacer nada
+      return; 
     }
 
     Axios.get(`${process.env.REACT_APP_API_URL}/entrevista/${id_aspirante}`)
       .then((response) => {
         if (response.data.length > 0) {
-          // Mostrar alerta de que ya hay una entrevista registrada
+          
           Swal.fire({
             title: "<strong>Entrevista ya registrada</strong>",
             html: "<i>Ya existe una entrevista registrada para este aspirante.</i>",
@@ -311,29 +278,28 @@ const Entrevista = () => {
             cancelButtonText: "Salir",
           }).then((result) => {
             if (result.isConfirmed) {
-              // Redirigir a la página de edición de entrevista
+              
               window.location.href = `/alertas/entrevista/${id_aspirante}`;
             } else {
-              // Redirigir a la página de lista de aspirantes
+              
               window.location.href = `/alertas/verAspirante`;
             }
           });
 
-          // Guardar indicador de que la alerta ha sido mostrada
+          
           localStorage.setItem(`alertaEntrevista-${id_aspirante}`, true);
         } else {
-          // Si no hay entrevista registrada, puedes agregar lógica adicional aquí
+          
         }
       })
-      .catch((error) => {
-        console.error("Error al verificar entrevista registrada:", error);
-      });
+      .catch((error) => {});
   };
 
   const getCriterios = async () => {
     const response = await Axios.get(
       `${process.env.REACT_APP_API_URL}/criterios`
     );
+    console.log(response.data);
     setCriterios(response.data);
   };
 
@@ -344,64 +310,30 @@ const Entrevista = () => {
     setSub_criterios(response.data);
   };
 
-  const getAspirantes = async (id_aspirante) => {
-    try {
-      const response = await Axios.get(
-        `${process.env.REACT_APP_API_URL}/aspirantes/${id_aspirante}`
-      );
-      const aspirante = response.data[0];
-
-      if (aspirante) {
-        setNotas({
-          ...notas,
-          "Información básica": {
-            ...notas["Información básica"],
-            Estrato: estratoOptions[aspirante.Estrato - 1] || estratoOptions[0],
-            "Estado civil":
-              estadoCivilOptions.find(
-                (option) => option.value === aspirante["Estado civil"]
-              )?.label || estadoCivilOptions[0].label,
-            Departamento: aspirante.Departamento || departamentoOptions[0],
-            "Grupo especial de protección constitucional":
-              grupoProteccionOptions.find(
-                (option) =>
-                  option.value ===
-                  aspirante["Grupo especial de protección constitucional"]
-              )?.label || grupoProteccionOptions[0].label,
-            "Necesidad educativa":
-              necesidadEducativaOptions.find(
-                (option) => option.value === aspirante["Necesidad educativa"]
-              )?.label || necesidadEducativaOptions[0].label,
-            "Validó bachillerato":
-              validoBachilleratoOptions.find(
-                (option) => option.value === aspirante["Validó bachillerato"]
-              )?.label || validoBachilleratoOptions[0].label,
-            Discapacidad:
-              discapacidadOptions.find(
-                (option) => option.value === aspirante.Discapacidad
-              )?.label || discapacidadOptions[0].label,
-            "N personas a cargo":
-              personasCargoOptions.find(
-                (option) => option.value === aspirante["N personas a cargo"]
-              )?.label || personasCargoOptions[0].label,
-            EPS:
-              epsOptions.find((option) => option.value === aspirante.EPS)
-                ?.label || epsOptions[0].label,
-            "Trabaja en ese periodo - Tipo trabajo":
-              trabajaOptions.find(
-                (option) =>
-                  option.value ===
-                  aspirante["Trabaja en ese periodo - Tipo trabajo"]
-              )?.label || trabajaOptions[0].label,
-          },
-        });
-      } else {
-        console.error("No se encontró el aspirante con el ID proporcionado.");
-      }
-    } catch (error) {
-      console.error("Error al obtener los datos del aspirante:", error);
-    }
+  const getAspirantes = (id_aspirante) => {
+    Axios.get(`${process.env.REACT_APP_API_URL}/aspirantes/${id_aspirante}`)
+      .then((response) => {})
+      .catch((error) => {});
   };
+
+  useEffect(() => {
+    const fetchCriterios = async () => {
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/criterios`
+      );
+      setCriterios(response.data);
+    };
+
+    const fetchSubCriterios = async () => {
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/sub_criterios`
+      );
+      setSub_criterios(response.data);
+    };
+
+    fetchCriterios();
+    fetchSubCriterios();
+  }, []);
 
   const openModal = (nombre_sub_criterio, descripcion_sub_criterio) => {
     setModalInfo({
@@ -414,6 +346,129 @@ const Entrevista = () => {
   const cerrarModal1 = () => {
     setMostrarModal(false);
   };
+
+  const toggleModal = () => setMostrarModal(!mostrarModal);
+
+  const toggleModalProbabilidad = () => {
+    setMostrarModalProbabilidad(!mostrarModalProbabilidad);
+    if (!mostrarModalProbabilidad) {
+    }
+  };
+
+  const probabilidades = {
+    Estrato: {
+      1: 0.4,
+      2: 0.3,
+      3: 0.2,
+      4: 0.0,
+      5: 0.0,
+      6: 0.0,
+    },
+    "Estado civil": {
+      0: 0.0, 
+      1: 0.2, 
+      2: 0.5, 
+    },
+    Departamento: {
+      0: 0.5, 
+      1: 0.0, 
+      
+    },
+    "Grupo especial de protección constitucional": {
+      0: 0.0, 
+      1: 0.1, 
+      2: 0.1, 
+      3: 0.2, 
+    },
+    "Necesidad educativa": {
+      0: 0.0, 
+      1: 0.1, 
+      2: 0.4, 
+    },
+    "Validó bachillerato": {
+      0: 0.0, 
+      2: 0.4, 
+    },
+    Discapacidad: {
+      0: 0.0, 
+      1: 0.2, 
+      2: 0.3, 
+      3: 0.5, 
+    },
+    "N personas a cargo": {
+      0: 0.0, 
+      1: 0.1, 
+      2: 0.3, 
+      3: 0.5, 
+    },
+    EPS: {
+      0: 0.0, 
+      2: 0.5, 
+    },
+    "Trabaja en ese periodo - Tipo trabajo": {
+      1: 0.3, 
+      2: 0.0, 
+    },
+  };
+
+  const calcularProbabilidadDesercion = () => {
+    let informacionBasica = 0;
+    let totalCriterios = 0;
+    const valoresPorCriterio = {};
+    for (const subcriterio in notas["Información básica"]) {
+      const valorSeleccionado = notas["Información básica"][subcriterio];
+      informacionBasica +=
+        0.25 * probabilidades[subcriterio][valorSeleccionado];
+    }
+
+    for (const subcriterio of sub_criterios) {
+      const criterioCorrespondiente = criterios.find(
+        (criterio) => criterio.id_criterio === subcriterio.id_criterio
+      );
+      const idSubCriterio = subcriterio.id_sub_criterio;
+      const valorSeleccionado = nota_sub_criterio_aspirante[idSubCriterio];
+
+      const valorTotalCriterio =
+        valoresPorCriterio[criterioCorrespondiente.nombre_criterio] || 0;
+      valoresPorCriterio[criterioCorrespondiente.nombre_criterio] =
+        valorTotalCriterio + valorSeleccionado;
+    }
+
+    for (const criterio in valoresPorCriterio) {
+      const valorTotalCriterio = valoresPorCriterio[criterio];
+      const porcentajeCriterio = criterios.find(
+        (c) => c.nombre_criterio === criterio
+      ).porcentaje_criterio;
+
+      const porcentajeAjustado = porcentajeCriterio / 100;
+
+      const valorPorcentaje =
+        (valorTotalCriterio * porcentajeAjustado * 0.75) / 100;
+      totalCriterios += valorPorcentaje;
+
+    }
+    const probabilidadTotal = totalCriterios + informacionBasica;
+    const probabilidadTotalAjustada = Math.min(probabilidadTotal, 1);
+
+
+    setProbabilidadDesercion(probabilidadTotalAjustada * 100);
+    saveDesertionByApplicant();
+  };
+
+  const saveDesertionByApplicant = () => {
+    const data = {
+      id_aspirante: id_aspirante,
+      probabilidad: probabilidadDesercion,
+    };
+
+    axios
+     .post(`${process.env.REACT_APP_API_URL}/guarda_porcentaje`, data)
+     .then((response) => {
+      })
+     .catch((error) => {
+        console.log(error);
+      });
+  }
 
   return (
     <div className="centrar-contenido">
@@ -456,10 +511,10 @@ const Entrevista = () => {
               backgroundColor: "#9289ca",
               fontFamily: "Metropolis, Source Sans Pro, sans-serif",
               borderColor: "#9289ca",
-              marginBottom: "10px", // Agrega un poco de espacio inferior
+              marginBottom: "10px", 
             }}
           >
-            <span style={{ fontSize: "1rem" }}>Información básica</span>{" "}
+            <span style={{ fontSize: "1.5rem" }}>Información Básica</span>{" "}
             {/* Ajusta el tamaño de la fuente */}
           </MDBCardHeader>
           <MDBCardBody>
@@ -484,7 +539,7 @@ const Entrevista = () => {
                         width: "200px",
                         borderColor: "#ffcf6e",
                         color: "black",
-                        marginBottom: "10px", // Añade espacio entre los botones
+                        marginBottom: "10px", 
                       }}
                     >
                       {subcriterio}
@@ -492,8 +547,8 @@ const Entrevista = () => {
                     {subcriterio === "Departamento" || subcriterio === "EPS" ? (
                       <select
                         style={{ borderColor: "#ffcf6e" }}
-                        className="form-select mb-3" // Añade espacio inferior
-                        value={notas["Información básica"][subcriterio]}
+                        className="form-select mb-3"
+                        value={notas["Información básica"][subcriterio] || ""}
                         onChange={(e) =>
                           handleNotaChange(
                             "Información básica",
@@ -502,9 +557,7 @@ const Entrevista = () => {
                           )
                         }
                       >
-                        <option value="" disabled>
-                          Probabilidad
-                        </option>
+                        <option value="">Probabilidad</option>
                         {(subcriterio === "Departamento"
                           ? departamentoOptions
                           : epsOptions
@@ -517,8 +570,11 @@ const Entrevista = () => {
                     ) : (
                       <select
                         style={{ borderColor: "#ffcf6e" }}
-                        className="form-select mb-3" // Añade espacio inferior
-                        value={notas["Información básica"][subcriterio]}
+                        className="form-select mb-3"
+                        value={
+                          notas["Información básica"][subcriterio] ||
+                          "Probabilidad"
+                        }
                         onChange={(e) =>
                           handleNotaChange(
                             "Información básica",
@@ -527,9 +583,7 @@ const Entrevista = () => {
                           )
                         }
                       >
-                        <option value="" disabled>
-                          Probabilidad
-                        </option>
+                        <option value="">Probabilidad</option>
                         {(subcriterio === "Estrato"
                           ? estratoOptions
                           : subcriterio === "Estado civil"
@@ -610,7 +664,7 @@ const Entrevista = () => {
                           value={
                             nota_sub_criterio_aspirante[
                               sub_criterio.id_sub_criterio
-                            ] || "" // Asegúrate de que el valor predeterminado sea una cadena vacía si no hay un valor asignado
+                            ] || "" 
                           }
                           onChange={(event) =>
                             actualizarNota(
@@ -619,12 +673,10 @@ const Entrevista = () => {
                             )
                           }
                         >
-                          <option value="" disabled>
-                            Probabilidad
-                          </option>
-                          {Array.from({ length: 6 }, (_, index) => (
-                            <option key={index} value={index.toString()}>
-                              {index}
+                          <option value="">Probabilidad</option>
+                          {generalOptions.map((option, i) => (
+                            <option key={i} value={option}>
+                              {option}
                             </option>
                           ))}
                         </select>
@@ -642,16 +694,47 @@ const Entrevista = () => {
           >
             Guardar Entrevista <MDBIcon fas icon="check-circle" size="1x" />
           </button>
+          {/* <button
+            className="boton-calcular-probabilidad"
+            onClick={() => {
+              calcularProbabilidadDesercion();
+              toggleModalProbabilidad();
+            }}
+          >
+            Calcular Probabilidad <MDBIcon fas icon="calculator" size="1x" />
+          </button> */}
         </Card.Footer>
       </Card>
-      <Modal isOpen={mostrarModal} className="custom-modal">
-        <ModalHeader>{modalInfo.nombre_sub_criterio}</ModalHeader>
+      <Modal
+        isOpen={mostrarModal}
+        toggle={() => setMostrarModal(!mostrarModal)}
+        className="custom-modal"
+      >
+        <ModalHeader toggle={() => setMostrarModal(!mostrarModal)}>
+          {modalInfo.title}
+        </ModalHeader>
         <ModalBody>
-          <div>{modalInfo.descripcion_sub_criterio}</div>
+          <div dangerouslySetInnerHTML={{ __html: modalInfo.content }} />
         </ModalBody>
         <ModalFooter>
-          <Button className="btn btn-danger" onClick={cerrarModal1}>
-            Cancelar
+          <Button
+            color="secondary"
+            onClick={() => setMostrarModal(!mostrarModal)}
+          >
+            Cerrar
+          </Button>
+        </ModalFooter>
+      </Modal>
+      <Modal isOpen={mostrarModalProbabilidad} toggle={toggleModalProbabilidad}>
+        <ModalHeader toggle={toggleModalProbabilidad}>
+          Probabilidad de Deserción
+        </ModalHeader>
+        <ModalBody>
+          <h4>Probabilidad de Deserción: {probabilidadDesercion}%</h4>
+        </ModalBody>
+        <ModalFooter>
+          <Button className="btn btn-danger" onClick={toggleModalProbabilidad}>
+            Cerrar
           </Button>
         </ModalFooter>
       </Modal>

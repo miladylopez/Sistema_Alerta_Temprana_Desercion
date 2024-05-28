@@ -414,6 +414,28 @@ const Inicio = () => {
     codigo_carnet: "Código Carnet",
   };
 
+  const getDesertionValue = async (id) => {
+
+    await Axios.get(`${process.env.REACT_APP_API_URL}/obtener-probabilidad-por-aspirante/${id}`).then(  (response) => {
+      console.log(response)
+      if(response.data.probabilidad) {
+        Swal.fire({
+          title: "El porcentaje de probabilidad de deserción es:",
+          text: `${response.data.probabilidad}%`,
+          confirmButtonText: "Cerrar",
+          allowOutsideClick: false,
+        })
+      }
+    }).catch(error => {
+      Swal.fire({
+        title: `${error.response.data}`,
+        text: "debe guardar la entrevista para calcular la probabilidad de deserción",
+        confirmButtonText: "Cerrar",
+        allowOutsideClick: false,
+      })
+    })
+  }
+
   return (
     <div className="container1">
       <div className="verAspirante-container">
@@ -506,7 +528,7 @@ const Inicio = () => {
                       </button>
                       <button
                         type="button"
-                        onClick={() => getNotas_SubCriterios(val.id_aspirante)}
+                        onClick={() => getDesertionValue(val.id_aspirante)}
                         className="btn btn-outline-secondary"
                         title="Calcular porcentaje"
                       >

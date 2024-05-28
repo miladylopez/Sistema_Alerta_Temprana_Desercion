@@ -3,7 +3,6 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Aspirante from "./Componentes/Aspirante/Aspirante";
 import { AuthProvider } from "./Componentes/AuthContext";
 import Entrevista from "./Componentes/Entrevista/Entrevista";
-import Entrevista1 from "./Componentes/Entrevista/Entrevista1";
 import Inicio from "./Componentes/Inicio/Inicio";
 import Login from "./Componentes/Login/Login";
 import { NavBar } from "./Componentes/NavBar/NavBar";
@@ -19,7 +18,6 @@ function App() {
           <Route path="/inicio" element={<Inicio />} />
           <Route path="/verAspirante" element={<VerAspirante />} />
           <Route path="/entrevista/:id_aspirante" element={<Entrevista />} />
-          <Route path="/entrevista1/:id_aspirante" element={<Entrevista1 />} />
           <Route path="/aspirante" element={<Aspirante />} />
           {/* Otras rutas */}
         </Routes>
