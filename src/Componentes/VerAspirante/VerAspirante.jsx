@@ -366,6 +366,9 @@ const Inicio = () => {
 
   useEffect(() => {
     getAspirantes();
+    getEntevistador();
+    getPeriodo();
+    getProgramas();
   }, []);
 
   const limpiarCampos = () => {
@@ -384,7 +387,6 @@ const Inicio = () => {
         console.error("Error al obtener los periodos:", error);
       });
   };
-  getPeriodo();
 
   const getEntevistador = () => {
     Axios.get(`${process.env.REACT_APP_API_URL}/entrevistador`)
@@ -395,7 +397,6 @@ const Inicio = () => {
         console.error("Error al obtener los periodos:", error);
       });
   };
-  getEntevistador();
 
   const getProgramas = () => {
     Axios.get(`${process.env.REACT_APP_API_URL}/programa`)
@@ -406,7 +407,6 @@ const Inicio = () => {
         console.error("Error al obtener los programas:", error);
       });
   };
-  getProgramas();
 
   const nombreCampos = {
     nombre_programa: "Nombre Programa",
@@ -415,28 +415,30 @@ const Inicio = () => {
   };
 
   const getDesertionValue = async (id) => {
-    await Axios.get(`${process.env.REACT_APP_API_URL}/obtener-probabilidad-por-aspirante/${id}`)
+    await Axios.get(
+      `${process.env.REACT_APP_API_URL}/obtener-probabilidad-por-aspirante/${id}`
+    )
       .then((response) => {
         console.log(response);
-  
+
         if (response.data.probabilidad) {
           const probabilidad = response.data.probabilidad;
           let icon, title;
-  
+
           if (probabilidad < 30) {
-            icon = 'success';
+            icon = "success";
             title = "No hay riesgo";
           } else if (probabilidad < 50) {
-            icon = 'warning';
+            icon = "warning";
             title = "Riesgo moderado";
           } else if (probabilidad >= 50 && probabilidad < 60) {
-            icon = 'warning';
+            icon = "warning";
             title = "Riesgo moderado";
           } else {
-            icon = 'error';
+            icon = "error";
             title = "Alta probabilidad de deserción";
           }
-  
+
           Swal.fire({
             title: title,
             text: `El porcentaje de probabilidad de deserción es: ${probabilidad}%`,
@@ -446,17 +448,16 @@ const Inicio = () => {
           });
         }
       })
-      .catch(error => {
+      .catch((error) => {
         Swal.fire({
           title: `${error.response.data}`,
           text: "Debe guardar la entrevista para calcular la probabilidad de deserción",
-          icon: 'error',
+          icon: "error",
           confirmButtonText: "Cerrar",
           allowOutsideClick: false,
         });
       });
   };
-  
 
   return (
     <div className="container1">
