@@ -6,19 +6,19 @@ const cors = require("cors");
 app.use(cors());
 app.use(express.json());
 
-const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root-SAT",
-  password: "SistemaAlerta12345!",
-  database: "sistema_alerta_temprana"
-});
-
 // const connection = mysql.createConnection({
-//  host: "localhost",
-//  user: "root",
-//  password: "34#Q$[30X^lT",
-//  database: "sistema_alerta_temprana",
+//   host: "localhost",
+//   user: "root-SAT",
+//   password: "SistemaAlerta12345!",
+//   database: "sistema_alerta_temprana"
 // });
+
+const connection = mysql.createConnection({
+ host: "localhost",
+ user: "root",
+ password: "34#Q$[30X^lT",
+ database: "sistema_alerta_temprana",
+});
 
 
 app.post("/createUser", (req, res) => {
@@ -463,39 +463,6 @@ app.get("/obtener-probabilidad-por-aspirante/:id", (req, res) => {
   )
 });
 
-app.get("/obtener_porcentaje", (req, res) => {
-  const id_aspirante = req.query.id_aspirante;
-  console.log("ID del aspirante recibido:", id_aspirante);
-  connection.query(
-    "SELECT * FROM porcentaje_desercion WHERE id_aspirante = ?",
-    [id_aspirante],
-    (err, result) => {
-      if (err) {
-        console.log(err);
-        res.status(500).send("Error al obtener los porcentajes");
-      } else {
-        res.send(result);
-      }
-    }
-  );
-});
-
-app.put("/update_Porcentaje", (req, res) => {
-  const id_aspirante = req.body.id_aspirante;
-  const porcentaje_probabilidad = req.body.porcentaje_probabilidad;
-
-  connection.query(
-    "UPDATE porcentaje_desercion SET porcentaje_probabilidad =? WHERE id_aspirante= ?",
-    [porcentaje_probabilidad, id_aspirante],
-    (err, result) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.send(result);
-      }
-    }
-  );
-});
 
 app.post("/createcriterio", (req, res) => {
   const nombre_criterio = req.body.nombre_criterio;
@@ -646,24 +613,7 @@ app.put("/update_nota", (req, res) => {
   );
 });
 
-app.delete("/eliminar_porcentaje_desercion/:idAspirante", (req, res) => {
-  const idAspirante = req.params.idAspirante;
 
-  connection.query(
-    "DELETE FROM porcentaje_desercion WHERE id_aspirante = ?",
-    [idAspirante],
-    (err, result) => {
-      if (err) {
-        console.log(err);
-        res
-          .status(500)
-          .send("Error al eliminar registros en porcentaje_desercion");
-      } else {
-        res.send(result);
-      }
-    }
-  );
-});
 
 app.delete("/eliminar_subcriterios_aspirante/:idAspirante", (req, res) => {
   const idAspirante = req.params.idAspirante;

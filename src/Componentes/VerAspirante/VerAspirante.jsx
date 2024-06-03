@@ -239,10 +239,7 @@ const Inicio = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         // Eliminar los porcentajes asociados al aspirante
-        Axios.delete(
-          `${process.env.REACT_APP_API_URL}/eliminar_porcentaje_desercion/${val.id_aspirante}`
-        )
-          .then(() => {
+        
             // Eliminar los subcriterios asociados al aspirante
             Axios.delete(
               `${process.env.REACT_APP_API_URL}/eliminar_subcriterios_aspirante/${val.id_aspirante}`
@@ -270,10 +267,7 @@ const Inicio = () => {
               .catch((error) => {
                 console.error("Error al eliminar subcriterios:", error);
               });
-          })
-          .catch((error) => {
-            console.error("Error al eliminar porcentajes:", error);
-          });
+          
       }
     });
   };
