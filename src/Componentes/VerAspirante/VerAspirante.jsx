@@ -39,146 +39,6 @@ const Inicio = () => {
     }, 0);
   };
 
-  const getNotas_SubCriterios = (id_aspirante) => {
-    Axios.get(`${process.env.REACT_APP_API_URL}/sub_criterios-notas`, {
-      params: {
-        id_aspirante: id_aspirante,
-      },
-    })
-      .then((response) => {
-        console.log("Notas y subcriterios obtenidos:", response.data);
-        if (response.data.length === 0) {
-          // Mostrar alerta si no hay datos
-          Swal.fire({
-            icon: "info",
-            title:
-              "No hay datos para calcular. Por favor, diligencia la entrevista.",
-            showConfirmButton: false,
-            timer: 3000,
-          });
-        } else {
-          // Filtrar subcriterios por grupo
-          const subcriterios = response.data;
-          const grupo1 = subcriterios.filter(
-            (item) => item.id_sub_criterio >= 10 && item.id_sub_criterio <= 19
-          );
-          const grupo2 = subcriterios.filter(
-            (item) => item.id_sub_criterio === 5 || item.id_sub_criterio === 6
-          );
-          const grupo3 = subcriterios.filter(
-            (item) => item.id_sub_criterio >= 7 && item.id_sub_criterio <= 9
-          );
-          const grupo4 = subcriterios.filter(
-            (item) => item.id_sub_criterio >= 20 && item.id_sub_criterio <= 22
-          );
-          const grupo5 = subcriterios.filter(
-            (item) => item.id_sub_criterio >= 23 && item.id_sub_criterio <= 25
-          );
-
-          const porcentajesCriterios = {};
-
-          // Obtener los porcentajes de cada criterio
-          Axios.get(`${process.env.REACT_APP_API_URL}/criterios`)
-            .then((response) => {
-              response.data.forEach((criterio) => {
-                porcentajesCriterios[criterio.id_criterio] =
-                  criterio.porcentaje_criterio;
-              });
-
-              // Calcular la fórmula
-              const resultado =
-                (sumarNotas(grupo1) / porcentajesCriterios[3]) *
-                  porcentajesCriterios[3] +
-                (sumarNotas(grupo2) / porcentajesCriterios[9]) *
-                  porcentajesCriterios[9] +
-                (sumarNotas(grupo3) / porcentajesCriterios[5]) *
-                  porcentajesCriterios[5] +
-                (sumarNotas(grupo4) / porcentajesCriterios[6]) *
-                  porcentajesCriterios[6] +
-                (sumarNotas(grupo5) / porcentajesCriterios[7]) *
-                  porcentajesCriterios[7];
-
-              // Mostrar resultado en un Swal
-              let icono;
-              if (resultado >= 0 && resultado <= 30) {
-                icono = "success";
-              } else if (resultado > 30 && resultado <= 70) {
-                icono = "warning";
-              } else {
-                icono = "error";
-              }
-              Swal.fire({
-                icon: icono,
-                title: "El porcentaje de probabilidad de deserción es:",
-                text: `${resultado}%`,
-                confirmButtonText: "Cerrar",
-                allowOutsideClick: false,
-              }).then((result) => {
-                if (result.isConfirmed) {
-                  // Llamada a la función para obtener el porcentaje
-                  getPorcentaje_Probabilidad(id_aspirante)
-                    .then((response) => {
-                      console.log("porcentaje obtenido:", response.data);
-                      if (response.data.length === 0) {
-                        // Si no hay porcentaje para el id_aspirante, guardarlo
-                        guardar_porcentaje(resultado, id_aspirante);
-                        console.log("resultado, id", response.data);
-                      } else {
-                        // Si hay porcentaje para el id_aspirante, actualizarlo
-                        Editar_porcentaje(resultado, id_aspirante);
-                        console.log("porcentaje editado", response.data);
-                      }
-                    })
-                    .catch((error) => {
-                      console.error("Error al obtener el porcentaje:", error);
-                    });
-                }
-              });
-            })
-            .catch((error) => {
-              console.error("Error al obtener los criterios:", error);
-            });
-        }
-      })
-      .catch((error) => {
-        console.error("Error al obtener las notas y subcriterios:", error);
-      });
-  };
-
-  const guardar_porcentaje = (resultado, id_aspirante) => {
-    Axios.post(`${process.env.REACT_APP_API_URL}/guarda_porcentaje`, {
-      porcentaje_probabilidad: resultado,
-      id_aspirante: id_aspirante,
-    })
-      .then(() => {
-        limpiarCampos();
-      })
-      .catch((error) => {
-        console.error("Error al agregar el guardar porcentaje:", error);
-      });
-  };
-
-  const getPorcentaje_Probabilidad = (id_aspirante) => {
-    return Axios.get(`${process.env.REACT_APP_API_URL}/obtener_porcentaje`, {
-      params: {
-        id_aspirante: id_aspirante,
-      },
-    });
-  };
-
-  const Editar_porcentaje = (resultado, id_aspirante) => {
-    Axios.put(`${process.env.REACT_APP_API_URL}/update_Porcentaje`, {
-      porcentaje_probabilidad: resultado,
-      id_aspirante: id_aspirante,
-    })
-      .then((response) => {
-        console.log("Porcentaje actualizado con éxito:", response.data);
-      })
-      .catch((error) => {
-        console.error("Error al actualizar el porcentaje:", error);
-      });
-  };
-
   const mostrarModalActualizar = (val) => {
     setNombre(val.nombre_aspirante);
     setCodigoCarnet(val.codigo_carnet);
@@ -239,35 +99,34 @@ const Inicio = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         // Eliminar los porcentajes asociados al aspirante
-        
-            // Eliminar los subcriterios asociados al aspirante
+
+        // Eliminar los subcriterios asociados al aspirante
+        Axios.delete(
+          `${process.env.REACT_APP_API_URL}/eliminar_subcriterios_aspirante/${val.id_aspirante}`
+        )
+          .then(() => {
+            // Finalmente, eliminar al aspirante
             Axios.delete(
-              `${process.env.REACT_APP_API_URL}/eliminar_subcriterios_aspirante/${val.id_aspirante}`
+              `${process.env.REACT_APP_API_URL}/delete/${val.id_aspirante}`
             )
               .then(() => {
-                // Finalmente, eliminar al aspirante
-                Axios.delete(
-                  `${process.env.REACT_APP_API_URL}/delete/${val.id_aspirante}`
-                )
-                  .then(() => {
-                    // Actualizar la lista de aspirantes después de eliminar
-                    getAspirantes();
-                    limpiarCampos();
-                    Swal.fire({
-                      icon: "success",
-                      title: val.nombre_aspirante + " fue eliminado",
-                      showConfirmButton: false,
-                      timer: 2000,
-                    });
-                  })
-                  .catch((error) => {
-                    console.error("Error al eliminar aspirante:", error);
-                  });
+                // Actualizar la lista de aspirantes después de eliminar
+                getAspirantes();
+                limpiarCampos();
+                Swal.fire({
+                  icon: "success",
+                  title: val.nombre_aspirante + " fue eliminado",
+                  showConfirmButton: false,
+                  timer: 2000,
+                });
               })
               .catch((error) => {
-                console.error("Error al eliminar subcriterios:", error);
+                console.error("Error al eliminar aspirante:", error);
               });
-          
+          })
+          .catch((error) => {
+            console.error("Error al eliminar subcriterios:", error);
+          });
       }
     });
   };
@@ -444,7 +303,7 @@ const Inicio = () => {
       })
       .catch((error) => {
         Swal.fire({
-          title: `${error.response.data}`,
+          title: "Registre la Entrevista",
           text: "Debe guardar la entrevista para calcular la probabilidad de deserción",
           icon: "error",
           confirmButtonText: "Cerrar",

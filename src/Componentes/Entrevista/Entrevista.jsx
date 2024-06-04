@@ -192,7 +192,7 @@ const Entrevista = () => {
           });
         }
       );
-    }, 4000);
+    }, 2000);
   };
 
   const actualizarNota = (id_sub_criterio, nota_sub_criterio_aspirante) => {
@@ -456,19 +456,24 @@ const Entrevista = () => {
 };
 
 
-  const saveDesertionByApplicant = () => {
-    const data = {
-      id_aspirante: id_aspirante,
-      probabilidad: probabilidadDesercion,
-    };
-
-    axios
-      .post(`${process.env.REACT_APP_API_URL}/guarda_porcentaje`, data)
-      .then((response) => {})
-      .catch((error) => {
-        console.log(error);
-      });
+const saveDesertionByApplicant = () => {
+  const data = {
+    id_aspirante: id_aspirante,
+    probabilidad: probabilidadDesercion,
   };
+
+  console.log('Datos enviados:', data);  // Para verificar los datos
+
+  axios
+    .post(`${process.env.REACT_APP_API_URL}/guarda_porcentaje`, data)
+    .then((response) => {
+      console.log('Respuesta del servidor:', response.data);
+    })
+    .catch((error) => {
+      console.log('Error al guardar los datos:', error);
+    });
+};
+
 
   return (
     <div className="centrar-contenido">
